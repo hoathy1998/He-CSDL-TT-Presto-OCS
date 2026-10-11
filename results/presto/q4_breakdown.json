@@ -1,0 +1,44 @@
+{
+ "ocsfilter": {
+  "elapsed_ms": 707.5,
+  "client_ms": 716.1186129997077,
+  "planning_ms": 14.5,
+  "optimizer_ms": 0.0879515,
+  "substrait_ms": 6.2822405,
+  "scan_wall_ms": 1037.0,
+  "residual_wall_ms": 209.0,
+  "cpu_ms": 259.0,
+  "substrait_failures": 0.0,
+  "wire_bytes": 39781952.5,
+  "n": 10,
+  "overhead_pct": 0.9003804946996468
+ },
+ "ocs": {
+  "elapsed_ms": 362.5,
+  "client_ms": 369.62270400181296,
+  "planning_ms": 12.0,
+  "optimizer_ms": 0.157182,
+  "substrait_ms": 8.577282,
+  "scan_wall_ms": 648.5,
+  "residual_wall_ms": 0.0,
+  "cpu_ms": 10.0,
+  "substrait_failures": 0.0,
+  "wire_bytes": 6442.5,
+  "n": 10,
+  "overhead_pct": 2.4095073103448277
+ },
+ "ocsnopd": {
+  "elapsed_ms": 1928.0,
+  "client_ms": 1936.8160599988187,
+  "planning_ms": 15.0,
+  "optimizer_ms": 0.0,
+  "substrait_ms": 4.1744195,
+  "scan_wall_ms": 3250.0,
+  "residual_wall_ms": 219.0,
+  "cpu_ms": 499.0,
+  "substrait_failures": 0.0,
+  "wire_bytes": 185043766.0,
+  "n": 10,
+  "overhead_pct": 0.21651553423236516
+ }
+}

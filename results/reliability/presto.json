@@ -1,0 +1,1442 @@
+[
+ {
+  "stage": "presto",
+  "label": null,
+  "cfg": "DW:ocsnopd",
+  "time_s": 15.916600259006373,
+  "wire_bytes": 1540398234,
+  "payload_bytes": 0,
+  "started": 1791715338.852713,
+  "ended": 1791715354.7703657,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 0,
+  "order": 0
+ },
+ {
+  "stage": "presto",
+  "label": null,
+  "cfg": "TQ:ocs",
+  "time_s": 0.4225912909969338,
+  "wire_bytes": 24223,
+  "payload_bytes": 0,
+  "started": 1791715354.7724469,
+  "ended": 1791715355.1961813,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 0,
+  "order": 1
+ },
+ {
+  "stage": "presto",
+  "label": null,
+  "cfg": "L:ocs",
+  "time_s": 14.111735885002417,
+  "wire_bytes": 383138,
+  "payload_bytes": 0,
+  "started": 1791715355.1976838,
+  "ended": 1791715369.310219,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 0,
+  "order": 2
+ },
+ {
+  "stage": "presto",
+  "label": null,
+  "cfg": "TQ:ocsfilter",
+  "time_s": 2.4581153289982467,
+  "wire_bytes": 272779333,
+  "payload_bytes": 0,
+  "started": 1791715369.3120546,
+  "ended": 1791715371.7710931,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 0,
+  "order": 3
+ },
+ {
+  "stage": "presto",
+  "label": null,
+  "cfg": "L:ocsfilter",
+  "time_s": 25.399939709997852,
+  "wire_bytes": 2546306755,
+  "payload_bytes": 0,
+  "started": 1791715371.7732863,
+  "ended": 1791715397.1756363,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 0,
+  "order": 4
+ },
+ {
+  "stage": "presto",
+  "label": null,
+  "cfg": "TQ:ocsnopd",
+  "time_s": 3.408197716002178,
+  "wire_bytes": 276857899,
+  "payload_bytes": 0,
+  "started": 1791715397.1786208,
+  "ended": 1791715400.5857854,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 0,
+  "order": 5
+ },
+ {
+  "stage": "presto",
+  "label": null,
+  "cfg": "DW:ocsfilter",
+  "time_s": 9.187373161003052,
+  "wire_bytes": 628287296,
+  "payload_bytes": 0,
+  "started": 1791715400.5891607,
+  "ended": 1791715409.7787745,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 0,
+  "order": 6
+ },
+ {
+  "stage": "presto",
+  "label": null,
+  "cfg": "DW:ocs",
+  "time_s": 4.391888190002646,
+  "wire_bytes": 11714,
+  "payload_bytes": 0,
+  "started": 1791715409.7805016,
+  "ended": 1791715414.1736326,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 0,
+  "order": 7
+ },
+ {
+  "stage": "presto",
+  "label": null,
+  "cfg": "L:ocsnopd",
+  "time_s": 101.37221679099457,
+  "wire_bytes": 11842733555,
+  "payload_bytes": 0,
+  "started": 1791715414.1743898,
+  "ended": 1791715515.5447812,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 0,
+  "order": 8
+ },
+ {
+  "stage": "presto",
+  "label": null,
+  "cfg": "DW:ocsnopd",
+  "time_s": 15.068020209000679,
+  "wire_bytes": 1540397463,
+  "payload_bytes": 0,
+  "started": 1791715515.56547,
+  "ended": 1791715530.6327934,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 1,
+  "order": 0
+ },
+ {
+  "stage": "presto",
+  "label": null,
+  "cfg": "TQ:ocsnopd",
+  "time_s": 2.5664145839982666,
+  "wire_bytes": 276856639,
+  "payload_bytes": 0,
+  "started": 1791715530.634205,
+  "ended": 1791715533.2015736,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 1,
+  "order": 1
+ },
+ {
+  "stage": "presto",
+  "label": null,
+  "cfg": "DW:ocsfilter",
+  "time_s": 6.49929371199687,
+  "wire_bytes": 628287043,
+  "payload_bytes": 0,
+  "started": 1791715533.2027237,
+  "ended": 1791715539.7030058,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 1,
+  "order": 2
+ },
+ {
+  "stage": "presto",
+  "label": null,
+  "cfg": "L:ocsnopd",
+  "time_s": 101.64749973300059,
+  "wire_bytes": 11842730252,
+  "payload_bytes": 0,
+  "started": 1791715539.7044973,
+  "ended": 1791715641.3463898,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 1,
+  "order": 3
+ },
+ {
+  "stage": "presto",
+  "label": null,
+  "cfg": "DW:ocs",
+  "time_s": 4.6847544650008786,
+  "wire_bytes": 11648,
+  "payload_bytes": 0,
+  "started": 1791715641.3483276,
+  "ended": 1791715646.0339592,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 1,
+  "order": 4
+ },
+ {
+  "stage": "presto",
+  "label": null,
+  "cfg": "TQ:ocsfilter",
+  "time_s": 2.565430648995971,
+  "wire_bytes": 272779242,
+  "payload_bytes": 0,
+  "started": 1791715646.0348754,
+  "ended": 1791715648.6018102,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 1,
+  "order": 5
+ },
+ {
+  "stage": "presto",
+  "label": null,
+  "cfg": "L:ocsfilter",
+  "time_s": 23.530262448999565,
+  "wire_bytes": 2546276079,
+  "payload_bytes": 0,
+  "started": 1791715648.6029572,
+  "ended": 1791715672.133101,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 1,
+  "order": 6
+ },
+ {
+  "stage": "presto",
+  "label": null,
+  "cfg": "L:ocs",
+  "time_s": 13.373583223001333,
+  "wire_bytes": 383499,
+  "payload_bytes": 0,
+  "started": 1791715672.1359293,
+  "ended": 1791715685.5116563,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 1,
+  "order": 7
+ },
+ {
+  "stage": "presto",
+  "label": null,
+  "cfg": "TQ:ocs",
+  "time_s": 0.49281525900005363,
+  "wire_bytes": 24074,
+  "payload_bytes": 0,
+  "started": 1791715685.5133333,
+  "ended": 1791715686.0073762,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 1,
+  "order": 8
+ },
+ {
+  "stage": "presto",
+  "label": null,
+  "cfg": "L:ocs",
+  "time_s": 14.020154398996965,
+  "wire_bytes": 383669,
+  "payload_bytes": 0,
+  "started": 1791715686.0143292,
+  "ended": 1791715700.035769,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 2,
+  "order": 0
+ },
+ {
+  "stage": "presto",
+  "label": null,
+  "cfg": "L:ocsnopd",
+  "time_s": 101.05652048400225,
+  "wire_bytes": 11842729767,
+  "payload_bytes": 0,
+  "started": 1791715700.039014,
+  "ended": 1791715801.0928264,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 2,
+  "order": 1
+ },
+ {
+  "stage": "presto",
+  "label": null,
+  "cfg": "TQ:ocsfilter",
+  "time_s": 2.5674732600018615,
+  "wire_bytes": 272777372,
+  "payload_bytes": 0,
+  "started": 1791715801.0956302,
+  "ended": 1791715803.6642478,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 2,
+  "order": 2
+ },
+ {
+  "stage": "presto",
+  "label": null,
+  "cfg": "TQ:ocsnopd",
+  "time_s": 2.7493561250012135,
+  "wire_bytes": 276857429,
+  "payload_bytes": 0,
+  "started": 1791715803.6654873,
+  "ended": 1791715806.415921,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 2,
+  "order": 3
+ },
+ {
+  "stage": "presto",
+  "label": null,
+  "cfg": "DW:ocs",
+  "time_s": 4.607089607001399,
+  "wire_bytes": 11648,
+  "payload_bytes": 0,
+  "started": 1791715806.4171684,
+  "ended": 1791715811.0252686,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 2,
+  "order": 4
+ },
+ {
+  "stage": "presto",
+  "label": null,
+  "cfg": "L:ocsfilter",
+  "time_s": 24.602868235997448,
+  "wire_bytes": 2546288849,
+  "payload_bytes": 0,
+  "started": 1791715811.0262523,
+  "ended": 1791715835.6297216,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 2,
+  "order": 5
+ },
+ {
+  "stage": "presto",
+  "label": null,
+  "cfg": "TQ:ocs",
+  "time_s": 0.7805499639944173,
+  "wire_bytes": 24157,
+  "payload_bytes": 0,
+  "started": 1791715835.6324933,
+  "ended": 1791715836.4141407,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 2,
+  "order": 6
+ },
+ {
+  "stage": "presto",
+  "label": null,
+  "cfg": "DW:ocsfilter",
+  "time_s": 7.584621359994344,
+  "wire_bytes": 628284505,
+  "payload_bytes": 0,
+  "started": 1791715836.4159038,
+  "ended": 1791715844.0013921,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 2,
+  "order": 7
+ },
+ {
+  "stage": "presto",
+  "label": null,
+  "cfg": "DW:ocsnopd",
+  "time_s": 14.202142649999587,
+  "wire_bytes": 1540397897,
+  "payload_bytes": 0,
+  "started": 1791715844.0023518,
+  "ended": 1791715858.205184,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 2,
+  "order": 8
+ },
+ {
+  "stage": "presto",
+  "label": null,
+  "cfg": "TQ:ocsnopd",
+  "time_s": 2.4652120980026666,
+  "wire_bytes": 276856148,
+  "payload_bytes": 0,
+  "started": 1791715858.2123795,
+  "ended": 1791715860.6785495,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 3,
+  "order": 0
+ },
+ {
+  "stage": "presto",
+  "label": null,
+  "cfg": "TQ:ocs",
+  "time_s": 0.3758307300013257,
+  "wire_bytes": 24223,
+  "payload_bytes": 0,
+  "started": 1791715860.6797898,
+  "ended": 1791715861.056555,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 3,
+  "order": 1
+ },
+ {
+  "stage": "presto",
+  "label": null,
+  "cfg": "TQ:ocsfilter",
+  "time_s": 2.504789858998265,
+  "wire_bytes": 272777370,
+  "payload_bytes": 0,
+  "started": 1791715861.0576842,
+  "ended": 1791715863.563319,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 3,
+  "order": 2
+ },
+ {
+  "stage": "presto",
+  "label": null,
+  "cfg": "DW:ocsnopd",
+  "time_s": 14.142130754997197,
+  "wire_bytes": 1540397690,
+  "payload_bytes": 0,
+  "started": 1791715863.5672412,
+  "ended": 1791715877.7103224,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 3,
+  "order": 3
+ },
+ {
+  "stage": "presto",
+  "label": null,
+  "cfg": "DW:ocsfilter",
+  "time_s": 6.922380521995365,
+  "wire_bytes": 628284647,
+  "payload_bytes": 0,
+  "started": 1791715877.7111151,
+  "ended": 1791715884.6326475,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 3,
+  "order": 4
+ },
+ {
+  "stage": "presto",
+  "label": null,
+  "cfg": "L:ocsnopd",
+  "time_s": 100.96041829099704,
+  "wire_bytes": 11842726638,
+  "payload_bytes": 0,
+  "started": 1791715884.6334884,
+  "ended": 1791715985.5905094,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 3,
+  "order": 5
+ },
+ {
+  "stage": "presto",
+  "label": null,
+  "cfg": "DW:ocs",
+  "time_s": 3.89864624600159,
+  "wire_bytes": 11416,
+  "payload_bytes": 0,
+  "started": 1791715985.5931633,
+  "ended": 1791715989.4927688,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 3,
+  "order": 6
+ },
+ {
+  "stage": "presto",
+  "label": null,
+  "cfg": "L:ocsfilter",
+  "time_s": 23.571995992002485,
+  "wire_bytes": 2546263259,
+  "payload_bytes": 0,
+  "started": 1791715989.4935265,
+  "ended": 1791716013.067054,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 3,
+  "order": 7
+ },
+ {
+  "stage": "presto",
+  "label": null,
+  "cfg": "L:ocs",
+  "time_s": 13.044493820001662,
+  "wire_bytes": 383201,
+  "payload_bytes": 0,
+  "started": 1791716013.0697303,
+  "ended": 1791716026.1157198,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 3,
+  "order": 8
+ },
+ {
+  "stage": "presto",
+  "label": null,
+  "cfg": "DW:ocs",
+  "time_s": 4.201882788001967,
+  "wire_bytes": 11267,
+  "payload_bytes": 0,
+  "started": 1791716026.1239054,
+  "ended": 1791716030.3249812,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 4,
+  "order": 0
+ },
+ {
+  "stage": "presto",
+  "label": null,
+  "cfg": "DW:ocsfilter",
+  "time_s": 6.8096144930023,
+  "wire_bytes": 629069132,
+  "payload_bytes": 0,
+  "started": 1791716030.325734,
+  "ended": 1791716037.140659,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 4,
+  "order": 1
+ },
+ {
+  "stage": "presto",
+  "label": null,
+  "cfg": "L:ocsnopd",
+  "time_s": 101.03410007800267,
+  "wire_bytes": 11842727519,
+  "payload_bytes": 0,
+  "started": 1791716037.141617,
+  "ended": 1791716138.1730542,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 4,
+  "order": 2
+ },
+ {
+  "stage": "presto",
+  "label": null,
+  "cfg": "L:ocs",
+  "time_s": 13.474415522003255,
+  "wire_bytes": 383263,
+  "payload_bytes": 0,
+  "started": 1791716138.1752162,
+  "ended": 1791716151.6490343,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 4,
+  "order": 3
+ },
+ {
+  "stage": "presto",
+  "label": null,
+  "cfg": "L:ocsfilter",
+  "time_s": 23.975927810999565,
+  "wire_bytes": 2546265936,
+  "payload_bytes": 0,
+  "started": 1791716151.6524956,
+  "ended": 1791716175.632116,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 4,
+  "order": 4
+ },
+ {
+  "stage": "presto",
+  "label": null,
+  "cfg": "TQ:ocsnopd",
+  "time_s": 2.532313661002263,
+  "wire_bytes": 276856627,
+  "payload_bytes": 0,
+  "started": 1791716175.6341794,
+  "ended": 1791716178.1655252,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 4,
+  "order": 5
+ },
+ {
+  "stage": "presto",
+  "label": null,
+  "cfg": "TQ:ocs",
+  "time_s": 0.3899579530043411,
+  "wire_bytes": 24223,
+  "payload_bytes": 0,
+  "started": 1791716178.1666253,
+  "ended": 1791716178.557652,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 4,
+  "order": 6
+ },
+ {
+  "stage": "presto",
+  "label": null,
+  "cfg": "DW:ocsnopd",
+  "time_s": 15.126406337003573,
+  "wire_bytes": 1540397598,
+  "payload_bytes": 0,
+  "started": 1791716178.55938,
+  "ended": 1791716193.6867194,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 4,
+  "order": 7
+ },
+ {
+  "stage": "presto",
+  "label": null,
+  "cfg": "TQ:ocsfilter",
+  "time_s": 2.4590403370020795,
+  "wire_bytes": 272777383,
+  "payload_bytes": 0,
+  "started": 1791716193.6874478,
+  "ended": 1791716196.1474097,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 4,
+  "order": 8
+ },
+ {
+  "stage": "presto",
+  "label": null,
+  "cfg": "L:ocsfilter",
+  "time_s": 23.536122488003457,
+  "wire_bytes": 2546264711,
+  "payload_bytes": 0,
+  "started": 1791716196.1551833,
+  "ended": 1791716219.6911573,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 5,
+  "order": 0
+ },
+ {
+  "stage": "presto",
+  "label": null,
+  "cfg": "TQ:ocsfilter",
+  "time_s": 2.615223815002537,
+  "wire_bytes": 272776932,
+  "payload_bytes": 0,
+  "started": 1791716219.6937249,
+  "ended": 1791716222.3100426,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 5,
+  "order": 1
+ },
+ {
+  "stage": "presto",
+  "label": null,
+  "cfg": "L:ocs",
+  "time_s": 13.636279117003141,
+  "wire_bytes": 383017,
+  "payload_bytes": 0,
+  "started": 1791716222.3117876,
+  "ended": 1791716235.9491253,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 5,
+  "order": 2
+ },
+ {
+  "stage": "presto",
+  "label": null,
+  "cfg": "TQ:ocs",
+  "time_s": 0.37769548899814254,
+  "wire_bytes": 23942,
+  "payload_bytes": 0,
+  "started": 1791716235.9510534,
+  "ended": 1791716236.3297522,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 5,
+  "order": 3
+ },
+ {
+  "stage": "presto",
+  "label": null,
+  "cfg": "DW:ocs",
+  "time_s": 3.7384616319977795,
+  "wire_bytes": 11201,
+  "payload_bytes": 0,
+  "started": 1791716236.331253,
+  "ended": 1791716240.0689065,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 5,
+  "order": 4
+ },
+ {
+  "stage": "presto",
+  "label": null,
+  "cfg": "DW:ocsfilter",
+  "time_s": 7.037860362994252,
+  "wire_bytes": 628284901,
+  "payload_bytes": 0,
+  "started": 1791716240.0697238,
+  "ended": 1791716247.1106768,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 5,
+  "order": 5
+ },
+ {
+  "stage": "presto",
+  "label": null,
+  "cfg": "L:ocsnopd",
+  "time_s": 102.39642354599346,
+  "wire_bytes": 11842795315,
+  "payload_bytes": 0,
+  "started": 1791716247.1115148,
+  "ended": 1791716349.5039175,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 5,
+  "order": 6
+ },
+ {
+  "stage": "presto",
+  "label": null,
+  "cfg": "TQ:ocsnopd",
+  "time_s": 2.5172521749991574,
+  "wire_bytes": 276856486,
+  "payload_bytes": 0,
+  "started": 1791716349.5059907,
+  "ended": 1791716352.0247138,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 5,
+  "order": 7
+ },
+ {
+  "stage": "presto",
+  "label": null,
+  "cfg": "DW:ocsnopd",
+  "time_s": 14.803477612003917,
+  "wire_bytes": 1540397775,
+  "payload_bytes": 0,
+  "started": 1791716352.0257847,
+  "ended": 1791716366.828493,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 5,
+  "order": 8
+ },
+ {
+  "stage": "presto",
+  "label": null,
+  "cfg": "DW:ocsfilter",
+  "time_s": 6.519430308995652,
+  "wire_bytes": 628284811,
+  "payload_bytes": 0,
+  "started": 1791716366.834795,
+  "ended": 1791716373.3552327,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 6,
+  "order": 0
+ },
+ {
+  "stage": "presto",
+  "label": null,
+  "cfg": "TQ:ocs",
+  "time_s": 0.4756463510057074,
+  "wire_bytes": 24223,
+  "payload_bytes": 0,
+  "started": 1791716373.3561077,
+  "ended": 1791716373.832698,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 6,
+  "order": 1
+ },
+ {
+  "stage": "presto",
+  "label": null,
+  "cfg": "DW:ocs",
+  "time_s": 3.3033872669984703,
+  "wire_bytes": 11118,
+  "payload_bytes": 0,
+  "started": 1791716373.8336153,
+  "ended": 1791716377.1378424,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 6,
+  "order": 2
+ },
+ {
+  "stage": "presto",
+  "label": null,
+  "cfg": "TQ:ocsnopd",
+  "time_s": 2.4579269690002548,
+  "wire_bytes": 276856693,
+  "payload_bytes": 0,
+  "started": 1791716377.1392705,
+  "ended": 1791716379.5980558,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 6,
+  "order": 3
+ },
+ {
+  "stage": "presto",
+  "label": null,
+  "cfg": "L:ocsfilter",
+  "time_s": 24.766165221997653,
+  "wire_bytes": 2546266709,
+  "payload_bytes": 0,
+  "started": 1791716379.5991597,
+  "ended": 1791716404.3664951,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 6,
+  "order": 4
+ },
+ {
+  "stage": "presto",
+  "label": null,
+  "cfg": "DW:ocsnopd",
+  "time_s": 14.3317736780009,
+  "wire_bytes": 1540397693,
+  "payload_bytes": 0,
+  "started": 1791716404.3700023,
+  "ended": 1791716418.7012246,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 6,
+  "order": 5
+ },
+ {
+  "stage": "presto",
+  "label": null,
+  "cfg": "L:ocsnopd",
+  "time_s": 100.99164352699881,
+  "wire_bytes": 11842727437,
+  "payload_bytes": 0,
+  "started": 1791716418.702117,
+  "ended": 1791716519.6901524,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 6,
+  "order": 6
+ },
+ {
+  "stage": "presto",
+  "label": null,
+  "cfg": "TQ:ocsfilter",
+  "time_s": 2.5389676189952297,
+  "wire_bytes": 272777160,
+  "payload_bytes": 0,
+  "started": 1791716519.6924767,
+  "ended": 1791716522.2325706,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 6,
+  "order": 7
+ },
+ {
+  "stage": "presto",
+  "label": null,
+  "cfg": "L:ocs",
+  "time_s": 13.708273787997314,
+  "wire_bytes": 383108,
+  "payload_bytes": 0,
+  "started": 1791716522.2338133,
+  "ended": 1791716535.9430535,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 6,
+  "order": 8
+ },
+ {
+  "stage": "presto",
+  "label": null,
+  "cfg": "TQ:ocs",
+  "time_s": 0.5335256530015613,
+  "wire_bytes": 24008,
+  "payload_bytes": 0,
+  "started": 1791716535.9519832,
+  "ended": 1791716536.486549,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 7,
+  "order": 0
+ },
+ {
+  "stage": "presto",
+  "label": null,
+  "cfg": "DW:ocsfilter",
+  "time_s": 7.478298772999551,
+  "wire_bytes": 628285950,
+  "payload_bytes": 0,
+  "started": 1791716536.487738,
+  "ended": 1791716543.9663765,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 7,
+  "order": 1
+ },
+ {
+  "stage": "presto",
+  "label": null,
+  "cfg": "DW:ocs",
+  "time_s": 4.054726468995796,
+  "wire_bytes": 11333,
+  "payload_bytes": 0,
+  "started": 1791716543.9673564,
+  "ended": 1791716548.0237353,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 7,
+  "order": 2
+ },
+ {
+  "stage": "presto",
+  "label": null,
+  "cfg": "TQ:ocsfilter",
+  "time_s": 2.474424514999555,
+  "wire_bytes": 272777251,
+  "payload_bytes": 0,
+  "started": 1791716548.024608,
+  "ended": 1791716550.500039,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 7,
+  "order": 3
+ },
+ {
+  "stage": "presto",
+  "label": null,
+  "cfg": "L:ocs",
+  "time_s": 14.262474148003093,
+  "wire_bytes": 382877,
+  "payload_bytes": 0,
+  "started": 1791716550.502082,
+  "ended": 1791716564.7668064,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 7,
+  "order": 4
+ },
+ {
+  "stage": "presto",
+  "label": null,
+  "cfg": "L:ocsfilter",
+  "time_s": 23.93325661199924,
+  "wire_bytes": 2546265279,
+  "payload_bytes": 0,
+  "started": 1791716564.7686167,
+  "ended": 1791716588.7000089,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 7,
+  "order": 5
+ },
+ {
+  "stage": "presto",
+  "label": null,
+  "cfg": "L:ocsnopd",
+  "time_s": 100.96718404100102,
+  "wire_bytes": 11842725724,
+  "payload_bytes": 0,
+  "started": 1791716588.7019854,
+  "ended": 1791716689.6672816,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 7,
+  "order": 6
+ },
+ {
+  "stage": "presto",
+  "label": null,
+  "cfg": "DW:ocsnopd",
+  "time_s": 14.45938243099954,
+  "wire_bytes": 1540397946,
+  "payload_bytes": 0,
+  "started": 1791716689.6695158,
+  "ended": 1791716704.1297166,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 7,
+  "order": 7
+ },
+ {
+  "stage": "presto",
+  "label": null,
+  "cfg": "TQ:ocsnopd",
+  "time_s": 2.5023423290040228,
+  "wire_bytes": 276856652,
+  "payload_bytes": 0,
+  "started": 1791716704.1305106,
+  "ended": 1791716706.6338124,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 7,
+  "order": 8
+ },
+ {
+  "stage": "presto",
+  "label": null,
+  "cfg": "L:ocsnopd",
+  "time_s": 100.96584792399517,
+  "wire_bytes": 11842727648,
+  "payload_bytes": 0,
+  "started": 1791716706.641885,
+  "ended": 1791716807.6038234,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 8,
+  "order": 0
+ },
+ {
+  "stage": "presto",
+  "label": null,
+  "cfg": "L:ocsfilter",
+  "time_s": 25.953998867000337,
+  "wire_bytes": 2546266748,
+  "payload_bytes": 0,
+  "started": 1791716807.6069105,
+  "ended": 1791716833.561611,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 8,
+  "order": 1
+ },
+ {
+  "stage": "presto",
+  "label": null,
+  "cfg": "DW:ocsfilter",
+  "time_s": 7.214878471000702,
+  "wire_bytes": 628285021,
+  "payload_bytes": 0,
+  "started": 1791716833.5641508,
+  "ended": 1791716840.7781186,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 8,
+  "order": 2
+ },
+ {
+  "stage": "presto",
+  "label": null,
+  "cfg": "DW:ocs",
+  "time_s": 3.7420360750038526,
+  "wire_bytes": 11631,
+  "payload_bytes": 0,
+  "started": 1791716840.778896,
+  "ended": 1791716844.5218039,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 8,
+  "order": 3
+ },
+ {
+  "stage": "presto",
+  "label": null,
+  "cfg": "DW:ocsnopd",
+  "time_s": 14.203574783998192,
+  "wire_bytes": 1540397820,
+  "payload_bytes": 0,
+  "started": 1791716844.52301,
+  "ended": 1791716858.7277243,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 8,
+  "order": 4
+ },
+ {
+  "stage": "presto",
+  "label": null,
+  "cfg": "L:ocs",
+  "time_s": 13.426005845998588,
+  "wire_bytes": 382894,
+  "payload_bytes": 0,
+  "started": 1791716858.7285569,
+  "ended": 1791716872.1556742,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 8,
+  "order": 5
+ },
+ {
+  "stage": "presto",
+  "label": null,
+  "cfg": "TQ:ocsnopd",
+  "time_s": 2.541061174000788,
+  "wire_bytes": 276856702,
+  "payload_bytes": 0,
+  "started": 1791716872.1573906,
+  "ended": 1791716874.6994443,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 8,
+  "order": 6
+ },
+ {
+  "stage": "presto",
+  "label": null,
+  "cfg": "TQ:ocsfilter",
+  "time_s": 2.420099745999323,
+  "wire_bytes": 272777366,
+  "payload_bytes": 0,
+  "started": 1791716874.7005866,
+  "ended": 1791716877.1215072,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 8,
+  "order": 7
+ },
+ {
+  "stage": "presto",
+  "label": null,
+  "cfg": "TQ:ocs",
+  "time_s": 0.41334212200308684,
+  "wire_bytes": 24008,
+  "payload_bytes": 0,
+  "started": 1791716877.1237395,
+  "ended": 1791716877.5380948,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 8,
+  "order": 8
+ },
+ {
+  "stage": "presto",
+  "label": null,
+  "cfg": "TQ:ocs",
+  "time_s": 0.3715591290019802,
+  "wire_bytes": 24157,
+  "payload_bytes": 0,
+  "started": 1791716877.5460258,
+  "ended": 1791716877.9184687,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 9,
+  "order": 0
+ },
+ {
+  "stage": "presto",
+  "label": null,
+  "cfg": "DW:ocs",
+  "time_s": 3.6062529570044717,
+  "wire_bytes": 11350,
+  "payload_bytes": 0,
+  "started": 1791716877.919468,
+  "ended": 1791716881.526561,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 9,
+  "order": 1
+ },
+ {
+  "stage": "presto",
+  "label": null,
+  "cfg": "DW:ocsnopd",
+  "time_s": 14.153631718996621,
+  "wire_bytes": 1540397717,
+  "payload_bytes": 0,
+  "started": 1791716881.5273516,
+  "ended": 1791716895.681784,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 9,
+  "order": 2
+ },
+ {
+  "stage": "presto",
+  "label": null,
+  "cfg": "TQ:ocsfilter",
+  "time_s": 2.418801252002595,
+  "wire_bytes": 272777246,
+  "payload_bytes": 0,
+  "started": 1791716895.6832385,
+  "ended": 1791716898.1012735,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 9,
+  "order": 3
+ },
+ {
+  "stage": "presto",
+  "label": null,
+  "cfg": "L:ocsnopd",
+  "time_s": 100.98409890299808,
+  "wire_bytes": 11842729191,
+  "payload_bytes": 0,
+  "started": 1791716898.1021843,
+  "ended": 1791716999.0824478,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 9,
+  "order": 4
+ },
+ {
+  "stage": "presto",
+  "label": null,
+  "cfg": "L:ocs",
+  "time_s": 13.469797413999913,
+  "wire_bytes": 383077,
+  "payload_bytes": 0,
+  "started": 1791716999.085133,
+  "ended": 1791717012.5560384,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 9,
+  "order": 5
+ },
+ {
+  "stage": "presto",
+  "label": null,
+  "cfg": "DW:ocsfilter",
+  "time_s": 7.093600526997761,
+  "wire_bytes": 628285686,
+  "payload_bytes": 0,
+  "started": 1791717012.558481,
+  "ended": 1791717019.6532435,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 9,
+  "order": 6
+ },
+ {
+  "stage": "presto",
+  "label": null,
+  "cfg": "L:ocsfilter",
+  "time_s": 24.148384640000586,
+  "wire_bytes": 2546268186,
+  "payload_bytes": 0,
+  "started": 1791717019.6547647,
+  "ended": 1791717043.8055837,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 9,
+  "order": 7
+ },
+ {
+  "stage": "presto",
+  "label": null,
+  "cfg": "TQ:ocsnopd",
+  "time_s": 2.4928811700010556,
+  "wire_bytes": 276856702,
+  "payload_bytes": 0,
+  "started": 1791717043.8077781,
+  "ended": 1791717046.3016815,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 9,
+  "order": 8
+ }
+]

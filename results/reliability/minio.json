@@ -1,0 +1,818 @@
+[
+ {
+  "stage": "minio",
+  "label": null,
+  "cfg": "TQ:ocs-filter-csv",
+  "query": "tpch_q1@lineitem_double",
+  "time_s": 1.9510510489999433,
+  "payload_bytes": 169404130,
+  "wire_bytes": 169630077,
+  "started": 1791700353.720062,
+  "ended": 1791700355.6737773,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 0,
+  "order": 0
+ },
+ {
+  "stage": "minio",
+  "label": null,
+  "cfg": "L:minio-select",
+  "query": "laghos",
+  "time_s": 157.12211129000207,
+  "payload_bytes": 774140713,
+  "wire_bytes": 774140713,
+  "started": 1791700355.67411,
+  "ended": 1791700512.8588705,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 0,
+  "order": 1
+ },
+ {
+  "stage": "minio",
+  "label": null,
+  "cfg": "L:ocs-filter-csv",
+  "query": "laghos",
+  "time_s": 11.217226933000347,
+  "payload_bytes": 860724601,
+  "wire_bytes": 863902173,
+  "started": 1791700512.8600361,
+  "ended": 1791700524.0873115,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 0,
+  "order": 2
+ },
+ {
+  "stage": "minio",
+  "label": null,
+  "cfg": "DW:ocs-all",
+  "query": "deepwater",
+  "time_s": 0.788907048998226,
+  "payload_bytes": 256,
+  "wire_bytes": 20778,
+  "started": 1791700524.088251,
+  "ended": 1791700524.8789067,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 0,
+  "order": 3
+ },
+ {
+  "stage": "minio",
+  "label": null,
+  "cfg": "TQ:minio-select",
+  "query": "tpch_q1@lineitem_double",
+  "time_s": 47.39813148699977,
+  "payload_bytes": 145737110,
+  "wire_bytes": 145737110,
+  "started": 1791700524.8791032,
+  "ended": 1791700572.2762105,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 0,
+  "order": 4
+ },
+ {
+  "stage": "minio",
+  "label": null,
+  "cfg": "TQ:ocs-filter",
+  "query": "tpch_q1@lineitem_double",
+  "time_s": 2.2262142729996413,
+  "payload_bytes": 248496822,
+  "wire_bytes": 248930275,
+  "started": 1791700572.2766337,
+  "ended": 1791700574.514477,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 0,
+  "order": 5
+ },
+ {
+  "stage": "minio",
+  "label": null,
+  "cfg": "DW:minio-select",
+  "query": "deepwater",
+  "time_s": 62.86362344200097,
+  "payload_bytes": 264851457,
+  "wire_bytes": 264851457,
+  "started": 1791700574.5148175,
+  "ended": 1791700637.3891397,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 0,
+  "order": 6
+ },
+ {
+  "stage": "minio",
+  "label": null,
+  "cfg": "TQ:ocs-all",
+  "query": "tpch_q1@lineitem_double",
+  "time_s": 0.30786975899900426,
+  "payload_bytes": 3136,
+  "wire_bytes": 25144,
+  "started": 1791700637.389444,
+  "ended": 1791700637.6986296,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 0,
+  "order": 7
+ },
+ {
+  "stage": "minio",
+  "label": null,
+  "cfg": "L:ocs-filter",
+  "query": "laghos",
+  "time_s": 6.762335807001364,
+  "payload_bytes": 634943936,
+  "wire_bytes": 636241971,
+  "started": 1791700637.698855,
+  "ended": 1791700644.4865513,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 0,
+  "order": 8
+ },
+ {
+  "stage": "minio",
+  "label": null,
+  "cfg": "L:ocs-all",
+  "query": "laghos",
+  "time_s": 3.5655876560012985,
+  "payload_bytes": 76800,
+  "wire_bytes": 106873,
+  "started": 1791700644.4879205,
+  "ended": 1791700648.0556006,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 0,
+  "order": 9
+ },
+ {
+  "stage": "minio",
+  "label": null,
+  "cfg": "DW:ocs-filter-csv",
+  "query": "deepwater",
+  "time_s": 2.8349499510004534,
+  "payload_bytes": 264851761,
+  "wire_bytes": 265188238,
+  "started": 1791700648.056524,
+  "ended": 1791700650.8938444,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 0,
+  "order": 10
+ },
+ {
+  "stage": "minio",
+  "label": null,
+  "cfg": "DW:ocs-filter",
+  "query": "deepwater",
+  "time_s": 3.6308929810002155,
+  "payload_bytes": 417700112,
+  "wire_bytes": 418755651,
+  "started": 1791700650.8940713,
+  "ended": 1791700654.5522459,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 0,
+  "order": 11
+ },
+ {
+  "stage": "minio",
+  "label": null,
+  "cfg": "DW:minio-select",
+  "query": "deepwater",
+  "time_s": 62.781947678002325,
+  "payload_bytes": 264851457,
+  "wire_bytes": 264851457,
+  "started": 1791700654.56493,
+  "ended": 1791700717.3577614,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 1,
+  "order": 0
+ },
+ {
+  "stage": "minio",
+  "label": null,
+  "cfg": "TQ:ocs-filter-csv",
+  "query": "tpch_q1@lineitem_double",
+  "time_s": 2.009990431000915,
+  "payload_bytes": 169404130,
+  "wire_bytes": 169624980,
+  "started": 1791700717.358083,
+  "ended": 1791700719.3714871,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 1,
+  "order": 1
+ },
+ {
+  "stage": "minio",
+  "label": null,
+  "cfg": "TQ:ocs-all",
+  "query": "tpch_q1@lineitem_double",
+  "time_s": 0.26671506900311215,
+  "payload_bytes": 3136,
+  "wire_bytes": 24877,
+  "started": 1791700719.3718135,
+  "ended": 1791700719.639735,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 1,
+  "order": 2
+ },
+ {
+  "stage": "minio",
+  "label": null,
+  "cfg": "DW:ocs-filter",
+  "query": "deepwater",
+  "time_s": 3.6451887969997188,
+  "payload_bytes": 417700112,
+  "wire_bytes": 418752263,
+  "started": 1791700719.6399536,
+  "ended": 1791700723.299092,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 1,
+  "order": 3
+ },
+ {
+  "stage": "minio",
+  "label": null,
+  "cfg": "TQ:minio-select",
+  "query": "tpch_q1@lineitem_double",
+  "time_s": 49.28944357199725,
+  "payload_bytes": 145737110,
+  "wire_bytes": 145737110,
+  "started": 1791700723.2993748,
+  "ended": 1791700772.591222,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 1,
+  "order": 4
+ },
+ {
+  "stage": "minio",
+  "label": null,
+  "cfg": "DW:ocs-filter-csv",
+  "query": "deepwater",
+  "time_s": 3.2024297269999806,
+  "payload_bytes": 264851761,
+  "wire_bytes": 265186735,
+  "started": 1791700772.5920033,
+  "ended": 1791700775.7977023,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 1,
+  "order": 5
+ },
+ {
+  "stage": "minio",
+  "label": null,
+  "cfg": "L:ocs-filter-csv",
+  "query": "laghos",
+  "time_s": 13.10020060199895,
+  "payload_bytes": 860724601,
+  "wire_bytes": 862877357,
+  "started": 1791700775.8035436,
+  "ended": 1791700788.9099941,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 1,
+  "order": 6
+ },
+ {
+  "stage": "minio",
+  "label": null,
+  "cfg": "L:ocs-filter",
+  "query": "laghos",
+  "time_s": 8.103688445000444,
+  "payload_bytes": 634943936,
+  "wire_bytes": 637720925,
+  "started": 1791700788.9111245,
+  "ended": 1791700797.0463665,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 1,
+  "order": 7
+ },
+ {
+  "stage": "minio",
+  "label": null,
+  "cfg": "DW:ocs-all",
+  "query": "deepwater",
+  "time_s": 0.9373233709993656,
+  "payload_bytes": 256,
+  "wire_bytes": 20750,
+  "started": 1791700797.0473652,
+  "ended": 1791700797.9864552,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 1,
+  "order": 8
+ },
+ {
+  "stage": "minio",
+  "label": null,
+  "cfg": "L:minio-select",
+  "query": "laghos",
+  "time_s": 136.30377988799955,
+  "payload_bytes": 774140713,
+  "wire_bytes": 774140713,
+  "started": 1791700797.9867396,
+  "ended": 1791700934.3419216,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 1,
+  "order": 9
+ },
+ {
+  "stage": "minio",
+  "label": null,
+  "cfg": "TQ:ocs-filter",
+  "query": "tpch_q1@lineitem_double",
+  "time_s": 2.2246411989981425,
+  "payload_bytes": 248496822,
+  "wire_bytes": 248927531,
+  "started": 1791700934.3431218,
+  "ended": 1791700936.581931,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 1,
+  "order": 10
+ },
+ {
+  "stage": "minio",
+  "label": null,
+  "cfg": "L:ocs-all",
+  "query": "laghos",
+  "time_s": 3.0052987370036135,
+  "payload_bytes": 76800,
+  "wire_bytes": 106804,
+  "started": 1791700936.5823581,
+  "ended": 1791700939.588886,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 1,
+  "order": 11
+ },
+ {
+  "stage": "minio",
+  "label": null,
+  "cfg": "L:ocs-all",
+  "query": "laghos",
+  "time_s": 3.6017772819977836,
+  "payload_bytes": 76800,
+  "wire_bytes": 106869,
+  "started": 1791700939.595511,
+  "ended": 1791700943.19829,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 2,
+  "order": 0
+ },
+ {
+  "stage": "minio",
+  "label": null,
+  "cfg": "DW:ocs-all",
+  "query": "deepwater",
+  "time_s": 0.8024019490003411,
+  "payload_bytes": 256,
+  "wire_bytes": 21024,
+  "started": 1791700943.1991732,
+  "ended": 1791700944.0021482,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 2,
+  "order": 1
+ },
+ {
+  "stage": "minio",
+  "label": null,
+  "cfg": "L:ocs-filter",
+  "query": "laghos",
+  "time_s": 6.655312925999169,
+  "payload_bytes": 634943936,
+  "wire_bytes": 637538469,
+  "started": 1791700944.0023284,
+  "ended": 1791700950.6968305,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 2,
+  "order": 2
+ },
+ {
+  "stage": "minio",
+  "label": null,
+  "cfg": "TQ:ocs-filter",
+  "query": "tpch_q1@lineitem_double",
+  "time_s": 2.203386106000835,
+  "payload_bytes": 248496822,
+  "wire_bytes": 248930392,
+  "started": 1791700950.6985402,
+  "ended": 1791700952.9100084,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 2,
+  "order": 3
+ },
+ {
+  "stage": "minio",
+  "label": null,
+  "cfg": "TQ:ocs-all",
+  "query": "tpch_q1@lineitem_double",
+  "time_s": 0.2732583750002959,
+  "payload_bytes": 3136,
+  "wire_bytes": 24948,
+  "started": 1791700952.9105308,
+  "ended": 1791700953.1852083,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 2,
+  "order": 4
+ },
+ {
+  "stage": "minio",
+  "label": null,
+  "cfg": "DW:ocs-filter-csv",
+  "query": "deepwater",
+  "time_s": 2.9214197879991843,
+  "payload_bytes": 264851761,
+  "wire_bytes": 265189711,
+  "started": 1791700953.1854467,
+  "ended": 1791700956.108828,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 2,
+  "order": 5
+ },
+ {
+  "stage": "minio",
+  "label": null,
+  "cfg": "TQ:minio-select",
+  "query": "tpch_q1@lineitem_double",
+  "time_s": 42.87283478700192,
+  "payload_bytes": 145737110,
+  "wire_bytes": 145737110,
+  "started": 1791700956.1149786,
+  "ended": 1791700998.9953387,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 2,
+  "order": 6
+ },
+ {
+  "stage": "minio",
+  "label": null,
+  "cfg": "DW:minio-select",
+  "query": "deepwater",
+  "time_s": 60.75942618800036,
+  "payload_bytes": 264851457,
+  "wire_bytes": 264851457,
+  "started": 1791700998.9958496,
+  "ended": 1791701059.7674189,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 2,
+  "order": 7
+ },
+ {
+  "stage": "minio",
+  "label": null,
+  "cfg": "DW:ocs-filter",
+  "query": "deepwater",
+  "time_s": 3.6476038099972357,
+  "payload_bytes": 417700112,
+  "wire_bytes": 418750709,
+  "started": 1791701059.767681,
+  "ended": 1791701063.4294195,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 2,
+  "order": 8
+ },
+ {
+  "stage": "minio",
+  "label": null,
+  "cfg": "L:minio-select",
+  "query": "laghos",
+  "time_s": 131.75811974599856,
+  "payload_bytes": 774140713,
+  "wire_bytes": 774140713,
+  "started": 1791701063.4297287,
+  "ended": 1791701195.242111,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 2,
+  "order": 9
+ },
+ {
+  "stage": "minio",
+  "label": null,
+  "cfg": "TQ:ocs-filter-csv",
+  "query": "tpch_q1@lineitem_double",
+  "time_s": 2.324307728998974,
+  "payload_bytes": 169404130,
+  "wire_bytes": 169618695,
+  "started": 1791701195.2435608,
+  "ended": 1791701197.572455,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 2,
+  "order": 10
+ },
+ {
+  "stage": "minio",
+  "label": null,
+  "cfg": "L:ocs-filter-csv",
+  "query": "laghos",
+  "time_s": 10.154229178002424,
+  "payload_bytes": 860724601,
+  "wire_bytes": 861776354,
+  "started": 1791701197.5727441,
+  "ended": 1791701207.73336,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 2,
+  "order": 11
+ },
+ {
+  "stage": "minio",
+  "label": null,
+  "cfg": "TQ:ocs-filter-csv",
+  "query": "tpch_q1@lineitem_double",
+  "time_s": 2.0437542049985495,
+  "payload_bytes": 169404130,
+  "wire_bytes": 169627615,
+  "started": 1791701207.7415874,
+  "ended": 1791701209.7881312,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 3,
+  "order": 0
+ },
+ {
+  "stage": "minio",
+  "label": null,
+  "cfg": "L:ocs-all",
+  "query": "laghos",
+  "time_s": 2.87357226200038,
+  "payload_bytes": 76800,
+  "wire_bytes": 106679,
+  "started": 1791701209.7884376,
+  "ended": 1791701212.6632075,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 3,
+  "order": 1
+ },
+ {
+  "stage": "minio",
+  "label": null,
+  "cfg": "DW:ocs-filter-csv",
+  "query": "deepwater",
+  "time_s": 2.701698224998836,
+  "payload_bytes": 264851761,
+  "wire_bytes": 265196232,
+  "started": 1791701212.6651278,
+  "ended": 1791701215.3688333,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 3,
+  "order": 2
+ },
+ {
+  "stage": "minio",
+  "label": null,
+  "cfg": "DW:minio-select",
+  "query": "deepwater",
+  "time_s": 55.52148595900144,
+  "payload_bytes": 264851457,
+  "wire_bytes": 264851457,
+  "started": 1791701215.3743613,
+  "ended": 1791701270.905095,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 3,
+  "order": 3
+ },
+ {
+  "stage": "minio",
+  "label": null,
+  "cfg": "L:ocs-filter-csv",
+  "query": "laghos",
+  "time_s": 9.83116293799685,
+  "payload_bytes": 860724601,
+  "wire_bytes": 861771674,
+  "started": 1791701270.9053679,
+  "ended": 1791701280.7438283,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 3,
+  "order": 4
+ },
+ {
+  "stage": "minio",
+  "label": null,
+  "cfg": "DW:ocs-filter",
+  "query": "deepwater",
+  "time_s": 3.658809865999501,
+  "payload_bytes": 417700112,
+  "wire_bytes": 418751180,
+  "started": 1791701280.7450092,
+  "ended": 1791701284.4211628,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 3,
+  "order": 5
+ },
+ {
+  "stage": "minio",
+  "label": null,
+  "cfg": "TQ:ocs-filter",
+  "query": "tpch_q1@lineitem_double",
+  "time_s": 2.206117441997776,
+  "payload_bytes": 248496822,
+  "wire_bytes": 248927515,
+  "started": 1791701284.4214149,
+  "ended": 1791701286.6357996,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 3,
+  "order": 6
+ },
+ {
+  "stage": "minio",
+  "label": null,
+  "cfg": "L:minio-select",
+  "query": "laghos",
+  "time_s": 131.86731484499978,
+  "payload_bytes": 774140713,
+  "wire_bytes": 774140713,
+  "started": 1791701286.6361036,
+  "ended": 1791701418.5605073,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 3,
+  "order": 7
+ },
+ {
+  "stage": "minio",
+  "label": null,
+  "cfg": "TQ:minio-select",
+  "query": "tpch_q1@lineitem_double",
+  "time_s": 41.41629091900177,
+  "payload_bytes": 145737110,
+  "wire_bytes": 145737110,
+  "started": 1791701418.5616252,
+  "ended": 1791701459.9791212,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 3,
+  "order": 8
+ },
+ {
+  "stage": "minio",
+  "label": null,
+  "cfg": "L:ocs-filter",
+  "query": "laghos",
+  "time_s": 7.884728237000672,
+  "payload_bytes": 634943936,
+  "wire_bytes": 636693612,
+  "started": 1791701459.9796169,
+  "ended": 1791701467.8964884,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 3,
+  "order": 9
+ },
+ {
+  "stage": "minio",
+  "label": null,
+  "cfg": "DW:ocs-all",
+  "query": "deepwater",
+  "time_s": 0.872138189002726,
+  "payload_bytes": 256,
+  "wire_bytes": 20687,
+  "started": 1791701467.8976674,
+  "ended": 1791701468.7716248,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 3,
+  "order": 10
+ },
+ {
+  "stage": "minio",
+  "label": null,
+  "cfg": "TQ:ocs-all",
+  "query": "tpch_q1@lineitem_double",
+  "time_s": 0.3028065559992683,
+  "payload_bytes": 3136,
+  "wire_bytes": 24827,
+  "started": 1791701468.7717905,
+  "ended": 1791701469.0752916,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 3,
+  "order": 11
+ }
+]

@@ -1,0 +1,322 @@
+[
+ {
+  "stage": "presto_l256",
+  "label": null,
+  "cfg": "L256:ocs",
+  "time_s": 53.792711933005194,
+  "wire_bytes": 1532273,
+  "payload_bytes": 0,
+  "started": 1791717637.0281658,
+  "ended": 1791717690.819169,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 0,
+  "order": 0
+ },
+ {
+  "stage": "presto_l256",
+  "label": null,
+  "cfg": "L256:ocsfilter",
+  "time_s": 96.47172454199608,
+  "wire_bytes": 10190562768,
+  "payload_bytes": 0,
+  "started": 1791717690.8210232,
+  "ended": 1791717787.2899048,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 0,
+  "order": 1
+ },
+ {
+  "stage": "presto_l256",
+  "label": null,
+  "cfg": "L256:ocs",
+  "time_s": 51.66325528999732,
+  "wire_bytes": 1532192,
+  "payload_bytes": 0,
+  "started": 1791717787.3001585,
+  "ended": 1791717838.9622493,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 1,
+  "order": 0
+ },
+ {
+  "stage": "presto_l256",
+  "label": null,
+  "cfg": "L256:ocsfilter",
+  "time_s": 94.06087438900431,
+  "wire_bytes": 10190473916,
+  "payload_bytes": 0,
+  "started": 1791717838.9649155,
+  "ended": 1791717933.0233042,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 1,
+  "order": 1
+ },
+ {
+  "stage": "presto_l256",
+  "label": null,
+  "cfg": "L256:ocs",
+  "time_s": 50.91070350899827,
+  "wire_bytes": 1532092,
+  "payload_bytes": 0,
+  "started": 1791717933.0309882,
+  "ended": 1791717983.9406662,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 2,
+  "order": 0
+ },
+ {
+  "stage": "presto_l256",
+  "label": null,
+  "cfg": "L256:ocsfilter",
+  "time_s": 93.89969655800087,
+  "wire_bytes": 10190472234,
+  "payload_bytes": 0,
+  "started": 1791717983.9430337,
+  "ended": 1791718077.8365257,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 2,
+  "order": 1
+ },
+ {
+  "stage": "presto_l256",
+  "label": null,
+  "cfg": "L256:ocs",
+  "time_s": 50.28047383500234,
+  "wire_bytes": 1531596,
+  "payload_bytes": 0,
+  "started": 1791718077.8430617,
+  "ended": 1791718128.1206193,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 3,
+  "order": 0
+ },
+ {
+  "stage": "presto_l256",
+  "label": null,
+  "cfg": "L256:ocsfilter",
+  "time_s": 100.17999492099625,
+  "wire_bytes": 10190480268,
+  "payload_bytes": 0,
+  "started": 1791718128.1228411,
+  "ended": 1791718228.298007,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 3,
+  "order": 1
+ },
+ {
+  "stage": "presto_l256",
+  "label": null,
+  "cfg": "L256:ocsfilter",
+  "time_s": 94.3543137700035,
+  "wire_bytes": 10190476802,
+  "payload_bytes": 0,
+  "started": 1791718228.3056378,
+  "ended": 1791718322.65875,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 4,
+  "order": 0
+ },
+ {
+  "stage": "presto_l256",
+  "label": null,
+  "cfg": "L256:ocs",
+  "time_s": 52.70795513099438,
+  "wire_bytes": 1531306,
+  "payload_bytes": 0,
+  "started": 1791718322.6665554,
+  "ended": 1791718375.371266,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 4,
+  "order": 1
+ },
+ {
+  "stage": "presto_l256",
+  "label": null,
+  "cfg": "L256:ocsfilter",
+  "time_s": 95.92263354700117,
+  "wire_bytes": 10193282994,
+  "payload_bytes": 0,
+  "started": 1791718375.3779018,
+  "ended": 1791718471.301829,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 5,
+  "order": 0
+ },
+ {
+  "stage": "presto_l256",
+  "label": null,
+  "cfg": "L256:ocs",
+  "time_s": 52.93854522599577,
+  "wire_bytes": 1530340,
+  "payload_bytes": 0,
+  "started": 1791718471.3117201,
+  "ended": 1791718524.2471294,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 5,
+  "order": 1
+ },
+ {
+  "stage": "presto_l256",
+  "label": null,
+  "cfg": "L256:ocsfilter",
+  "time_s": 94.12121641500562,
+  "wire_bytes": 10190469969,
+  "payload_bytes": 0,
+  "started": 1791718524.254627,
+  "ended": 1791718618.3810349,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 6,
+  "order": 0
+ },
+ {
+  "stage": "presto_l256",
+  "label": null,
+  "cfg": "L256:ocs",
+  "time_s": 57.15397280099569,
+  "wire_bytes": 1530253,
+  "payload_bytes": 0,
+  "started": 1791718618.3897777,
+  "ended": 1791718675.5403545,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 6,
+  "order": 1
+ },
+ {
+  "stage": "presto_l256",
+  "label": null,
+  "cfg": "L256:ocsfilter",
+  "time_s": 98.09329644000536,
+  "wire_bytes": 10190476651,
+  "payload_bytes": 0,
+  "started": 1791718675.5503354,
+  "ended": 1791718773.6451023,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 7,
+  "order": 0
+ },
+ {
+  "stage": "presto_l256",
+  "label": null,
+  "cfg": "L256:ocs",
+  "time_s": 53.40934038100386,
+  "wire_bytes": 1531508,
+  "payload_bytes": 0,
+  "started": 1791718773.647969,
+  "ended": 1791718827.0558043,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 7,
+  "order": 1
+ },
+ {
+  "stage": "presto_l256",
+  "label": null,
+  "cfg": "L256:ocsfilter",
+  "time_s": 94.96904744300264,
+  "wire_bytes": 10190470159,
+  "payload_bytes": 0,
+  "started": 1791718827.0624754,
+  "ended": 1791718922.0315216,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 8,
+  "order": 0
+ },
+ {
+  "stage": "presto_l256",
+  "label": null,
+  "cfg": "L256:ocs",
+  "time_s": 53.46352253999794,
+  "wire_bytes": 1530754,
+  "payload_bytes": 0,
+  "started": 1791718922.033975,
+  "ended": 1791718975.4945734,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 8,
+  "order": 1
+ },
+ {
+  "stage": "presto_l256",
+  "label": null,
+  "cfg": "L256:ocsfilter",
+  "time_s": 94.0625804750016,
+  "wire_bytes": 10190475674,
+  "payload_bytes": 0,
+  "started": 1791718975.5012507,
+  "ended": 1791719069.564627,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 9,
+  "order": 0
+ },
+ {
+  "stage": "presto_l256",
+  "label": null,
+  "cfg": "L256:ocs",
+  "time_s": 52.851436832002946,
+  "wire_bytes": 1531548,
+  "payload_bytes": 0,
+  "started": 1791719069.566984,
+  "ended": 1791719122.4163437,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 9,
+  "order": 1
+ }
+]

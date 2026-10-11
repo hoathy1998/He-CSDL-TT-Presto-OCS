@@ -1,0 +1,47 @@
+- Output[PlanNodeId 11][l_returnflag, l_linestatus, sum_qty, sum_base_price, sum_disc_price, sum_charge, avg_qty, avg_price, avg_disc, count_order] => [l_returnflag:varchar, l_linestatus:varchar, sum:double, sum_8:double, sum_9:double, sum_10:double, avg:double, avg_11:double, avg_12:double, count:bigint]
+        sum_qty := sum (1:44)
+        sum_base_price := sum_8 (1:72)
+        sum_disc_price := sum_9 (1:112)
+        sum_charge := sum_10 (1:171)
+        avg_qty := avg (1:240)
+        avg_price := avg_11 (1:268)
+        avg_disc := avg_12 (1:303)
+        count_order := count (1:332)
+    - RemoteStreamingMerge[PlanNodeId 384][l_returnflag ASC_NULLS_LAST, l_linestatus ASC_NULLS_LAST] => [l_returnflag:varchar, l_linestatus:varchar, sum:double, sum_8:double, sum_9:double, sum_10:double, avg:double, avg_11:double, avg_12:double, count:bigint]
+        - LocalMerge[PlanNodeId 429][l_returnflag ASC_NULLS_LAST, l_linestatus ASC_NULLS_LAST] => [l_returnflag:varchar, l_linestatus:varchar, sum:double, sum_8:double, sum_9:double, sum_10:double, avg:double, avg_11:double, avg_12:double, count:bigint]
+            - PartialSort[PlanNodeId 385][l_returnflag ASC_NULLS_LAST, l_linestatus ASC_NULLS_LAST] => [l_returnflag:varchar, l_linestatus:varchar, sum:double, sum_8:double, sum_9:double, sum_10:double, avg:double, avg_11:double, avg_12:double, count:bigint]
+                - RemoteStreamingExchange[PlanNodeId 383][REPARTITION] => [l_returnflag:varchar, l_linestatus:varchar, sum:double, sum_8:double, sum_9:double, sum_10:double, avg:double, avg_11:double, avg_12:double, count:bigint]
+                    - Project[PlanNodeId 493][projectLocality = LOCAL] => [l_returnflag:varchar, l_linestatus:varchar, sum:double, sum_10:double, avg:double, avg_12:double, avg_11:double, count:bigint, sum_8:double, sum_9:double]
+                        - Aggregate(FINAL)[l_returnflag, l_linestatus][$hashvalue][PlanNodeId 4] => [l_returnflag:varchar, l_linestatus:varchar, $hashvalue:bigint, sum:double, sum_10:double, avg:double, avg_12:double, avg_11:double, count:bigint, sum_8:double, sum_9:double]
+                                sum := "presto.default.sum"((sum_47)) (1:44)
+                                sum_10 := "presto.default.sum"((sum_50)) (1:171)
+                                avg := "presto.default.avg"((avg_51)) (1:240)
+                                avg_12 := "presto.default.avg"((avg_53)) (1:303)
+                                avg_11 := "presto.default.avg"((avg_52)) (1:268)
+                                count := "presto.default.count"((count_54)) (1:332)
+                                sum_8 := "presto.default.sum"((sum_48)) (1:72)
+                                sum_9 := "presto.default.sum"((sum_49)) (1:112)
+                            - LocalExchange[PlanNodeId 446][HASH][$hashvalue] (l_returnflag, l_linestatus) => [l_returnflag:varchar, l_linestatus:varchar, avg_51:row("field0" double, "field1" bigint), sum_50:double, avg_52:row("field0" double, "field1" bigint), avg_53:row("field0" double, "field1" bigint), sum_48:double, sum_49:double, sum_47:double, count_54:bigint, $hashvalue:bigint]
+                                - RemoteStreamingExchange[PlanNodeId 452][REPARTITION][$hashvalue_55] => [l_returnflag:varchar, l_linestatus:varchar, avg_51:row("field0" double, "field1" bigint), sum_50:double, avg_52:row("field0" double, "field1" bigint), avg_53:row("field0" double, "field1" bigint), sum_48:double, sum_49:double, sum_47:double, count_54:bigint, $hashvalue_55:bigint]
+                                    - Aggregate(PARTIAL)[l_returnflag, l_linestatus][$hashvalue_56][PlanNodeId 450] => [l_returnflag:varchar, l_linestatus:varchar, $hashvalue_56:bigint, avg_51:row("field0" double, "field1" bigint), sum_50:double, avg_52:row("field0" double, "field1" bigint), avg_53:row("field0" double, "field1" bigint), sum_48:double, sum_49:double, sum_47:double, count_54:bigint]
+                                            avg_51 := "presto.default.avg"((l_quantity)) (1:240)
+                                            sum_50 := "presto.default.sum"((expr_4)) (1:171)
+                                            avg_52 := "presto.default.avg"((l_extendedprice)) (1:268)
+                                            avg_53 := "presto.default.avg"((l_discount)) (1:303)
+                                            sum_48 := "presto.default.sum"((l_extendedprice)) (1:72)
+                                            sum_49 := "presto.default.sum"((expr)) (1:112)
+                                            sum_47 := "presto.default.sum"((l_quantity)) (1:44)
+                                            count_54 := "presto.default.count"(*) (1:332)
+                                        - ScanFilterProject[PlanNodeId 0,381,2][table = TableHandle {connectorId='hive', connectorHandle='HiveTableHandle{schemaName=demo, tableName=lineitem_double, analyzePartitionValues=Optional.empty}', layout='Optional[demo.lineitem_double{domains={l_shipdate=[ [(<min>, "1998-09-02"]] ]}}]'}, filterPredicate = (l_shipdate) <= (DATE'1998-09-02'), projectLocality = LOCAL] => [l_returnflag:varchar, l_linestatus:varchar, expr:double, expr_4:double, l_quantity:double, l_extendedprice:double, l_discount:double, $hashvalue_56:bigint]
+                                                Estimates: {source: CostBasedSourceInfo, rows: 0 (0B), cpu: 0.00, memory: 0.00, network: 0.00}/{source: CostBasedSourceInfo, rows: 0 (0B), cpu: 0.00, memory: 0.00, network: 0.00}/{source: CostBasedSourceInfo, rows: 0 (0B), cpu: 0.00, memory: 0.00, network: 0.00}
+                                                expr := (l_extendedprice) * ((DOUBLE'1.0') - (l_discount)) (1:362)
+                                                expr_4 := ((l_extendedprice) * ((DOUBLE'1.0') - (l_discount))) * ((DOUBLE'1.0') + (l_tax)) (1:362)
+                                                $hashvalue_56 := combine_hash(combine_hash(BIGINT'0', COALESCE($operator$hash_code(l_returnflag), BIGINT'0')), COALESCE($operator$hash_code(l_linestatus), BIGINT'0')) (1:362)
+                                                LAYOUT: demo.lineitem_double{domains={l_shipdate=[ [(<min>, "1998-09-02"]] ]}}
+                                                l_extendedprice := l_extendedprice:double:5:REGULAR (1:361)
+                                                l_tax := l_tax:double:7:REGULAR (1:361)
+                                                l_quantity := l_quantity:double:4:REGULAR (1:361)
+                                                l_discount := l_discount:double:6:REGULAR (1:361)
+                                                l_returnflag := l_returnflag:string:8:REGULAR (1:361)
+                                                l_shipdate := l_shipdate:date:10:REGULAR (1:361)
+                                                l_linestatus := l_linestatus:string:9:REGULAR (1:361)

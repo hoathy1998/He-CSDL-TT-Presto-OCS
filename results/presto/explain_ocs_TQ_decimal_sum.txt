@@ -1,0 +1,35 @@
+- Output[PlanNodeId 11][l_returnflag, l_linestatus, sum_qty, sum_disc_price, min_disc, max_tax, n] => [l_returnflag:varchar, l_linestatus:varchar, sum:decimal(38,2), sum_5:decimal(38,4), min:decimal(15,2), max:decimal(15,2), count:bigint]
+        sum_qty := sum (1:44)
+        sum_disc_price := sum_5 (1:72)
+        min_disc := min (1:131)
+        max_tax := max (1:160)
+        n := count (1:183)
+    - RemoteStreamingMerge[PlanNodeId 354][l_returnflag ASC_NULLS_LAST, l_linestatus ASC_NULLS_LAST] => [l_returnflag:varchar, l_linestatus:varchar, sum:decimal(38,2), sum_5:decimal(38,4), min:decimal(15,2), max:decimal(15,2), count:bigint]
+        - LocalMerge[PlanNodeId 388][l_returnflag ASC_NULLS_LAST, l_linestatus ASC_NULLS_LAST] => [l_returnflag:varchar, l_linestatus:varchar, sum:decimal(38,2), sum_5:decimal(38,4), min:decimal(15,2), max:decimal(15,2), count:bigint]
+            - PartialSort[PlanNodeId 355][l_returnflag ASC_NULLS_LAST, l_linestatus ASC_NULLS_LAST] => [l_returnflag:varchar, l_linestatus:varchar, sum:decimal(38,2), sum_5:decimal(38,4), min:decimal(15,2), max:decimal(15,2), count:bigint]
+                - RemoteStreamingExchange[PlanNodeId 353][REPARTITION] => [l_returnflag:varchar, l_linestatus:varchar, sum:decimal(38,2), sum_5:decimal(38,4), min:decimal(15,2), max:decimal(15,2), count:bigint]
+                    - Project[PlanNodeId 445][projectLocality = LOCAL] => [l_returnflag:varchar, l_linestatus:varchar, sum:decimal(38,2), min:decimal(15,2), max:decimal(15,2), count:bigint, sum_5:decimal(38,4)]
+                        - Aggregate(FINAL)[l_returnflag, l_linestatus][$hashvalue][PlanNodeId 311] => [l_returnflag:varchar, l_linestatus:varchar, $hashvalue:bigint, sum:decimal(38,2), min:decimal(15,2), max:decimal(15,2), count:bigint, sum_5:decimal(38,4)]
+                                sum := "presto.default.sum"((sum_32)) (1:44)
+                                min := "presto.default.min"((min_34)) (1:131)
+                                max := "presto.default.max"((max_35)) (1:160)
+                                count := "presto.default.sum"((sum_36)) (1:183)
+                                sum_5 := "presto.default.sum"((sum_33)) (1:72)
+                            - LocalExchange[PlanNodeId 403][HASH][$hashvalue] (l_returnflag, l_linestatus) => [l_returnflag:varchar, l_linestatus:varchar, sum_36:bigint, sum_33:varbinary, min_34:bigint, sum_32:varbinary, max_35:bigint, $hashvalue:bigint]
+                                - RemoteStreamingExchange[PlanNodeId 409][REPARTITION][$hashvalue_37] => [l_returnflag:varchar, l_linestatus:varchar, sum_36:bigint, sum_33:varbinary, min_34:bigint, sum_32:varbinary, max_35:bigint, $hashvalue_37:bigint]
+                                    - Aggregate(PARTIAL)[l_returnflag, l_linestatus][$hashvalue_38][PlanNodeId 407] => [l_returnflag:varchar, l_linestatus:varchar, $hashvalue_38:bigint, sum_36:bigint, sum_33:varbinary, min_34:bigint, sum_32:varbinary, max_35:bigint]
+                                            sum_36 := "presto.default.sum"((p_count))
+                                            sum_33 := "presto.default.sum"((p_sum_31))
+                                            min_34 := "presto.default.min"((p_min))
+                                            sum_32 := "presto.default.sum"((p_sum))
+                                            max_35 := "presto.default.max"((p_max))
+                                        - ScanProject[PlanNodeId 310,444][table = TableHandle {connectorId='ocs', connectorHandle='ocs:lineitem pushdown=[Filter -> Project -> Aggregation(PARTIAL)] sql=[SELECT l_returnflag AS c0, l_linestatus AS c1, sum(l_quantity) AS c2, sum((l_extendedprice * (CAST('1' AS DECIMAL(10, 0)) - l_discount))) AS c3, min(l_discount) AS c4, max(l_tax) AS c5, count(*) AS c6 FROM t WHERE (l_shipdate <= DATE '1998-09-02') GROUP BY l_returnflag, l_linestatus]', layout='Optional[ocs:lineitem pushdown=[Filter -> Project -> Aggregation(PARTIAL)] sql=[SELECT l_returnflag AS c0, l_linestatus AS c1, sum(l_quantity) AS c2, sum((l_extendedprice * (CAST('1' AS DECIMAL(10, 0)) - l_discount))) AS c3, min(l_discount) AS c4, max(l_tax) AS c5, count(*) AS c6 FROM t WHERE (l_shipdate <= DATE '1998-09-02') GROUP BY l_returnflag, l_linestatus]]'}, projectLocality = LOCAL] => [l_returnflag:varchar, l_linestatus:varchar, p_sum:decimal(38,2), p_sum_31:decimal(38,4), p_min:decimal(15,2), p_max:decimal(15,2), p_count:bigint, $hashvalue_38:bigint]
+                                                Estimates: {source: CostBasedSourceInfo, rows: ? (?), cpu: ?, memory: 0.00, network: 0.00}/{source: CostBasedSourceInfo, rows: ? (?), cpu: ?, memory: 0.00, network: 0.00}
+                                                $hashvalue_38 := combine_hash(combine_hash(BIGINT'0', COALESCE($operator$hash_code(l_returnflag), BIGINT'0')), COALESCE($operator$hash_code(l_linestatus), BIGINT'0')) (1:258)
+                                                p_max := c5:decimal(15,2)
+                                                p_count := c6:bigint
+                                                p_min := c4:decimal(15,2)
+                                                l_returnflag := c0:varchar (1:258)
+                                                p_sum_31 := c3:decimal(38,4)
+                                                p_sum := c2:decimal(38,2)
+                                                l_linestatus := c1:varchar (1:272)

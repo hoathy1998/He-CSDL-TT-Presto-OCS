@@ -1,0 +1,22 @@
+- Output[PlanNodeId 11][l_shipmode, n, rev] => [l_shipmode:varchar, count:bigint, sum:double]
+        n := count (1:28)
+        rev := sum (1:43)
+    - RemoteStreamingMerge[PlanNodeId 383][l_shipmode ASC_NULLS_LAST] => [l_shipmode:varchar, count:bigint, sum:double]
+        - LocalMerge[PlanNodeId 428][l_shipmode ASC_NULLS_LAST] => [l_shipmode:varchar, count:bigint, sum:double]
+            - PartialSort[PlanNodeId 384][l_shipmode ASC_NULLS_LAST] => [l_shipmode:varchar, count:bigint, sum:double]
+                - RemoteStreamingExchange[PlanNodeId 382][REPARTITION] => [l_shipmode:varchar, count:bigint, sum:double]
+                    - Project[PlanNodeId 492][projectLocality = LOCAL] => [l_shipmode:varchar, sum:double, count:bigint]
+                        - Aggregate(FINAL)[l_shipmode][$hashvalue][PlanNodeId 4] => [l_shipmode:varchar, $hashvalue:bigint, sum:double, count:bigint]
+                                sum := "presto.default.sum"((sum_13)) (1:43)
+                                count := "presto.default.count"((count_12)) (1:28)
+                            - LocalExchange[PlanNodeId 445][HASH][$hashvalue] (l_shipmode) => [l_shipmode:varchar, sum_13:double, count_12:bigint, $hashvalue:bigint]
+                                - RemoteStreamingExchange[PlanNodeId 451][REPARTITION][$hashvalue_14] => [l_shipmode:varchar, sum_13:double, count_12:bigint, $hashvalue_14:bigint]
+                                    - Aggregate(PARTIAL)[l_shipmode][$hashvalue_15][PlanNodeId 449] => [l_shipmode:varchar, $hashvalue_15:bigint, sum_13:double, count_12:bigint]
+                                            sum_13 := "presto.default.sum"((l_extendedprice)) (1:43)
+                                            count_12 := "presto.default.count"(*) (1:28)
+                                        - ScanFilterProject[PlanNodeId 309,380,2][table = TableHandle {connectorId='ocs', connectorHandle='ocs:lineitem_double pushdown=[Filter(partial)] sql=[SELECT l_extendedprice AS c0, l_shipdate AS c1, l_shipmode AS c2, l_comment AS c3 FROM t WHERE (l_shipdate >= DATE '1998-06-01')]', layout='Optional[ocs:lineitem_double pushdown=[Filter(partial)] sql=[SELECT l_extendedprice AS c0, l_shipdate AS c1, l_shipmode AS c2, l_comment AS c3 FROM t WHERE (l_shipdate >= DATE '1998-06-01')]]'}, filterPredicate = (CARDINALITY(SPLIT(l_comment, VARCHAR'special', BIGINT'2'))) = (BIGINT'2'), projectLocality = LOCAL] => [l_shipmode:varchar, l_extendedprice:double, $hashvalue_15:bigint]
+                                                Estimates: {source: CostBasedSourceInfo, rows: ? (?), cpu: ?, memory: 0.00, network: 0.00}/{source: CostBasedSourceInfo, rows: ? (?), cpu: ?, memory: 0.00, network: 0.00}/{source: CostBasedSourceInfo, rows: ? (?), cpu: ?, memory: 0.00, network: 0.00}
+                                                $hashvalue_15 := combine_hash(BIGINT'0', COALESCE($operator$hash_code(l_shipmode), BIGINT'0')) (1:77)
+                                                l_shipmode := c2:varchar (1:76)
+                                                l_comment := c3:varchar (1:76)
+                                                l_extendedprice := c0:double (1:76)

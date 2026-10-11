@@ -1,0 +1,34 @@
+- Output[PlanNodeId 12][timestep, vertex_id, vid, min_x, min_y, min_z, avg_e] => [timestep:bigint, vertex_id:integer, min:integer, min_7:double, min_8:double, min_9:double, avg:double]
+        vid := min (1:37)
+        min_x := min_7 (1:60)
+        min_y := min_8 (1:77)
+        min_z := min_9 (1:94)
+        avg_e := avg (1:111)
+    - TopN[PlanNodeId 318][100 by (avg ASC_NULLS_LAST, timestep ASC_NULLS_LAST, vertex_id ASC_NULLS_LAST)] => [timestep:bigint, vertex_id:integer, min:integer, min_7:double, min_8:double, min_9:double, avg:double]
+        - LocalExchange[PlanNodeId 396][SINGLE] () => [timestep:bigint, vertex_id:integer, min:integer, min_7:double, min_8:double, min_9:double, avg:double]
+            - RemoteStreamingExchange[PlanNodeId 358][GATHER] => [timestep:bigint, vertex_id:integer, min:integer, min_7:double, min_8:double, min_9:double, avg:double]
+                - TopNPartial[PlanNodeId 317][100 by (avg ASC_NULLS_LAST, timestep ASC_NULLS_LAST, vertex_id ASC_NULLS_LAST)] => [timestep:bigint, vertex_id:integer, avg:double, min_7:double, min_8:double, min_9:double, min:integer]
+                    - Project[PlanNodeId 457][projectLocality = LOCAL] => [timestep:bigint, vertex_id:integer, avg:double, min_7:double, min_8:double, min_9:double, min:integer]
+                        - Aggregate(FINAL)[timestep, vertex_id][$hashvalue][PlanNodeId 4] => [timestep:bigint, vertex_id:integer, $hashvalue:bigint, avg:double, min_7:double, min_8:double, min_9:double, min:integer]
+                                avg := "presto.default.avg"((avg_38)) (1:111)
+                                min_7 := "presto.default.min"((min_35)) (1:60)
+                                min_8 := "presto.default.min"((min_36)) (1:77)
+                                min_9 := "presto.default.min"((min_37)) (1:94)
+                                min := "presto.default.min"((min_34)) (1:37)
+                            - LocalExchange[PlanNodeId 412][HASH][$hashvalue] (timestep, vertex_id) => [timestep:bigint, vertex_id:integer, min_37:double, min_36:double, min_34:bigint, min_35:double, avg_38:row("field0" double, "field1" bigint), $hashvalue:bigint]
+                                - RemoteStreamingExchange[PlanNodeId 418][REPARTITION][$hashvalue_39] => [timestep:bigint, vertex_id:integer, min_37:double, min_36:double, min_34:bigint, min_35:double, avg_38:row("field0" double, "field1" bigint), $hashvalue_39:bigint]
+                                    - Aggregate(PARTIAL)[timestep, vertex_id][$hashvalue_40][PlanNodeId 416] => [timestep:bigint, vertex_id:integer, $hashvalue_40:bigint, min_37:double, min_36:double, min_34:bigint, min_35:double, avg_38:row("field0" double, "field1" bigint)]
+                                            min_37 := "presto.default.min"((z)) (1:94)
+                                            min_36 := "presto.default.min"((y)) (1:77)
+                                            min_34 := "presto.default.min"((vertex_id)) (1:37)
+                                            min_35 := "presto.default.min"((x)) (1:60)
+                                            avg_38 := "presto.default.avg"((e)) (1:111)
+                                        - ScanFilterProject[PlanNodeId 0,356,456][table = TableHandle {connectorId='ocsnopd', connectorHandle='ocs:laghos', layout='Optional[ocs:laghos]'}, filterPredicate = ((x BETWEEN (DOUBLE'0.8') AND (DOUBLE'3.2')) AND (y BETWEEN (DOUBLE'0.8') AND (DOUBLE'3.2'))) AND (z BETWEEN (DOUBLE'0.8') AND (DOUBLE'3.2')), projectLocality = LOCAL] => [vertex_id:integer, e:double, x:double, y:double, z:double, timestep:bigint, $hashvalue_40:bigint]
+                                                Estimates: {source: CostBasedSourceInfo, rows: ? (?), cpu: ?, memory: 0.00, network: 0.00}/{source: CostBasedSourceInfo, rows: ? (?), cpu: ?, memory: 0.00, network: 0.00}/{source: CostBasedSourceInfo, rows: ? (?), cpu: ?, memory: 0.00, network: 0.00}
+                                                $hashvalue_40 := combine_hash(combine_hash(BIGINT'0', COALESCE($operator$hash_code(timestep), BIGINT'0')), COALESCE($operator$hash_code(vertex_id), BIGINT'0')) (1:228)
+                                                timestep := timestep:bigint (1:132)
+                                                y := y:double (1:132)
+                                                x := x:double (1:132)
+                                                z := z:double (1:132)
+                                                e := e:double (1:132)
+                                                vertex_id := vertex_id:integer (1:132)

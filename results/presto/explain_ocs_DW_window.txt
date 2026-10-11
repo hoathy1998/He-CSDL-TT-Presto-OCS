@@ -1,0 +1,13 @@
+- Output[PlanNodeId 16][timestep, max_height, rk] => [timestep:bigint, max:bigint, rank:bigint]
+        max_height := max (1:26)
+        rk := rank (1:38)
+    - Window[PlanNodeId 11][order by (max DESC_NULLS_LAST, timestep ASC_NULLS_LAST)] => [timestep:bigint, max:bigint, rank:bigint]
+            rank := rank() RANGE UNBOUNDED_PRECEDING CURRENT_ROW
+        - LocalExchange[PlanNodeId 407][SINGLE] () => [timestep:bigint, max:bigint]
+                Estimates: {source: CostBasedSourceInfo, rows: ? (?), cpu: ?, memory: 0.00, network: ?}
+            - RemoteStreamingExchange[PlanNodeId 391][GATHER] => [timestep:bigint, max:bigint]
+                    Estimates: {source: CostBasedSourceInfo, rows: ? (?), cpu: ?, memory: 0.00, network: ?}
+                - TableScan[PlanNodeId 364][TableHandle {connectorId='ocs', connectorHandle='ocs:deepwater pushdown=[Filter -> Project -> Aggregation(COMPLETE)] sql=[SELECT timestep AS c0, max(((rowid % 250000) / 500)) AS c1 FROM t WHERE (v02 > CAST(0.1 AS DOUBLE)) GROUP BY timestep]', layout='Optional[ocs:deepwater pushdown=[Filter -> Project -> Aggregation(COMPLETE)] sql=[SELECT timestep AS c0, max(((rowid % 250000) / 500)) AS c1 FROM t WHERE (v02 > CAST(0.1 AS DOUBLE)) GROUP BY timestep]]'}] => [timestep:bigint, max:bigint]
+                        Estimates: {source: CostBasedSourceInfo, rows: ? (?), cpu: ?, memory: 0.00, network: 0.00}
+                        timestep := c0:bigint (1:198)
+                        max := c1:bigint (1:116)

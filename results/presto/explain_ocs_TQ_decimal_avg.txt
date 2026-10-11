@@ -1,0 +1,45 @@
+- Output[PlanNodeId 11][l_returnflag, l_linestatus, sum_qty, sum_base_price, sum_disc_price, sum_charge, avg_qty, avg_price, avg_disc, count_order] => [l_returnflag:varchar, l_linestatus:varchar, sum:decimal(38,2), sum_8:decimal(38,2), sum_9:decimal(38,4), sum_10:decimal(38,6), avg:decimal(15,2), avg_11:decimal(15,2), avg_12:decimal(15,2), count:bigint]
+        sum_qty := sum (1:44)
+        sum_base_price := sum_8 (1:72)
+        sum_disc_price := sum_9 (1:112)
+        sum_charge := sum_10 (1:171)
+        avg_qty := avg (1:240)
+        avg_price := avg_11 (1:268)
+        avg_disc := avg_12 (1:303)
+        count_order := count (1:332)
+    - RemoteStreamingMerge[PlanNodeId 368][l_returnflag ASC_NULLS_LAST, l_linestatus ASC_NULLS_LAST] => [l_returnflag:varchar, l_linestatus:varchar, sum:decimal(38,2), sum_8:decimal(38,2), sum_9:decimal(38,4), sum_10:decimal(38,6), avg:decimal(15,2), avg_11:decimal(15,2), avg_12:decimal(15,2), count:bigint]
+        - LocalMerge[PlanNodeId 407][l_returnflag ASC_NULLS_LAST, l_linestatus ASC_NULLS_LAST] => [l_returnflag:varchar, l_linestatus:varchar, sum:decimal(38,2), sum_8:decimal(38,2), sum_9:decimal(38,4), sum_10:decimal(38,6), avg:decimal(15,2), avg_11:decimal(15,2), avg_12:decimal(15,2), count:bigint]
+            - PartialSort[PlanNodeId 369][l_returnflag ASC_NULLS_LAST, l_linestatus ASC_NULLS_LAST] => [l_returnflag:varchar, l_linestatus:varchar, sum:decimal(38,2), sum_8:decimal(38,2), sum_9:decimal(38,4), sum_10:decimal(38,6), avg:decimal(15,2), avg_11:decimal(15,2), avg_12:decimal(15,2), count:bigint]
+                - RemoteStreamingExchange[PlanNodeId 367][REPARTITION] => [l_returnflag:varchar, l_linestatus:varchar, sum:decimal(38,2), sum_8:decimal(38,2), sum_9:decimal(38,4), sum_10:decimal(38,6), avg:decimal(15,2), avg_11:decimal(15,2), avg_12:decimal(15,2), count:bigint]
+                    - Project[PlanNodeId 467][projectLocality = LOCAL] => [l_returnflag:varchar, l_linestatus:varchar, sum:decimal(38,2), sum_9:decimal(38,4), avg:decimal(15,2), sum_10:decimal(38,6), sum_8:decimal(38,2), avg_12:decimal(15,2), count:bigint, avg_11:decimal(15,2)]
+                        - Aggregate(FINAL)[l_returnflag, l_linestatus][$hashvalue][PlanNodeId 4] => [l_returnflag:varchar, l_linestatus:varchar, $hashvalue:bigint, sum:decimal(38,2), sum_9:decimal(38,4), avg:decimal(15,2), sum_10:decimal(38,6), sum_8:decimal(38,2), avg_12:decimal(15,2), count:bigint, avg_11:decimal(15,2)]
+                                sum := "presto.default.sum"((sum_50)) (1:44)
+                                sum_9 := "presto.default.sum"((sum_52)) (1:112)
+                                avg := "presto.default.avg"((avg_54)) (1:240)
+                                sum_10 := "presto.default.sum"((sum_53)) (1:171)
+                                sum_8 := "presto.default.sum"((sum_51)) (1:72)
+                                avg_12 := "presto.default.avg"((avg_56)) (1:303)
+                                count := "presto.default.count"((count_57)) (1:332)
+                                avg_11 := "presto.default.avg"((avg_55)) (1:268)
+                            - LocalExchange[PlanNodeId 423][HASH][$hashvalue] (l_returnflag, l_linestatus) => [l_returnflag:varchar, l_linestatus:varchar, avg_54:varbinary, sum_53:varbinary, sum_52:varbinary, avg_56:varbinary, avg_55:varbinary, sum_51:varbinary, count_57:bigint, sum_50:varbinary, $hashvalue:bigint]
+                                - RemoteStreamingExchange[PlanNodeId 429][REPARTITION][$hashvalue_58] => [l_returnflag:varchar, l_linestatus:varchar, avg_54:varbinary, sum_53:varbinary, sum_52:varbinary, avg_56:varbinary, avg_55:varbinary, sum_51:varbinary, count_57:bigint, sum_50:varbinary, $hashvalue_58:bigint]
+                                    - Aggregate(PARTIAL)[l_returnflag, l_linestatus][$hashvalue_59][PlanNodeId 427] => [l_returnflag:varchar, l_linestatus:varchar, $hashvalue_59:bigint, avg_54:varbinary, sum_53:varbinary, sum_52:varbinary, avg_56:varbinary, avg_55:varbinary, sum_51:varbinary, count_57:bigint, sum_50:varbinary]
+                                            avg_54 := "presto.default.avg"((l_quantity)) (1:240)
+                                            sum_53 := "presto.default.sum"((expr_4)) (1:171)
+                                            sum_52 := "presto.default.sum"((expr)) (1:112)
+                                            avg_56 := "presto.default.avg"((l_discount)) (1:303)
+                                            avg_55 := "presto.default.avg"((l_extendedprice)) (1:268)
+                                            sum_51 := "presto.default.sum"((l_extendedprice)) (1:72)
+                                            count_57 := "presto.default.count"(*) (1:332)
+                                            sum_50 := "presto.default.sum"((l_quantity)) (1:44)
+                                        - ScanProject[PlanNodeId 312,2][table = TableHandle {connectorId='ocs', connectorHandle='ocs:lineitem pushdown=[Filter] sql=[SELECT l_quantity AS c0, l_extendedprice AS c1, l_discount AS c2, l_tax AS c3, l_returnflag AS c4, l_linestatus AS c5, l_shipdate AS c6 FROM t WHERE (l_shipdate <= DATE '1998-09-02')]', layout='Optional[ocs:lineitem pushdown=[Filter] sql=[SELECT l_quantity AS c0, l_extendedprice AS c1, l_discount AS c2, l_tax AS c3, l_returnflag AS c4, l_linestatus AS c5, l_shipdate AS c6 FROM t WHERE (l_shipdate <= DATE '1998-09-02')]]'}, projectLocality = LOCAL] => [l_returnflag:varchar, l_linestatus:varchar, expr:decimal(31,4), expr_4:decimal(38,6), l_quantity:decimal(15,2), l_extendedprice:decimal(15,2), l_discount:decimal(15,2), $hashvalue_59:bigint]
+                                                Estimates: {source: CostBasedSourceInfo, rows: ? (?), cpu: ?, memory: 0.00, network: 0.00}/{source: CostBasedSourceInfo, rows: ? (?), cpu: ?, memory: 0.00, network: 0.00}
+                                                expr := (l_extendedprice) * ((DECIMAL'1') - (l_discount)) (1:362)
+                                                expr_4 := ((l_extendedprice) * ((DECIMAL'1') - (l_discount))) * ((DECIMAL'1') + (l_tax)) (1:362)
+                                                $hashvalue_59 := combine_hash(combine_hash(BIGINT'0', COALESCE($operator$hash_code(l_returnflag), BIGINT'0')), COALESCE($operator$hash_code(l_linestatus), BIGINT'0')) (1:362)
+                                                l_discount := c2:decimal(15,2) (1:361)
+                                                l_returnflag := c4:varchar (1:361)
+                                                l_extendedprice := c1:decimal(15,2) (1:361)
+                                                l_quantity := c0:decimal(15,2) (1:361)
+                                                l_tax := c3:decimal(15,2) (1:361)
+                                                l_linestatus := c5:varchar (1:361)

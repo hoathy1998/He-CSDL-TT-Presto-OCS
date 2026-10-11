@@ -1,0 +1,202 @@
+[
+ {
+  "cfg": "laghos:none",
+  "query": "laghos",
+  "table": "laghos",
+  "mode": "none",
+  "correct": true,
+  "time_s": 14.76670487499996
+ },
+ {
+  "cfg": "laghos:filter",
+  "query": "laghos",
+  "table": "laghos",
+  "mode": "filter",
+  "correct": true,
+  "time_s": 6.612875169999825
+ },
+ {
+  "cfg": "laghos:filter+aggr",
+  "query": "laghos",
+  "table": "laghos",
+  "mode": "filter+aggr",
+  "correct": true,
+  "time_s": 3.8988574300001346
+ },
+ {
+  "cfg": "laghos:filter+aggr+topN",
+  "query": "laghos",
+  "table": "laghos",
+  "mode": "filter+aggr+topN",
+  "correct": true,
+  "time_s": 3.2722691660001146
+ },
+ {
+  "cfg": "laghos:filter(csv)",
+  "query": "laghos",
+  "table": "laghos",
+  "mode": "filter(csv)",
+  "correct": true,
+  "time_s": 9.232665320000706
+ },
+ {
+  "cfg": "deepwater:none",
+  "query": "deepwater",
+  "table": "deepwater",
+  "mode": "none",
+  "correct": true,
+  "time_s": 17.998088985999857
+ },
+ {
+  "cfg": "deepwater:filter",
+  "query": "deepwater",
+  "table": "deepwater",
+  "mode": "filter",
+  "correct": true,
+  "time_s": 4.337773262000155
+ },
+ {
+  "cfg": "deepwater:filter+proj",
+  "query": "deepwater",
+  "table": "deepwater",
+  "mode": "filter+proj",
+  "correct": true,
+  "time_s": 4.367531391999364
+ },
+ {
+  "cfg": "deepwater:filter+proj+aggr",
+  "query": "deepwater",
+  "table": "deepwater",
+  "mode": "filter+proj+aggr",
+  "correct": true,
+  "time_s": 3.351921274000233
+ },
+ {
+  "cfg": "deepwater_heavy:filter+proj",
+  "query": "deepwater_heavy",
+  "table": "deepwater",
+  "mode": "filter+proj",
+  "correct": true,
+  "time_s": 4.589674031999493
+ },
+ {
+  "cfg": "deepwater_heavy:filter+proj+aggr",
+  "query": "deepwater_heavy",
+  "table": "deepwater",
+  "mode": "filter+proj+aggr",
+  "correct": true,
+  "time_s": 3.2634662970003774
+ },
+ {
+  "cfg": "tpch_q1:none",
+  "query": "tpch_q1",
+  "table": "lineitem",
+  "mode": "none",
+  "correct": true,
+  "time_s": 3.678666090999286
+ },
+ {
+  "cfg": "tpch_q1:filter",
+  "query": "tpch_q1",
+  "table": "lineitem",
+  "mode": "filter",
+  "correct": true,
+  "time_s": 3.771898159000557
+ },
+ {
+  "cfg": "tpch_q1:filter+proj",
+  "query": "tpch_q1",
+  "table": "lineitem",
+  "mode": "filter+proj",
+  "correct": true,
+  "time_s": 4.543622946000141
+ },
+ {
+  "cfg": "tpch_q1:filter+proj+aggr",
+  "query": "tpch_q1",
+  "table": "lineitem",
+  "mode": "filter+proj+aggr",
+  "correct": true,
+  "time_s": 0.323245312999461
+ },
+ {
+  "cfg": "tpch_q1:filter+proj+aggr+sort",
+  "query": "tpch_q1",
+  "table": "lineitem",
+  "mode": "filter+proj+aggr+sort",
+  "correct": true,
+  "time_s": 0.2857373340002596
+ },
+ {
+  "cfg": "tpch_q1:auto",
+  "query": "tpch_q1",
+  "table": "lineitem",
+  "mode": "filter+proj+aggr",
+  "correct": true,
+  "time_s": 0.347073249999994
+ },
+ {
+  "cfg": "tpch_q1@lineitem_double:none",
+  "query": "tpch_q1@lineitem_double",
+  "table": "lineitem_double",
+  "mode": "none",
+  "correct": true,
+  "time_s": 3.6320778159997644
+ },
+ {
+  "cfg": "tpch_q1@lineitem_double:filter+proj+aggr",
+  "query": "tpch_q1@lineitem_double",
+  "table": "lineitem_double",
+  "mode": "filter+proj+aggr",
+  "correct": true,
+  "time_s": 0.2613971649998348
+ },
+ {
+  "cfg": "tpch_proj:none",
+  "query": "tpch_proj",
+  "table": "lineitem",
+  "mode": "none",
+  "correct": true,
+  "time_s": 3.4280530359992554
+ },
+ {
+  "cfg": "tpch_proj:filter",
+  "query": "tpch_proj",
+  "table": "lineitem",
+  "mode": "filter",
+  "correct": true,
+  "time_s": 0.2780380909998712
+ },
+ {
+  "cfg": "tpch_proj:filter+proj",
+  "query": "tpch_proj",
+  "table": "lineitem",
+  "mode": "filter+proj",
+  "correct": true,
+  "time_s": 0.28016700399984984
+ },
+ {
+  "cfg": "deepwater_snappy:all",
+  "query": "deepwater@deepwater_snappy",
+  "table": "deepwater_snappy",
+  "mode": "filter+proj+aggr",
+  "correct": true,
+  "time_s": 1.3599775960001352
+ },
+ {
+  "cfg": "deepwater_gzip:all",
+  "query": "deepwater@deepwater_gzip",
+  "table": "deepwater_gzip",
+  "mode": "filter+proj+aggr",
+  "correct": true,
+  "time_s": 0.9013542049997341
+ },
+ {
+  "cfg": "deepwater_zstd:all",
+  "query": "deepwater@deepwater_zstd",
+  "table": "deepwater_zstd",
+  "mode": "filter+proj+aggr",
+  "correct": true,
+  "time_s": 0.7557643109994387
+ }
+]

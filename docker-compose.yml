@@ -1,0 +1,130 @@
+# Kiến trúc tách rời compute / storage như Hình 1 của bài báo:
+#   compute : "Presto" thu nhỏ (planner + local optimizer + OCS connector + thực thi residual)
+#   ocs     : Object-based Computational Storage giả lập (Arrow Flight/gRPC + DataFusion + Substrait)
+#             - CPU bị giới hạn (storage node yếu hơn compute node, như Bảng 1 của bài)
+#             - băng thông mạng ra bị giới hạn bằng tc (mạng là nút cổ chai)
+#             - băng thông đọc thiết bị lưu trữ bị giới hạn (SSD SATA)
+services:
+  ocs:
+    image: ocs-demo:latest
+    build: .
+    command: python -m ocsdemo.ocs_server
+    cap_add: [NET_ADMIN]
+    cpus: ${OCS_CPUS:-2}
+    mem_limit: 6g
+    environment:
+      OCS_NET_MBIT: ${OCS_NET_MBIT:-1000}
+      OCS_MEDIA_MBPS: ${OCS_MEDIA_MBPS:-500}
+      OCS_THREADS: ${OCS_CPUS:-2}
+    volumes:
+      - ocsdata:/data:ro
+      - ./ocsdemo:/app/ocsdemo:ro
+    networks: [cluster]
+
+  # G2.2: thêm storage node cho cụm OCS nhiều node (bật bằng --profile multi). Mỗi node có CPU,
+  # NIC (tc) và SSD giả lập riêng; object được gán cho node theo hash tên file (connector định tuyến).
+  ocs2:
+    image: ocs-demo:latest
+    profiles: [multi]
+    command: python -m ocsdemo.ocs_server
+    cap_add: [NET_ADMIN]
+    cpus: ${OCS_CPUS:-2}
+    mem_limit: 6g
+    environment:
+      OCS_NET_MBIT: ${OCS_NET_MBIT:-1000}
+      OCS_MEDIA_MBPS: ${OCS_MEDIA_MBPS:-500}
+      OCS_THREADS: ${OCS_CPUS:-2}
+    volumes:
+      - ocsdata:/data:ro
+      - ./ocsdemo:/app/ocsdemo:ro
+    networks: [cluster]
+
+  ocs3:
+    image: ocs-demo:latest
+    profiles: [multi]
+    command: python -m ocsdemo.ocs_server
+    cap_add: [NET_ADMIN]
+    cpus: ${OCS_CPUS:-2}
+    mem_limit: 6g
+    environment:
+      OCS_NET_MBIT: ${OCS_NET_MBIT:-1000}
+      OCS_MEDIA_MBPS: ${OCS_MEDIA_MBPS:-500}
+      OCS_THREADS: ${OCS_CPUS:-2}
+    volumes:
+      - ocsdata:/data:ro
+      - ./ocsdemo:/app/ocsdemo:ro
+    networks: [cluster]
+
+  # G4b: baseline MinIO Select THẬT (S3 SelectObjectContent: chỉ WHERE + chọn cột, kết quả CSV)
+  minio:
+    image: ocs-minio:RELEASE.2025-04-22T22-12-26Z
+    build: ./minio          # build từ mã nguồn chính thức (image/binary cộng đồng đã bị gỡ)
+    profiles: [minio]
+    command: server /miniodata
+    cpus: 2
+    mem_limit: 6g
+    environment:
+      MINIO_ROOT_USER: ocsdemo
+      MINIO_ROOT_PASSWORD: ocsdemo-secret
+      MINIO_API_SELECT_PARQUET: "on"     # Parquet Select tắt mặc định (docs/select/README.md)
+    volumes:
+      - miniodata:/miniodata
+    networks: [cluster]
+
+  minio-tc:   # sidecar dùng chung network namespace với minio để giới hạn băng thông ra bằng tc
+    image: ocs-demo:latest
+    profiles: [minio]
+    network_mode: "service:minio"
+    cap_add: [NET_ADMIN]
+    command: sh -c "tc qdisc replace dev eth0 root tbf rate ${OCS_NET_MBIT:-1000}mbit burst 500000 latency 100ms && sleep infinity"
+    depends_on: [minio]
+
+  # G3: build plugin Presto-OCS (Java 11) và chạy Presto 0.286 thật với 2 catalog: ocs (connector của nhóm) và
+  # hive (Presto gốc, metastore dạng file) trên cùng dữ liệu Parquet.
+  maven:
+    image: maven:3.9.6-eclipse-temurin-11
+    profiles: [build]
+    working_dir: /src
+    # plugin chính + thư viện isthmus (R2) nạp trong classloader cô lập ở target/plugin/substrait-lib
+    command: sh -c "mvn -q -B -DskipTests package && mvn -q -B -f substrait-lib/pom.xml package"
+    volumes:
+      - ./presto-ocs:/src
+      - m2cache:/root/.m2
+
+  presto:
+    image: prestodb/presto:0.286
+    profiles: [presto]
+    volumes:
+      - ./presto/etc:/opt/presto-server/etc
+      - ./presto-ocs/target/ocs-plugin:/opt/presto-server/plugin/ocs:ro
+      - ocsdata:/data:ro
+      - ./results/presto:/results/presto        # EventListener ghi history.jsonl
+    networks: [cluster]
+    depends_on: [ocs]
+
+  compute:
+    image: ocs-demo:latest
+    command: sleep infinity
+    environment:
+      OCS_ADDR: grpc://ocs:8815
+    volumes:
+      - ./:/app
+    networks: [cluster]
+    depends_on: [ocs]
+
+  prep:
+    image: ocs-demo:latest
+    profiles: [prep]
+    command: python scripts/prepare_data.py
+    volumes:
+      - ocsdata:/data
+      - ./:/app
+    networks: [cluster]
+
+volumes:
+  ocsdata:
+  miniodata:
+  m2cache:
+
+networks:
+  cluster:

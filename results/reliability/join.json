@@ -1,0 +1,1532 @@
+[
+ {
+  "cfg": "JOIN:all",
+  "query": "tpch_join",
+  "table": "lineitem+orders",
+  "mode": "all",
+  "max_splits": null,
+  "ipc": false,
+  "time_s": 0.4690919600016059,
+  "wire_bytes": 34850480,
+  "payload_bytes": 34756984,
+  "timings": {
+   "join": 0.013005390999751398,
+   "branch_l": 0.2964657630000147,
+   "branch_o": 0.15768387199932477
+  },
+  "storage": {
+   "media_bytes": 123804243
+  },
+  "started": 1791694575.1961465,
+  "ended": 1791694575.6652546,
+  "branches": {
+   "l": {
+    "mode": "filter+proj+aggr",
+    "k": 3,
+    "agg_complete": false,
+    "time_s": 0.2964657630000147,
+    "wire_bytes": 19973986,
+    "rows_to_compute": 829958,
+    "storage_sql": "SELECT l_orderkey, sum(rev) AS revenue FROM (SELECT l_orderkey AS l_orderkey, l_extendedprice * (1 - l_discount) AS rev FROM (SELECT l_orderkey, l_extendedprice, l_discount FROM (SELECT l_orderkey, l_extendedprice, l_discount, l_shipdate FROM t) AS s WHERE l_shipdate > DATE '1995-03-15') AS s) AS s GROUP BY l_orderkey",
+    "residual_sql": "SELECT l_orderkey, sum(revenue) AS revenue FROM (SELECT * FROM t) AS s GROUP BY l_orderkey"
+   },
+   "o": {
+    "mode": "filter",
+    "k": 1,
+    "agg_complete": true,
+    "time_s": 0.15768387199932477,
+    "wire_bytes": 14876494,
+    "rows_to_compute": 727305,
+    "storage_sql": "SELECT o_orderkey, o_orderpriority FROM (SELECT o_orderkey, o_orderpriority, o_orderdate FROM t) AS s WHERE o_orderdate < DATE '1995-03-15'",
+    "residual_sql": "SELECT * FROM t"
+   }
+  },
+  "correct": true,
+  "net_mbit": 1000.0,
+  "media_mbps": 500.0,
+  "storage_threads": 2,
+  "stage": "join",
+  "label": null,
+  "rep": 0,
+  "order": 0
+ },
+ {
+  "cfg": "JOIN:filter",
+  "query": "tpch_join",
+  "table": "lineitem+orders",
+  "mode": "filter",
+  "max_splits": null,
+  "ipc": false,
+  "time_s": 1.3966629349997675,
+  "wire_bytes": 144791424,
+  "payload_bytes": 144509032,
+  "timings": {
+   "join": 0.012434773998393212,
+   "branch_l": 1.2304209630001424,
+   "branch_o": 0.15091648800080293
+  },
+  "storage": {
+   "media_bytes": 123804243
+  },
+  "started": 1791694575.6674864,
+  "ended": 1791694577.0641637,
+  "branches": {
+   "l": {
+    "mode": "filter",
+    "k": 1,
+    "agg_complete": false,
+    "time_s": 1.2304209630001424,
+    "wire_bytes": 129916331,
+    "rows_to_compute": 3241776,
+    "storage_sql": "SELECT l_orderkey, l_extendedprice, l_discount FROM (SELECT l_orderkey, l_extendedprice, l_discount, l_shipdate FROM t) AS s WHERE l_shipdate > DATE '1995-03-15'",
+    "residual_sql": "SELECT l_orderkey, sum(rev) AS revenue FROM (SELECT l_orderkey AS l_orderkey, l_extendedprice * (1 - l_discount) AS rev FROM (SELECT * FROM t) AS s) AS s GROUP BY l_orderkey"
+   },
+   "o": {
+    "mode": "filter",
+    "k": 1,
+    "agg_complete": true,
+    "time_s": 0.15091648800080293,
+    "wire_bytes": 14875093,
+    "rows_to_compute": 727305,
+    "storage_sql": "SELECT o_orderkey, o_orderpriority FROM (SELECT o_orderkey, o_orderpriority, o_orderdate FROM t) AS s WHERE o_orderdate < DATE '1995-03-15'",
+    "residual_sql": "SELECT * FROM t"
+   }
+  },
+  "correct": true,
+  "net_mbit": 1000.0,
+  "media_mbps": 500.0,
+  "storage_threads": 2,
+  "stage": "join",
+  "label": null,
+  "rep": 0,
+  "order": 1
+ },
+ {
+  "cfg": "JOIN:none",
+  "query": "tpch_join",
+  "table": "lineitem+orders",
+  "mode": "none",
+  "max_splits": null,
+  "ipc": false,
+  "time_s": 4.609594677998757,
+  "wire_bytes": 506846027,
+  "payload_bytes": 506210359,
+  "timings": {
+   "join": 0.013766901998678804,
+   "branch_l": 3.497581331999754,
+   "branch_o": 1.0961892010000156
+  },
+  "storage": {
+   "media_bytes": 506210359
+  },
+  "started": 1791694577.0662537,
+  "ended": 1791694581.6758654,
+  "branches": {
+   "l": {
+    "mode": "none",
+    "k": 0,
+    "agg_complete": false,
+    "time_s": 3.497581331999754,
+    "wire_bytes": 386683109,
+    "rows_to_compute": 829958,
+    "storage_sql": null,
+    "residual_sql": "SELECT l_orderkey, sum(rev) AS revenue FROM (SELECT l_orderkey AS l_orderkey, l_extendedprice * (1 - l_discount) AS rev FROM (SELECT l_orderkey, l_extendedprice, l_discount FROM (SELECT l_orderkey, l_extendedprice, l_discount, l_shipdate FROM t) AS s WHERE l_shipdate > DATE '1995-03-15') AS s) AS s GROUP BY l_orderkey"
+   },
+   "o": {
+    "mode": "none",
+    "k": 0,
+    "agg_complete": true,
+    "time_s": 1.0961892010000156,
+    "wire_bytes": 120162918,
+    "rows_to_compute": 727305,
+    "storage_sql": null,
+    "residual_sql": "SELECT o_orderkey, o_orderpriority FROM (SELECT o_orderkey, o_orderpriority, o_orderdate FROM t) AS s WHERE o_orderdate < DATE '1995-03-15'"
+   }
+  },
+  "correct": true,
+  "net_mbit": 1000.0,
+  "media_mbps": 500.0,
+  "storage_threads": 2,
+  "stage": "join",
+  "label": null,
+  "rep": 0,
+  "order": 2
+ },
+ {
+  "cfg": "JOIN:none",
+  "query": "tpch_join",
+  "table": "lineitem+orders",
+  "mode": "none",
+  "max_splits": null,
+  "ipc": false,
+  "time_s": 4.570317625999451,
+  "wire_bytes": 506842569,
+  "payload_bytes": 506210359,
+  "timings": {
+   "join": 0.011836377998406533,
+   "branch_l": 3.4627454910005326,
+   "branch_o": 1.0929440039999463
+  },
+  "storage": {
+   "media_bytes": 506210359
+  },
+  "started": 1791694581.684651,
+  "ended": 1791694586.2534516,
+  "branches": {
+   "l": {
+    "mode": "none",
+    "k": 0,
+    "agg_complete": false,
+    "time_s": 3.4627454910005326,
+    "wire_bytes": 386681321,
+    "rows_to_compute": 829958,
+    "storage_sql": null,
+    "residual_sql": "SELECT l_orderkey, sum(rev) AS revenue FROM (SELECT l_orderkey AS l_orderkey, l_extendedprice * (1 - l_discount) AS rev FROM (SELECT l_orderkey, l_extendedprice, l_discount FROM (SELECT l_orderkey, l_extendedprice, l_discount, l_shipdate FROM t) AS s WHERE l_shipdate > DATE '1995-03-15') AS s) AS s GROUP BY l_orderkey"
+   },
+   "o": {
+    "mode": "none",
+    "k": 0,
+    "agg_complete": true,
+    "time_s": 1.0929440039999463,
+    "wire_bytes": 120161248,
+    "rows_to_compute": 727305,
+    "storage_sql": null,
+    "residual_sql": "SELECT o_orderkey, o_orderpriority FROM (SELECT o_orderkey, o_orderpriority, o_orderdate FROM t) AS s WHERE o_orderdate < DATE '1995-03-15'"
+   }
+  },
+  "correct": true,
+  "net_mbit": 1000.0,
+  "media_mbps": 500.0,
+  "storage_threads": 2,
+  "stage": "join",
+  "label": null,
+  "rep": 1,
+  "order": 0
+ },
+ {
+  "cfg": "JOIN:filter",
+  "query": "tpch_join",
+  "table": "lineitem+orders",
+  "mode": "filter",
+  "max_splits": null,
+  "ipc": false,
+  "time_s": 1.3543452379999508,
+  "wire_bytes": 144785940,
+  "payload_bytes": 144509032,
+  "timings": {
+   "join": 0.011537954998857458,
+   "branch_l": 1.188758415999473,
+   "branch_o": 0.15091782299896295
+  },
+  "storage": {
+   "media_bytes": 123804243
+  },
+  "started": 1791694586.2551305,
+  "ended": 1791694587.6094904,
+  "branches": {
+   "l": {
+    "mode": "filter",
+    "k": 1,
+    "agg_complete": false,
+    "time_s": 1.188758415999473,
+    "wire_bytes": 129910720,
+    "rows_to_compute": 3241776,
+    "storage_sql": "SELECT l_orderkey, l_extendedprice, l_discount FROM (SELECT l_orderkey, l_extendedprice, l_discount, l_shipdate FROM t) AS s WHERE l_shipdate > DATE '1995-03-15'",
+    "residual_sql": "SELECT l_orderkey, sum(rev) AS revenue FROM (SELECT l_orderkey AS l_orderkey, l_extendedprice * (1 - l_discount) AS rev FROM (SELECT * FROM t) AS s) AS s GROUP BY l_orderkey"
+   },
+   "o": {
+    "mode": "filter",
+    "k": 1,
+    "agg_complete": true,
+    "time_s": 0.15091782299896295,
+    "wire_bytes": 14875220,
+    "rows_to_compute": 727305,
+    "storage_sql": "SELECT o_orderkey, o_orderpriority FROM (SELECT o_orderkey, o_orderpriority, o_orderdate FROM t) AS s WHERE o_orderdate < DATE '1995-03-15'",
+    "residual_sql": "SELECT * FROM t"
+   }
+  },
+  "correct": true,
+  "net_mbit": 1000.0,
+  "media_mbps": 500.0,
+  "storage_threads": 2,
+  "stage": "join",
+  "label": null,
+  "rep": 1,
+  "order": 1
+ },
+ {
+  "cfg": "JOIN:all",
+  "query": "tpch_join",
+  "table": "lineitem+orders",
+  "mode": "all",
+  "max_splits": null,
+  "ipc": false,
+  "time_s": 0.4675028009987727,
+  "wire_bytes": 34850052,
+  "payload_bytes": 34756984,
+  "timings": {
+   "join": 0.013678082999831531,
+   "branch_l": 0.29198597699905804,
+   "branch_o": 0.15976878900073643
+  },
+  "storage": {
+   "media_bytes": 123804243
+  },
+  "started": 1791694587.6117496,
+  "ended": 1791694588.0792658,
+  "branches": {
+   "l": {
+    "mode": "filter+proj+aggr",
+    "k": 3,
+    "agg_complete": false,
+    "time_s": 0.29198597699905804,
+    "wire_bytes": 19975027,
+    "rows_to_compute": 829958,
+    "storage_sql": "SELECT l_orderkey, sum(rev) AS revenue FROM (SELECT l_orderkey AS l_orderkey, l_extendedprice * (1 - l_discount) AS rev FROM (SELECT l_orderkey, l_extendedprice, l_discount FROM (SELECT l_orderkey, l_extendedprice, l_discount, l_shipdate FROM t) AS s WHERE l_shipdate > DATE '1995-03-15') AS s) AS s GROUP BY l_orderkey",
+    "residual_sql": "SELECT l_orderkey, sum(revenue) AS revenue FROM (SELECT * FROM t) AS s GROUP BY l_orderkey"
+   },
+   "o": {
+    "mode": "filter",
+    "k": 1,
+    "agg_complete": true,
+    "time_s": 0.15976878900073643,
+    "wire_bytes": 14875025,
+    "rows_to_compute": 727305,
+    "storage_sql": "SELECT o_orderkey, o_orderpriority FROM (SELECT o_orderkey, o_orderpriority, o_orderdate FROM t) AS s WHERE o_orderdate < DATE '1995-03-15'",
+    "residual_sql": "SELECT * FROM t"
+   }
+  },
+  "correct": true,
+  "net_mbit": 1000.0,
+  "media_mbps": 500.0,
+  "storage_threads": 2,
+  "stage": "join",
+  "label": null,
+  "rep": 1,
+  "order": 2
+ },
+ {
+  "cfg": "JOIN:none",
+  "query": "tpch_join",
+  "table": "lineitem+orders",
+  "mode": "none",
+  "max_splits": null,
+  "ipc": false,
+  "time_s": 4.592314653000358,
+  "wire_bytes": 506844510,
+  "payload_bytes": 506210359,
+  "timings": {
+   "join": 0.01251895799941849,
+   "branch_l": 3.4601397160004126,
+   "branch_o": 1.1171095780009637
+  },
+  "storage": {
+   "media_bytes": 506210359
+  },
+  "started": 1791694588.0893915,
+  "ended": 1791694592.6817214,
+  "branches": {
+   "l": {
+    "mode": "none",
+    "k": 0,
+    "agg_complete": false,
+    "time_s": 3.4601397160004126,
+    "wire_bytes": 386680852,
+    "rows_to_compute": 829958,
+    "storage_sql": null,
+    "residual_sql": "SELECT l_orderkey, sum(rev) AS revenue FROM (SELECT l_orderkey AS l_orderkey, l_extendedprice * (1 - l_discount) AS rev FROM (SELECT l_orderkey, l_extendedprice, l_discount FROM (SELECT l_orderkey, l_extendedprice, l_discount, l_shipdate FROM t) AS s WHERE l_shipdate > DATE '1995-03-15') AS s) AS s GROUP BY l_orderkey"
+   },
+   "o": {
+    "mode": "none",
+    "k": 0,
+    "agg_complete": true,
+    "time_s": 1.1171095780009637,
+    "wire_bytes": 120163658,
+    "rows_to_compute": 727305,
+    "storage_sql": null,
+    "residual_sql": "SELECT o_orderkey, o_orderpriority FROM (SELECT o_orderkey, o_orderpriority, o_orderdate FROM t) AS s WHERE o_orderdate < DATE '1995-03-15'"
+   }
+  },
+  "correct": true,
+  "net_mbit": 1000.0,
+  "media_mbps": 500.0,
+  "storage_threads": 2,
+  "stage": "join",
+  "label": null,
+  "rep": 2,
+  "order": 0
+ },
+ {
+  "cfg": "JOIN:filter",
+  "query": "tpch_join",
+  "table": "lineitem+orders",
+  "mode": "filter",
+  "max_splits": null,
+  "ipc": false,
+  "time_s": 1.3671220340002037,
+  "wire_bytes": 144783475,
+  "payload_bytes": 144509032,
+  "timings": {
+   "join": 0.012052658999891719,
+   "branch_l": 1.19305700500081,
+   "branch_o": 0.1588833629994042
+  },
+  "storage": {
+   "media_bytes": 123804243
+  },
+  "started": 1791694592.6835043,
+  "ended": 1791694594.0506406,
+  "branches": {
+   "l": {
+    "mode": "filter",
+    "k": 1,
+    "agg_complete": false,
+    "time_s": 1.19305700500081,
+    "wire_bytes": 129908054,
+    "rows_to_compute": 3241776,
+    "storage_sql": "SELECT l_orderkey, l_extendedprice, l_discount FROM (SELECT l_orderkey, l_extendedprice, l_discount, l_shipdate FROM t) AS s WHERE l_shipdate > DATE '1995-03-15'",
+    "residual_sql": "SELECT l_orderkey, sum(rev) AS revenue FROM (SELECT l_orderkey AS l_orderkey, l_extendedprice * (1 - l_discount) AS rev FROM (SELECT * FROM t) AS s) AS s GROUP BY l_orderkey"
+   },
+   "o": {
+    "mode": "filter",
+    "k": 1,
+    "agg_complete": true,
+    "time_s": 0.1588833629994042,
+    "wire_bytes": 14875421,
+    "rows_to_compute": 727305,
+    "storage_sql": "SELECT o_orderkey, o_orderpriority FROM (SELECT o_orderkey, o_orderpriority, o_orderdate FROM t) AS s WHERE o_orderdate < DATE '1995-03-15'",
+    "residual_sql": "SELECT * FROM t"
+   }
+  },
+  "correct": true,
+  "net_mbit": 1000.0,
+  "media_mbps": 500.0,
+  "storage_threads": 2,
+  "stage": "join",
+  "label": null,
+  "rep": 2,
+  "order": 1
+ },
+ {
+  "cfg": "JOIN:all",
+  "query": "tpch_join",
+  "table": "lineitem+orders",
+  "mode": "all",
+  "max_splits": null,
+  "ipc": false,
+  "time_s": 0.46754640100152756,
+  "wire_bytes": 34852587,
+  "payload_bytes": 34756984,
+  "timings": {
+   "join": 0.013348336000490235,
+   "branch_l": 0.29195909700138145,
+   "branch_o": 0.16017657500015048
+  },
+  "storage": {
+   "media_bytes": 123804243
+  },
+  "started": 1791694594.0528169,
+  "ended": 1791694594.5203774,
+  "branches": {
+   "l": {
+    "mode": "filter+proj+aggr",
+    "k": 3,
+    "agg_complete": false,
+    "time_s": 0.29195909700138145,
+    "wire_bytes": 19977034,
+    "rows_to_compute": 829958,
+    "storage_sql": "SELECT l_orderkey, sum(rev) AS revenue FROM (SELECT l_orderkey AS l_orderkey, l_extendedprice * (1 - l_discount) AS rev FROM (SELECT l_orderkey, l_extendedprice, l_discount FROM (SELECT l_orderkey, l_extendedprice, l_discount, l_shipdate FROM t) AS s WHERE l_shipdate > DATE '1995-03-15') AS s) AS s GROUP BY l_orderkey",
+    "residual_sql": "SELECT l_orderkey, sum(revenue) AS revenue FROM (SELECT * FROM t) AS s GROUP BY l_orderkey"
+   },
+   "o": {
+    "mode": "filter",
+    "k": 1,
+    "agg_complete": true,
+    "time_s": 0.16017657500015048,
+    "wire_bytes": 14875553,
+    "rows_to_compute": 727305,
+    "storage_sql": "SELECT o_orderkey, o_orderpriority FROM (SELECT o_orderkey, o_orderpriority, o_orderdate FROM t) AS s WHERE o_orderdate < DATE '1995-03-15'",
+    "residual_sql": "SELECT * FROM t"
+   }
+  },
+  "correct": true,
+  "net_mbit": 1000.0,
+  "media_mbps": 500.0,
+  "storage_threads": 2,
+  "stage": "join",
+  "label": null,
+  "rep": 2,
+  "order": 2
+ },
+ {
+  "cfg": "JOIN:all",
+  "query": "tpch_join",
+  "table": "lineitem+orders",
+  "mode": "all",
+  "max_splits": null,
+  "ipc": false,
+  "time_s": 0.4539275089991861,
+  "wire_bytes": 34850295,
+  "payload_bytes": 34756984,
+  "timings": {
+   "join": 0.013514039999790839,
+   "branch_l": 0.28744130700033566,
+   "branch_o": 0.15061911300108477
+  },
+  "storage": {
+   "media_bytes": 123804243
+  },
+  "started": 1791694594.5295463,
+  "ended": 1791694594.9834862,
+  "branches": {
+   "l": {
+    "mode": "filter+proj+aggr",
+    "k": 3,
+    "agg_complete": false,
+    "time_s": 0.28744130700033566,
+    "wire_bytes": 19974857,
+    "rows_to_compute": 829958,
+    "storage_sql": "SELECT l_orderkey, sum(rev) AS revenue FROM (SELECT l_orderkey AS l_orderkey, l_extendedprice * (1 - l_discount) AS rev FROM (SELECT l_orderkey, l_extendedprice, l_discount FROM (SELECT l_orderkey, l_extendedprice, l_discount, l_shipdate FROM t) AS s WHERE l_shipdate > DATE '1995-03-15') AS s) AS s GROUP BY l_orderkey",
+    "residual_sql": "SELECT l_orderkey, sum(revenue) AS revenue FROM (SELECT * FROM t) AS s GROUP BY l_orderkey"
+   },
+   "o": {
+    "mode": "filter",
+    "k": 1,
+    "agg_complete": true,
+    "time_s": 0.15061911300108477,
+    "wire_bytes": 14875438,
+    "rows_to_compute": 727305,
+    "storage_sql": "SELECT o_orderkey, o_orderpriority FROM (SELECT o_orderkey, o_orderpriority, o_orderdate FROM t) AS s WHERE o_orderdate < DATE '1995-03-15'",
+    "residual_sql": "SELECT * FROM t"
+   }
+  },
+  "correct": true,
+  "net_mbit": 1000.0,
+  "media_mbps": 500.0,
+  "storage_threads": 2,
+  "stage": "join",
+  "label": null,
+  "rep": 3,
+  "order": 0
+ },
+ {
+  "cfg": "JOIN:none",
+  "query": "tpch_join",
+  "table": "lineitem+orders",
+  "mode": "none",
+  "max_splits": null,
+  "ipc": false,
+  "time_s": 4.574694598999486,
+  "wire_bytes": 506844243,
+  "payload_bytes": 506210359,
+  "timings": {
+   "join": 0.012189765999210067,
+   "branch_l": 3.445432095000797,
+   "branch_o": 1.115058888999556
+  },
+  "storage": {
+   "media_bytes": 506210359
+  },
+  "started": 1791694594.985607,
+  "ended": 1791694599.560316,
+  "branches": {
+   "l": {
+    "mode": "none",
+    "k": 0,
+    "agg_complete": false,
+    "time_s": 3.445432095000797,
+    "wire_bytes": 386681275,
+    "rows_to_compute": 829958,
+    "storage_sql": null,
+    "residual_sql": "SELECT l_orderkey, sum(rev) AS revenue FROM (SELECT l_orderkey AS l_orderkey, l_extendedprice * (1 - l_discount) AS rev FROM (SELECT l_orderkey, l_extendedprice, l_discount FROM (SELECT l_orderkey, l_extendedprice, l_discount, l_shipdate FROM t) AS s WHERE l_shipdate > DATE '1995-03-15') AS s) AS s GROUP BY l_orderkey"
+   },
+   "o": {
+    "mode": "none",
+    "k": 0,
+    "agg_complete": true,
+    "time_s": 1.115058888999556,
+    "wire_bytes": 120162968,
+    "rows_to_compute": 727305,
+    "storage_sql": null,
+    "residual_sql": "SELECT o_orderkey, o_orderpriority FROM (SELECT o_orderkey, o_orderpriority, o_orderdate FROM t) AS s WHERE o_orderdate < DATE '1995-03-15'"
+   }
+  },
+  "correct": true,
+  "net_mbit": 1000.0,
+  "media_mbps": 500.0,
+  "storage_threads": 2,
+  "stage": "join",
+  "label": null,
+  "rep": 3,
+  "order": 1
+ },
+ {
+  "cfg": "JOIN:filter",
+  "query": "tpch_join",
+  "table": "lineitem+orders",
+  "mode": "filter",
+  "max_splits": null,
+  "ipc": false,
+  "time_s": 1.3640768160003063,
+  "wire_bytes": 144783132,
+  "payload_bytes": 144509032,
+  "timings": {
+   "join": 0.013471013999151182,
+   "branch_l": 1.1953111889997672,
+   "branch_o": 0.15234116899955552
+  },
+  "storage": {
+   "media_bytes": 123804243
+  },
+  "started": 1791694599.562139,
+  "ended": 1791694600.9262307,
+  "branches": {
+   "l": {
+    "mode": "filter",
+    "k": 1,
+    "agg_complete": false,
+    "time_s": 1.1953111889997672,
+    "wire_bytes": 129907845,
+    "rows_to_compute": 3241776,
+    "storage_sql": "SELECT l_orderkey, l_extendedprice, l_discount FROM (SELECT l_orderkey, l_extendedprice, l_discount, l_shipdate FROM t) AS s WHERE l_shipdate > DATE '1995-03-15'",
+    "residual_sql": "SELECT l_orderkey, sum(rev) AS revenue FROM (SELECT l_orderkey AS l_orderkey, l_extendedprice * (1 - l_discount) AS rev FROM (SELECT * FROM t) AS s) AS s GROUP BY l_orderkey"
+   },
+   "o": {
+    "mode": "filter",
+    "k": 1,
+    "agg_complete": true,
+    "time_s": 0.15234116899955552,
+    "wire_bytes": 14875287,
+    "rows_to_compute": 727305,
+    "storage_sql": "SELECT o_orderkey, o_orderpriority FROM (SELECT o_orderkey, o_orderpriority, o_orderdate FROM t) AS s WHERE o_orderdate < DATE '1995-03-15'",
+    "residual_sql": "SELECT * FROM t"
+   }
+  },
+  "correct": true,
+  "net_mbit": 1000.0,
+  "media_mbps": 500.0,
+  "storage_threads": 2,
+  "stage": "join",
+  "label": null,
+  "rep": 3,
+  "order": 2
+ },
+ {
+  "cfg": "JOIN:all",
+  "query": "tpch_join",
+  "table": "lineitem+orders",
+  "mode": "all",
+  "max_splits": null,
+  "ipc": false,
+  "time_s": 0.45822943299936014,
+  "wire_bytes": 34870504,
+  "payload_bytes": 34756984,
+  "timings": {
+   "join": 0.01401401499970234,
+   "branch_l": 0.2910768959991401,
+   "branch_o": 0.15066259500054002
+  },
+  "storage": {
+   "media_bytes": 123804243
+  },
+  "started": 1791694600.9367685,
+  "ended": 1791694601.3950107,
+  "branches": {
+   "l": {
+    "mode": "filter+proj+aggr",
+    "k": 3,
+    "agg_complete": false,
+    "time_s": 0.2910768959991401,
+    "wire_bytes": 19991452,
+    "rows_to_compute": 829958,
+    "storage_sql": "SELECT l_orderkey, sum(rev) AS revenue FROM (SELECT l_orderkey AS l_orderkey, l_extendedprice * (1 - l_discount) AS rev FROM (SELECT l_orderkey, l_extendedprice, l_discount FROM (SELECT l_orderkey, l_extendedprice, l_discount, l_shipdate FROM t) AS s WHERE l_shipdate > DATE '1995-03-15') AS s) AS s GROUP BY l_orderkey",
+    "residual_sql": "SELECT l_orderkey, sum(revenue) AS revenue FROM (SELECT * FROM t) AS s GROUP BY l_orderkey"
+   },
+   "o": {
+    "mode": "filter",
+    "k": 1,
+    "agg_complete": true,
+    "time_s": 0.15066259500054002,
+    "wire_bytes": 14879052,
+    "rows_to_compute": 727305,
+    "storage_sql": "SELECT o_orderkey, o_orderpriority FROM (SELECT o_orderkey, o_orderpriority, o_orderdate FROM t) AS s WHERE o_orderdate < DATE '1995-03-15'",
+    "residual_sql": "SELECT * FROM t"
+   }
+  },
+  "correct": true,
+  "net_mbit": 1000.0,
+  "media_mbps": 500.0,
+  "storage_threads": 2,
+  "stage": "join",
+  "label": null,
+  "rep": 4,
+  "order": 0
+ },
+ {
+  "cfg": "JOIN:none",
+  "query": "tpch_join",
+  "table": "lineitem+orders",
+  "mode": "none",
+  "max_splits": null,
+  "ipc": false,
+  "time_s": 4.538222922999921,
+  "wire_bytes": 506847001,
+  "payload_bytes": 506210359,
+  "timings": {
+   "join": 0.013121304999003769,
+   "branch_l": 3.4235657659992285,
+   "branch_o": 1.0994977419995848
+  },
+  "storage": {
+   "media_bytes": 506210359
+  },
+  "started": 1791694601.3970172,
+  "ended": 1791694605.9352577,
+  "branches": {
+   "l": {
+    "mode": "none",
+    "k": 0,
+    "agg_complete": false,
+    "time_s": 3.4235657659992285,
+    "wire_bytes": 386685096,
+    "rows_to_compute": 829958,
+    "storage_sql": null,
+    "residual_sql": "SELECT l_orderkey, sum(rev) AS revenue FROM (SELECT l_orderkey AS l_orderkey, l_extendedprice * (1 - l_discount) AS rev FROM (SELECT l_orderkey, l_extendedprice, l_discount FROM (SELECT l_orderkey, l_extendedprice, l_discount, l_shipdate FROM t) AS s WHERE l_shipdate > DATE '1995-03-15') AS s) AS s GROUP BY l_orderkey"
+   },
+   "o": {
+    "mode": "none",
+    "k": 0,
+    "agg_complete": true,
+    "time_s": 1.0994977419995848,
+    "wire_bytes": 120161905,
+    "rows_to_compute": 727305,
+    "storage_sql": null,
+    "residual_sql": "SELECT o_orderkey, o_orderpriority FROM (SELECT o_orderkey, o_orderpriority, o_orderdate FROM t) AS s WHERE o_orderdate < DATE '1995-03-15'"
+   }
+  },
+  "correct": true,
+  "net_mbit": 1000.0,
+  "media_mbps": 500.0,
+  "storage_threads": 2,
+  "stage": "join",
+  "label": null,
+  "rep": 4,
+  "order": 1
+ },
+ {
+  "cfg": "JOIN:filter",
+  "query": "tpch_join",
+  "table": "lineitem+orders",
+  "mode": "filter",
+  "max_splits": null,
+  "ipc": false,
+  "time_s": 1.3684741890010628,
+  "wire_bytes": 144787695,
+  "payload_bytes": 144509032,
+  "timings": {
+   "join": 0.012060143999406137,
+   "branch_l": 1.2020067249995918,
+   "branch_o": 0.1512042169997585
+  },
+  "storage": {
+   "media_bytes": 123804243
+  },
+  "started": 1791694605.9370716,
+  "ended": 1791694607.3055599,
+  "branches": {
+   "l": {
+    "mode": "filter",
+    "k": 1,
+    "agg_complete": false,
+    "time_s": 1.2020067249995918,
+    "wire_bytes": 129908776,
+    "rows_to_compute": 3241776,
+    "storage_sql": "SELECT l_orderkey, l_extendedprice, l_discount FROM (SELECT l_orderkey, l_extendedprice, l_discount, l_shipdate FROM t) AS s WHERE l_shipdate > DATE '1995-03-15'",
+    "residual_sql": "SELECT l_orderkey, sum(rev) AS revenue FROM (SELECT l_orderkey AS l_orderkey, l_extendedprice * (1 - l_discount) AS rev FROM (SELECT * FROM t) AS s) AS s GROUP BY l_orderkey"
+   },
+   "o": {
+    "mode": "filter",
+    "k": 1,
+    "agg_complete": true,
+    "time_s": 0.1512042169997585,
+    "wire_bytes": 14878919,
+    "rows_to_compute": 727305,
+    "storage_sql": "SELECT o_orderkey, o_orderpriority FROM (SELECT o_orderkey, o_orderpriority, o_orderdate FROM t) AS s WHERE o_orderdate < DATE '1995-03-15'",
+    "residual_sql": "SELECT * FROM t"
+   }
+  },
+  "correct": true,
+  "net_mbit": 1000.0,
+  "media_mbps": 500.0,
+  "storage_threads": 2,
+  "stage": "join",
+  "label": null,
+  "rep": 4,
+  "order": 2
+ },
+ {
+  "cfg": "JOIN:filter",
+  "query": "tpch_join",
+  "table": "lineitem+orders",
+  "mode": "filter",
+  "max_splits": null,
+  "ipc": false,
+  "time_s": 1.3610313150002185,
+  "wire_bytes": 144784657,
+  "payload_bytes": 144509032,
+  "timings": {
+   "join": 0.013369332998991013,
+   "branch_l": 1.1911366049989738,
+   "branch_o": 0.15317389099982393
+  },
+  "storage": {
+   "media_bytes": 123804243
+  },
+  "started": 1791694607.316295,
+  "ended": 1791694608.6773772,
+  "branches": {
+   "l": {
+    "mode": "filter",
+    "k": 1,
+    "agg_complete": false,
+    "time_s": 1.1911366049989738,
+    "wire_bytes": 129909634,
+    "rows_to_compute": 3241776,
+    "storage_sql": "SELECT l_orderkey, l_extendedprice, l_discount FROM (SELECT l_orderkey, l_extendedprice, l_discount, l_shipdate FROM t) AS s WHERE l_shipdate > DATE '1995-03-15'",
+    "residual_sql": "SELECT l_orderkey, sum(rev) AS revenue FROM (SELECT l_orderkey AS l_orderkey, l_extendedprice * (1 - l_discount) AS rev FROM (SELECT * FROM t) AS s) AS s GROUP BY l_orderkey"
+   },
+   "o": {
+    "mode": "filter",
+    "k": 1,
+    "agg_complete": true,
+    "time_s": 0.15317389099982393,
+    "wire_bytes": 14875023,
+    "rows_to_compute": 727305,
+    "storage_sql": "SELECT o_orderkey, o_orderpriority FROM (SELECT o_orderkey, o_orderpriority, o_orderdate FROM t) AS s WHERE o_orderdate < DATE '1995-03-15'",
+    "residual_sql": "SELECT * FROM t"
+   }
+  },
+  "correct": true,
+  "net_mbit": 1000.0,
+  "media_mbps": 500.0,
+  "storage_threads": 2,
+  "stage": "join",
+  "label": null,
+  "rep": 5,
+  "order": 0
+ },
+ {
+  "cfg": "JOIN:none",
+  "query": "tpch_join",
+  "table": "lineitem+orders",
+  "mode": "none",
+  "max_splits": null,
+  "ipc": false,
+  "time_s": 4.529695802999413,
+  "wire_bytes": 506837658,
+  "payload_bytes": 506210359,
+  "timings": {
+   "join": 0.011652736000542063,
+   "branch_l": 3.4283183550014655,
+   "branch_o": 1.0877222180006356
+  },
+  "storage": {
+   "media_bytes": 506210359
+  },
+  "started": 1791694608.6800802,
+  "ended": 1791694613.209791,
+  "branches": {
+   "l": {
+    "mode": "none",
+    "k": 0,
+    "agg_complete": false,
+    "time_s": 3.4283183550014655,
+    "wire_bytes": 386682589,
+    "rows_to_compute": 829958,
+    "storage_sql": null,
+    "residual_sql": "SELECT l_orderkey, sum(rev) AS revenue FROM (SELECT l_orderkey AS l_orderkey, l_extendedprice * (1 - l_discount) AS rev FROM (SELECT l_orderkey, l_extendedprice, l_discount FROM (SELECT l_orderkey, l_extendedprice, l_discount, l_shipdate FROM t) AS s WHERE l_shipdate > DATE '1995-03-15') AS s) AS s GROUP BY l_orderkey"
+   },
+   "o": {
+    "mode": "none",
+    "k": 0,
+    "agg_complete": true,
+    "time_s": 1.0877222180006356,
+    "wire_bytes": 120155069,
+    "rows_to_compute": 727305,
+    "storage_sql": null,
+    "residual_sql": "SELECT o_orderkey, o_orderpriority FROM (SELECT o_orderkey, o_orderpriority, o_orderdate FROM t) AS s WHERE o_orderdate < DATE '1995-03-15'"
+   }
+  },
+  "correct": true,
+  "net_mbit": 1000.0,
+  "media_mbps": 500.0,
+  "storage_threads": 2,
+  "stage": "join",
+  "label": null,
+  "rep": 5,
+  "order": 1
+ },
+ {
+  "cfg": "JOIN:all",
+  "query": "tpch_join",
+  "table": "lineitem+orders",
+  "mode": "all",
+  "max_splits": null,
+  "ipc": false,
+  "time_s": 0.4557844009996188,
+  "wire_bytes": 34854037,
+  "payload_bytes": 34756984,
+  "timings": {
+   "join": 0.015123441999094211,
+   "branch_l": 0.2853351079993445,
+   "branch_o": 0.15323463000095217
+  },
+  "storage": {
+   "media_bytes": 123804243
+  },
+  "started": 1791694613.2115428,
+  "ended": 1791694613.6673422,
+  "branches": {
+   "l": {
+    "mode": "filter+proj+aggr",
+    "k": 3,
+    "agg_complete": false,
+    "time_s": 0.2853351079993445,
+    "wire_bytes": 19974394,
+    "rows_to_compute": 829958,
+    "storage_sql": "SELECT l_orderkey, sum(rev) AS revenue FROM (SELECT l_orderkey AS l_orderkey, l_extendedprice * (1 - l_discount) AS rev FROM (SELECT l_orderkey, l_extendedprice, l_discount FROM (SELECT l_orderkey, l_extendedprice, l_discount, l_shipdate FROM t) AS s WHERE l_shipdate > DATE '1995-03-15') AS s) AS s GROUP BY l_orderkey",
+    "residual_sql": "SELECT l_orderkey, sum(revenue) AS revenue FROM (SELECT * FROM t) AS s GROUP BY l_orderkey"
+   },
+   "o": {
+    "mode": "filter",
+    "k": 1,
+    "agg_complete": true,
+    "time_s": 0.15323463000095217,
+    "wire_bytes": 14879643,
+    "rows_to_compute": 727305,
+    "storage_sql": "SELECT o_orderkey, o_orderpriority FROM (SELECT o_orderkey, o_orderpriority, o_orderdate FROM t) AS s WHERE o_orderdate < DATE '1995-03-15'",
+    "residual_sql": "SELECT * FROM t"
+   }
+  },
+  "correct": true,
+  "net_mbit": 1000.0,
+  "media_mbps": 500.0,
+  "storage_threads": 2,
+  "stage": "join",
+  "label": null,
+  "rep": 5,
+  "order": 2
+ },
+ {
+  "cfg": "JOIN:filter",
+  "query": "tpch_join",
+  "table": "lineitem+orders",
+  "mode": "filter",
+  "max_splits": null,
+  "ipc": false,
+  "time_s": 1.3704818540009,
+  "wire_bytes": 144856792,
+  "payload_bytes": 144509032,
+  "timings": {
+   "join": 0.012991695000891923,
+   "branch_l": 1.203233027999886,
+   "branch_o": 0.1505573699996603
+  },
+  "storage": {
+   "media_bytes": 123804243
+  },
+  "started": 1791694613.6790385,
+  "ended": 1791694615.0480783,
+  "branches": {
+   "l": {
+    "mode": "filter",
+    "k": 1,
+    "agg_complete": false,
+    "time_s": 1.203233027999886,
+    "wire_bytes": 129973682,
+    "rows_to_compute": 3241776,
+    "storage_sql": "SELECT l_orderkey, l_extendedprice, l_discount FROM (SELECT l_orderkey, l_extendedprice, l_discount, l_shipdate FROM t) AS s WHERE l_shipdate > DATE '1995-03-15'",
+    "residual_sql": "SELECT l_orderkey, sum(rev) AS revenue FROM (SELECT l_orderkey AS l_orderkey, l_extendedprice * (1 - l_discount) AS rev FROM (SELECT * FROM t) AS s) AS s GROUP BY l_orderkey"
+   },
+   "o": {
+    "mode": "filter",
+    "k": 1,
+    "agg_complete": true,
+    "time_s": 0.1505573699996603,
+    "wire_bytes": 14883110,
+    "rows_to_compute": 727305,
+    "storage_sql": "SELECT o_orderkey, o_orderpriority FROM (SELECT o_orderkey, o_orderpriority, o_orderdate FROM t) AS s WHERE o_orderdate < DATE '1995-03-15'",
+    "residual_sql": "SELECT * FROM t"
+   }
+  },
+  "correct": true,
+  "net_mbit": 1000.0,
+  "media_mbps": 500.0,
+  "storage_threads": 2,
+  "stage": "join",
+  "label": null,
+  "rep": 6,
+  "order": 0
+ },
+ {
+  "cfg": "JOIN:all",
+  "query": "tpch_join",
+  "table": "lineitem+orders",
+  "mode": "all",
+  "max_splits": null,
+  "ipc": false,
+  "time_s": 0.4621318829995289,
+  "wire_bytes": 34854060,
+  "payload_bytes": 34756984,
+  "timings": {
+   "join": 0.014673544999823207,
+   "branch_l": 0.2914017380007863,
+   "branch_o": 0.15399238799909654
+  },
+  "storage": {
+   "media_bytes": 123804243
+  },
+  "started": 1791694615.0502603,
+  "ended": 1791694615.5124073,
+  "branches": {
+   "l": {
+    "mode": "filter+proj+aggr",
+    "k": 3,
+    "agg_complete": false,
+    "time_s": 0.2914017380007863,
+    "wire_bytes": 19978639,
+    "rows_to_compute": 829958,
+    "storage_sql": "SELECT l_orderkey, sum(rev) AS revenue FROM (SELECT l_orderkey AS l_orderkey, l_extendedprice * (1 - l_discount) AS rev FROM (SELECT l_orderkey, l_extendedprice, l_discount FROM (SELECT l_orderkey, l_extendedprice, l_discount, l_shipdate FROM t) AS s WHERE l_shipdate > DATE '1995-03-15') AS s) AS s GROUP BY l_orderkey",
+    "residual_sql": "SELECT l_orderkey, sum(revenue) AS revenue FROM (SELECT * FROM t) AS s GROUP BY l_orderkey"
+   },
+   "o": {
+    "mode": "filter",
+    "k": 1,
+    "agg_complete": true,
+    "time_s": 0.15399238799909654,
+    "wire_bytes": 14875421,
+    "rows_to_compute": 727305,
+    "storage_sql": "SELECT o_orderkey, o_orderpriority FROM (SELECT o_orderkey, o_orderpriority, o_orderdate FROM t) AS s WHERE o_orderdate < DATE '1995-03-15'",
+    "residual_sql": "SELECT * FROM t"
+   }
+  },
+  "correct": true,
+  "net_mbit": 1000.0,
+  "media_mbps": 500.0,
+  "storage_threads": 2,
+  "stage": "join",
+  "label": null,
+  "rep": 6,
+  "order": 1
+ },
+ {
+  "cfg": "JOIN:none",
+  "query": "tpch_join",
+  "table": "lineitem+orders",
+  "mode": "none",
+  "max_splits": null,
+  "ipc": false,
+  "time_s": 4.582493521000288,
+  "wire_bytes": 506842602,
+  "payload_bytes": 506210359,
+  "timings": {
+   "join": 0.011916980000023614,
+   "branch_l": 3.4642505339998024,
+   "branch_o": 1.1042062479991728
+  },
+  "storage": {
+   "media_bytes": 506210359
+  },
+  "started": 1791694615.5145423,
+  "ended": 1791694620.097051,
+  "branches": {
+   "l": {
+    "mode": "none",
+    "k": 0,
+    "agg_complete": false,
+    "time_s": 3.4642505339998024,
+    "wire_bytes": 386679408,
+    "rows_to_compute": 829958,
+    "storage_sql": null,
+    "residual_sql": "SELECT l_orderkey, sum(rev) AS revenue FROM (SELECT l_orderkey AS l_orderkey, l_extendedprice * (1 - l_discount) AS rev FROM (SELECT l_orderkey, l_extendedprice, l_discount FROM (SELECT l_orderkey, l_extendedprice, l_discount, l_shipdate FROM t) AS s WHERE l_shipdate > DATE '1995-03-15') AS s) AS s GROUP BY l_orderkey"
+   },
+   "o": {
+    "mode": "none",
+    "k": 0,
+    "agg_complete": true,
+    "time_s": 1.1042062479991728,
+    "wire_bytes": 120163194,
+    "rows_to_compute": 727305,
+    "storage_sql": null,
+    "residual_sql": "SELECT o_orderkey, o_orderpriority FROM (SELECT o_orderkey, o_orderpriority, o_orderdate FROM t) AS s WHERE o_orderdate < DATE '1995-03-15'"
+   }
+  },
+  "correct": true,
+  "net_mbit": 1000.0,
+  "media_mbps": 500.0,
+  "storage_threads": 2,
+  "stage": "join",
+  "label": null,
+  "rep": 6,
+  "order": 2
+ },
+ {
+  "cfg": "JOIN:none",
+  "query": "tpch_join",
+  "table": "lineitem+orders",
+  "mode": "none",
+  "max_splits": null,
+  "ipc": false,
+  "time_s": 4.560337795001033,
+  "wire_bytes": 506849515,
+  "payload_bytes": 506210359,
+  "timings": {
+   "join": 0.012756595999235287,
+   "branch_l": 3.426274678000482,
+   "branch_o": 1.1130102039987833
+  },
+  "storage": {
+   "media_bytes": 506210359
+  },
+  "started": 1791694620.1076844,
+  "ended": 1791694624.668037,
+  "branches": {
+   "l": {
+    "mode": "none",
+    "k": 0,
+    "agg_complete": false,
+    "time_s": 3.426274678000482,
+    "wire_bytes": 386684632,
+    "rows_to_compute": 829958,
+    "storage_sql": null,
+    "residual_sql": "SELECT l_orderkey, sum(rev) AS revenue FROM (SELECT l_orderkey AS l_orderkey, l_extendedprice * (1 - l_discount) AS rev FROM (SELECT l_orderkey, l_extendedprice, l_discount FROM (SELECT l_orderkey, l_extendedprice, l_discount, l_shipdate FROM t) AS s WHERE l_shipdate > DATE '1995-03-15') AS s) AS s GROUP BY l_orderkey"
+   },
+   "o": {
+    "mode": "none",
+    "k": 0,
+    "agg_complete": true,
+    "time_s": 1.1130102039987833,
+    "wire_bytes": 120164883,
+    "rows_to_compute": 727305,
+    "storage_sql": null,
+    "residual_sql": "SELECT o_orderkey, o_orderpriority FROM (SELECT o_orderkey, o_orderpriority, o_orderdate FROM t) AS s WHERE o_orderdate < DATE '1995-03-15'"
+   }
+  },
+  "correct": true,
+  "net_mbit": 1000.0,
+  "media_mbps": 500.0,
+  "storage_threads": 2,
+  "stage": "join",
+  "label": null,
+  "rep": 7,
+  "order": 0
+ },
+ {
+  "cfg": "JOIN:all",
+  "query": "tpch_join",
+  "table": "lineitem+orders",
+  "mode": "all",
+  "max_splits": null,
+  "ipc": false,
+  "time_s": 0.45994778200110886,
+  "wire_bytes": 34850610,
+  "payload_bytes": 34756984,
+  "timings": {
+   "join": 0.013280350000059116,
+   "branch_l": 0.2932832540009258,
+   "branch_o": 0.15130645299905154
+  },
+  "storage": {
+   "media_bytes": 123804243
+  },
+  "started": 1791694624.6697354,
+  "ended": 1791694625.1296964,
+  "branches": {
+   "l": {
+    "mode": "filter+proj+aggr",
+    "k": 3,
+    "agg_complete": false,
+    "time_s": 0.2932832540009258,
+    "wire_bytes": 19974728,
+    "rows_to_compute": 829958,
+    "storage_sql": "SELECT l_orderkey, sum(rev) AS revenue FROM (SELECT l_orderkey AS l_orderkey, l_extendedprice * (1 - l_discount) AS rev FROM (SELECT l_orderkey, l_extendedprice, l_discount FROM (SELECT l_orderkey, l_extendedprice, l_discount, l_shipdate FROM t) AS s WHERE l_shipdate > DATE '1995-03-15') AS s) AS s GROUP BY l_orderkey",
+    "residual_sql": "SELECT l_orderkey, sum(revenue) AS revenue FROM (SELECT * FROM t) AS s GROUP BY l_orderkey"
+   },
+   "o": {
+    "mode": "filter",
+    "k": 1,
+    "agg_complete": true,
+    "time_s": 0.15130645299905154,
+    "wire_bytes": 14875882,
+    "rows_to_compute": 727305,
+    "storage_sql": "SELECT o_orderkey, o_orderpriority FROM (SELECT o_orderkey, o_orderpriority, o_orderdate FROM t) AS s WHERE o_orderdate < DATE '1995-03-15'",
+    "residual_sql": "SELECT * FROM t"
+   }
+  },
+  "correct": true,
+  "net_mbit": 1000.0,
+  "media_mbps": 500.0,
+  "storage_threads": 2,
+  "stage": "join",
+  "label": null,
+  "rep": 7,
+  "order": 1
+ },
+ {
+  "cfg": "JOIN:filter",
+  "query": "tpch_join",
+  "table": "lineitem+orders",
+  "mode": "filter",
+  "max_splits": null,
+  "ipc": false,
+  "time_s": 1.346687135999673,
+  "wire_bytes": 144787525,
+  "payload_bytes": 144509032,
+  "timings": {
+   "join": 0.013079227001071558,
+   "branch_l": 1.178243164999003,
+   "branch_o": 0.1521697789994505
+  },
+  "storage": {
+   "media_bytes": 123804243
+  },
+  "started": 1791694625.1318285,
+  "ended": 1791694626.47853,
+  "branches": {
+   "l": {
+    "mode": "filter",
+    "k": 1,
+    "agg_complete": false,
+    "time_s": 1.178243164999003,
+    "wire_bytes": 129908538,
+    "rows_to_compute": 3241776,
+    "storage_sql": "SELECT l_orderkey, l_extendedprice, l_discount FROM (SELECT l_orderkey, l_extendedprice, l_discount, l_shipdate FROM t) AS s WHERE l_shipdate > DATE '1995-03-15'",
+    "residual_sql": "SELECT l_orderkey, sum(rev) AS revenue FROM (SELECT l_orderkey AS l_orderkey, l_extendedprice * (1 - l_discount) AS rev FROM (SELECT * FROM t) AS s) AS s GROUP BY l_orderkey"
+   },
+   "o": {
+    "mode": "filter",
+    "k": 1,
+    "agg_complete": true,
+    "time_s": 0.1521697789994505,
+    "wire_bytes": 14878987,
+    "rows_to_compute": 727305,
+    "storage_sql": "SELECT o_orderkey, o_orderpriority FROM (SELECT o_orderkey, o_orderpriority, o_orderdate FROM t) AS s WHERE o_orderdate < DATE '1995-03-15'",
+    "residual_sql": "SELECT * FROM t"
+   }
+  },
+  "correct": true,
+  "net_mbit": 1000.0,
+  "media_mbps": 500.0,
+  "storage_threads": 2,
+  "stage": "join",
+  "label": null,
+  "rep": 7,
+  "order": 2
+ },
+ {
+  "cfg": "JOIN:filter",
+  "query": "tpch_join",
+  "table": "lineitem+orders",
+  "mode": "filter",
+  "max_splits": null,
+  "ipc": false,
+  "time_s": 1.3679266159997496,
+  "wire_bytes": 144785965,
+  "payload_bytes": 144509032,
+  "timings": {
+   "join": 0.014300834000096074,
+   "branch_l": 1.1956704099993658,
+   "branch_o": 0.1543950909999694
+  },
+  "storage": {
+   "media_bytes": 123804243
+  },
+  "started": 1791694626.490226,
+  "ended": 1791694627.8581653,
+  "branches": {
+   "l": {
+    "mode": "filter",
+    "k": 1,
+    "agg_complete": false,
+    "time_s": 1.1956704099993658,
+    "wire_bytes": 129907921,
+    "rows_to_compute": 3241776,
+    "storage_sql": "SELECT l_orderkey, l_extendedprice, l_discount FROM (SELECT l_orderkey, l_extendedprice, l_discount, l_shipdate FROM t) AS s WHERE l_shipdate > DATE '1995-03-15'",
+    "residual_sql": "SELECT l_orderkey, sum(rev) AS revenue FROM (SELECT l_orderkey AS l_orderkey, l_extendedprice * (1 - l_discount) AS rev FROM (SELECT * FROM t) AS s) AS s GROUP BY l_orderkey"
+   },
+   "o": {
+    "mode": "filter",
+    "k": 1,
+    "agg_complete": true,
+    "time_s": 0.1543950909999694,
+    "wire_bytes": 14878044,
+    "rows_to_compute": 727305,
+    "storage_sql": "SELECT o_orderkey, o_orderpriority FROM (SELECT o_orderkey, o_orderpriority, o_orderdate FROM t) AS s WHERE o_orderdate < DATE '1995-03-15'",
+    "residual_sql": "SELECT * FROM t"
+   }
+  },
+  "correct": true,
+  "net_mbit": 1000.0,
+  "media_mbps": 500.0,
+  "storage_threads": 2,
+  "stage": "join",
+  "label": null,
+  "rep": 8,
+  "order": 0
+ },
+ {
+  "cfg": "JOIN:all",
+  "query": "tpch_join",
+  "table": "lineitem+orders",
+  "mode": "all",
+  "max_splits": null,
+  "ipc": false,
+  "time_s": 0.45998104800128203,
+  "wire_bytes": 34852454,
+  "payload_bytes": 34756984,
+  "timings": {
+   "join": 0.012438464998922427,
+   "branch_l": 0.29226448700137553,
+   "branch_o": 0.15307299600135593
+  },
+  "storage": {
+   "media_bytes": 123804243
+  },
+  "started": 1791694627.8604383,
+  "ended": 1791694628.3204334,
+  "branches": {
+   "l": {
+    "mode": "filter+proj+aggr",
+    "k": 3,
+    "agg_complete": false,
+    "time_s": 0.29226448700137553,
+    "wire_bytes": 19973819,
+    "rows_to_compute": 829958,
+    "storage_sql": "SELECT l_orderkey, sum(rev) AS revenue FROM (SELECT l_orderkey AS l_orderkey, l_extendedprice * (1 - l_discount) AS rev FROM (SELECT l_orderkey, l_extendedprice, l_discount FROM (SELECT l_orderkey, l_extendedprice, l_discount, l_shipdate FROM t) AS s WHERE l_shipdate > DATE '1995-03-15') AS s) AS s GROUP BY l_orderkey",
+    "residual_sql": "SELECT l_orderkey, sum(revenue) AS revenue FROM (SELECT * FROM t) AS s GROUP BY l_orderkey"
+   },
+   "o": {
+    "mode": "filter",
+    "k": 1,
+    "agg_complete": true,
+    "time_s": 0.15307299600135593,
+    "wire_bytes": 14878635,
+    "rows_to_compute": 727305,
+    "storage_sql": "SELECT o_orderkey, o_orderpriority FROM (SELECT o_orderkey, o_orderpriority, o_orderdate FROM t) AS s WHERE o_orderdate < DATE '1995-03-15'",
+    "residual_sql": "SELECT * FROM t"
+   }
+  },
+  "correct": true,
+  "net_mbit": 1000.0,
+  "media_mbps": 500.0,
+  "storage_threads": 2,
+  "stage": "join",
+  "label": null,
+  "rep": 8,
+  "order": 1
+ },
+ {
+  "cfg": "JOIN:none",
+  "query": "tpch_join",
+  "table": "lineitem+orders",
+  "mode": "none",
+  "max_splits": null,
+  "ipc": false,
+  "time_s": 4.540912995000326,
+  "wire_bytes": 506862826,
+  "payload_bytes": 506210359,
+  "timings": {
+   "join": 0.012208492000354454,
+   "branch_l": 3.4233151440002985,
+   "branch_o": 1.103385939999498
+  },
+  "storage": {
+   "media_bytes": 506210359
+  },
+  "started": 1791694628.322742,
+  "ended": 1791694632.8636694,
+  "branches": {
+   "l": {
+    "mode": "none",
+    "k": 0,
+    "agg_complete": false,
+    "time_s": 3.4233151440002985,
+    "wire_bytes": 386699640,
+    "rows_to_compute": 829958,
+    "storage_sql": null,
+    "residual_sql": "SELECT l_orderkey, sum(rev) AS revenue FROM (SELECT l_orderkey AS l_orderkey, l_extendedprice * (1 - l_discount) AS rev FROM (SELECT l_orderkey, l_extendedprice, l_discount FROM (SELECT l_orderkey, l_extendedprice, l_discount, l_shipdate FROM t) AS s WHERE l_shipdate > DATE '1995-03-15') AS s) AS s GROUP BY l_orderkey"
+   },
+   "o": {
+    "mode": "none",
+    "k": 0,
+    "agg_complete": true,
+    "time_s": 1.103385939999498,
+    "wire_bytes": 120163186,
+    "rows_to_compute": 727305,
+    "storage_sql": null,
+    "residual_sql": "SELECT o_orderkey, o_orderpriority FROM (SELECT o_orderkey, o_orderpriority, o_orderdate FROM t) AS s WHERE o_orderdate < DATE '1995-03-15'"
+   }
+  },
+  "correct": true,
+  "net_mbit": 1000.0,
+  "media_mbps": 500.0,
+  "storage_threads": 2,
+  "stage": "join",
+  "label": null,
+  "rep": 8,
+  "order": 2
+ },
+ {
+  "cfg": "JOIN:filter",
+  "query": "tpch_join",
+  "table": "lineitem+orders",
+  "mode": "filter",
+  "max_splits": null,
+  "ipc": false,
+  "time_s": 1.3602271660001861,
+  "wire_bytes": 144784152,
+  "payload_bytes": 144509032,
+  "timings": {
+   "join": 0.01456023799983086,
+   "branch_l": 1.1904875109994464,
+   "branch_o": 0.15161943800012523
+  },
+  "storage": {
+   "media_bytes": 123804243
+  },
+  "started": 1791694632.8746731,
+  "ended": 1791694634.234914,
+  "branches": {
+   "l": {
+    "mode": "filter",
+    "k": 1,
+    "agg_complete": false,
+    "time_s": 1.1904875109994464,
+    "wire_bytes": 129908053,
+    "rows_to_compute": 3241776,
+    "storage_sql": "SELECT l_orderkey, l_extendedprice, l_discount FROM (SELECT l_orderkey, l_extendedprice, l_discount, l_shipdate FROM t) AS s WHERE l_shipdate > DATE '1995-03-15'",
+    "residual_sql": "SELECT l_orderkey, sum(rev) AS revenue FROM (SELECT l_orderkey AS l_orderkey, l_extendedprice * (1 - l_discount) AS rev FROM (SELECT * FROM t) AS s) AS s GROUP BY l_orderkey"
+   },
+   "o": {
+    "mode": "filter",
+    "k": 1,
+    "agg_complete": true,
+    "time_s": 0.15161943800012523,
+    "wire_bytes": 14876099,
+    "rows_to_compute": 727305,
+    "storage_sql": "SELECT o_orderkey, o_orderpriority FROM (SELECT o_orderkey, o_orderpriority, o_orderdate FROM t) AS s WHERE o_orderdate < DATE '1995-03-15'",
+    "residual_sql": "SELECT * FROM t"
+   }
+  },
+  "correct": true,
+  "net_mbit": 1000.0,
+  "media_mbps": 500.0,
+  "storage_threads": 2,
+  "stage": "join",
+  "label": null,
+  "rep": 9,
+  "order": 0
+ },
+ {
+  "cfg": "JOIN:all",
+  "query": "tpch_join",
+  "table": "lineitem+orders",
+  "mode": "all",
+  "max_splits": null,
+  "ipc": false,
+  "time_s": 0.4551812619993143,
+  "wire_bytes": 34854898,
+  "payload_bytes": 34756984,
+  "timings": {
+   "join": 0.015138452999963192,
+   "branch_l": 0.2868987580004614,
+   "branch_o": 0.1506162059995404
+  },
+  "storage": {
+   "media_bytes": 123804243
+  },
+  "started": 1791694634.2372446,
+  "ended": 1791694634.6924405,
+  "branches": {
+   "l": {
+    "mode": "filter+proj+aggr",
+    "k": 3,
+    "agg_complete": false,
+    "time_s": 0.2868987580004614,
+    "wire_bytes": 19975470,
+    "rows_to_compute": 829958,
+    "storage_sql": "SELECT l_orderkey, sum(rev) AS revenue FROM (SELECT l_orderkey AS l_orderkey, l_extendedprice * (1 - l_discount) AS rev FROM (SELECT l_orderkey, l_extendedprice, l_discount FROM (SELECT l_orderkey, l_extendedprice, l_discount, l_shipdate FROM t) AS s WHERE l_shipdate > DATE '1995-03-15') AS s) AS s GROUP BY l_orderkey",
+    "residual_sql": "SELECT l_orderkey, sum(revenue) AS revenue FROM (SELECT * FROM t) AS s GROUP BY l_orderkey"
+   },
+   "o": {
+    "mode": "filter",
+    "k": 1,
+    "agg_complete": true,
+    "time_s": 0.1506162059995404,
+    "wire_bytes": 14879428,
+    "rows_to_compute": 727305,
+    "storage_sql": "SELECT o_orderkey, o_orderpriority FROM (SELECT o_orderkey, o_orderpriority, o_orderdate FROM t) AS s WHERE o_orderdate < DATE '1995-03-15'",
+    "residual_sql": "SELECT * FROM t"
+   }
+  },
+  "correct": true,
+  "net_mbit": 1000.0,
+  "media_mbps": 500.0,
+  "storage_threads": 2,
+  "stage": "join",
+  "label": null,
+  "rep": 9,
+  "order": 1
+ },
+ {
+  "cfg": "JOIN:none",
+  "query": "tpch_join",
+  "table": "lineitem+orders",
+  "mode": "none",
+  "max_splits": null,
+  "ipc": false,
+  "time_s": 4.571525626999573,
+  "wire_bytes": 506848208,
+  "payload_bytes": 506210359,
+  "timings": {
+   "join": 0.01206912499947066,
+   "branch_l": 3.458114183998987,
+   "branch_o": 1.099101657000574
+  },
+  "storage": {
+   "media_bytes": 506210359
+  },
+  "started": 1791694634.6953816,
+  "ended": 1791694639.2669213,
+  "branches": {
+   "l": {
+    "mode": "none",
+    "k": 0,
+    "agg_complete": false,
+    "time_s": 3.458114183998987,
+    "wire_bytes": 386682361,
+    "rows_to_compute": 829958,
+    "storage_sql": null,
+    "residual_sql": "SELECT l_orderkey, sum(rev) AS revenue FROM (SELECT l_orderkey AS l_orderkey, l_extendedprice * (1 - l_discount) AS rev FROM (SELECT l_orderkey, l_extendedprice, l_discount FROM (SELECT l_orderkey, l_extendedprice, l_discount, l_shipdate FROM t) AS s WHERE l_shipdate > DATE '1995-03-15') AS s) AS s GROUP BY l_orderkey"
+   },
+   "o": {
+    "mode": "none",
+    "k": 0,
+    "agg_complete": true,
+    "time_s": 1.099101657000574,
+    "wire_bytes": 120165847,
+    "rows_to_compute": 727305,
+    "storage_sql": null,
+    "residual_sql": "SELECT o_orderkey, o_orderpriority FROM (SELECT o_orderkey, o_orderpriority, o_orderdate FROM t) AS s WHERE o_orderdate < DATE '1995-03-15'"
+   }
+  },
+  "correct": true,
+  "net_mbit": 1000.0,
+  "media_mbps": 500.0,
+  "storage_threads": 2,
+  "stage": "join",
+  "label": null,
+  "rep": 9,
+  "order": 2
+ }
+]

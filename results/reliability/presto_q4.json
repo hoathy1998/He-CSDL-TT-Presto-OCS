@@ -1,0 +1,482 @@
+[
+ {
+  "stage": "presto_q4",
+  "label": null,
+  "cfg": "L1:ocsfilter",
+  "time_s": 0.7192461329977959,
+  "wire_bytes": 39781587,
+  "payload_bytes": 0,
+  "started": 1791717392.3055289,
+  "ended": 1791717393.0258806,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 0,
+  "order": 0
+ },
+ {
+  "stage": "presto_q4",
+  "label": null,
+  "cfg": "L1:ocs",
+  "time_s": 0.37454633400193416,
+  "wire_bytes": 6550,
+  "payload_bytes": 0,
+  "started": 1791717393.028299,
+  "ended": 1791717393.4037755,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 0,
+  "order": 1
+ },
+ {
+  "stage": "presto_q4",
+  "label": null,
+  "cfg": "L1:ocsnopd",
+  "time_s": 2.6199488899947028,
+  "wire_bytes": 185044099,
+  "payload_bytes": 0,
+  "started": 1791717393.4054804,
+  "ended": 1791717396.0266638,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 0,
+  "order": 2
+ },
+ {
+  "stage": "presto_q4",
+  "label": null,
+  "cfg": "L1:ocsfilter",
+  "time_s": 1.131078605001676,
+  "wire_bytes": 39781953,
+  "payload_bytes": 0,
+  "started": 1791717396.033844,
+  "ended": 1791717397.1660874,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 1,
+  "order": 0
+ },
+ {
+  "stage": "presto_q4",
+  "label": null,
+  "cfg": "L1:ocs",
+  "time_s": 0.37303985800099326,
+  "wire_bytes": 6186,
+  "payload_bytes": 0,
+  "started": 1791717397.1690693,
+  "ended": 1791717397.5429528,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 1,
+  "order": 1
+ },
+ {
+  "stage": "presto_q4",
+  "label": null,
+  "cfg": "L1:ocsnopd",
+  "time_s": 1.909464640004444,
+  "wire_bytes": 185043806,
+  "payload_bytes": 0,
+  "started": 1791717397.5446172,
+  "ended": 1791717399.4551806,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 1,
+  "order": 2
+ },
+ {
+  "stage": "presto_q4",
+  "label": null,
+  "cfg": "L1:ocsnopd",
+  "time_s": 1.921243263001088,
+  "wire_bytes": 185043344,
+  "payload_bytes": 0,
+  "started": 1791717399.460821,
+  "ended": 1791717401.3829427,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 2,
+  "order": 0
+ },
+ {
+  "stage": "presto_q4",
+  "label": null,
+  "cfg": "L1:ocsfilter",
+  "time_s": 0.6883248890007962,
+  "wire_bytes": 39781952,
+  "payload_bytes": 0,
+  "started": 1791717401.384974,
+  "ended": 1791717402.0741801,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 2,
+  "order": 1
+ },
+ {
+  "stage": "presto_q4",
+  "label": null,
+  "cfg": "L1:ocs",
+  "time_s": 0.32862975600437494,
+  "wire_bytes": 6418,
+  "payload_bytes": 0,
+  "started": 1791717402.0759037,
+  "ended": 1791717402.4055853,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 2,
+  "order": 2
+ },
+ {
+  "stage": "presto_q4",
+  "label": null,
+  "cfg": "L1:ocsnopd",
+  "time_s": 2.0060425249976106,
+  "wire_bytes": 185044023,
+  "payload_bytes": 0,
+  "started": 1791717402.411357,
+  "ended": 1791717404.418504,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 3,
+  "order": 0
+ },
+ {
+  "stage": "presto_q4",
+  "label": null,
+  "cfg": "L1:ocs",
+  "time_s": 0.43131146199448267,
+  "wire_bytes": 6467,
+  "payload_bytes": 0,
+  "started": 1791717404.4211662,
+  "ended": 1791717404.8538427,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 3,
+  "order": 1
+ },
+ {
+  "stage": "presto_q4",
+  "label": null,
+  "cfg": "L1:ocsfilter",
+  "time_s": 0.8409847919974709,
+  "wire_bytes": 39782013,
+  "payload_bytes": 0,
+  "started": 1791717404.8565402,
+  "ended": 1791717405.698498,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 3,
+  "order": 2
+ },
+ {
+  "stage": "presto_q4",
+  "label": null,
+  "cfg": "L1:ocsnopd",
+  "time_s": 2.006290495999565,
+  "wire_bytes": 185043783,
+  "payload_bytes": 0,
+  "started": 1791717405.7097692,
+  "ended": 1791717407.7170506,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 4,
+  "order": 0
+ },
+ {
+  "stage": "presto_q4",
+  "label": null,
+  "cfg": "L1:ocsfilter",
+  "time_s": 0.7011417639951105,
+  "wire_bytes": 39781790,
+  "payload_bytes": 0,
+  "started": 1791717407.7187,
+  "ended": 1791717408.419251,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 4,
+  "order": 1
+ },
+ {
+  "stage": "presto_q4",
+  "label": null,
+  "cfg": "L1:ocs",
+  "time_s": 0.3446556260023499,
+  "wire_bytes": 6467,
+  "payload_bytes": 0,
+  "started": 1791717408.4210033,
+  "ended": 1791717408.7667983,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 4,
+  "order": 2
+ },
+ {
+  "stage": "presto_q4",
+  "label": null,
+  "cfg": "L1:ocsnopd",
+  "time_s": 1.8990655210000114,
+  "wire_bytes": 185043749,
+  "payload_bytes": 0,
+  "started": 1791717408.7726107,
+  "ended": 1791717410.6725793,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 5,
+  "order": 0
+ },
+ {
+  "stage": "presto_q4",
+  "label": null,
+  "cfg": "L1:ocsfilter",
+  "time_s": 0.6864162179990672,
+  "wire_bytes": 39781958,
+  "payload_bytes": 0,
+  "started": 1791717410.6740925,
+  "ended": 1791717411.3614163,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 5,
+  "order": 1
+ },
+ {
+  "stage": "presto_q4",
+  "label": null,
+  "cfg": "L1:ocs",
+  "time_s": 0.32104945500032045,
+  "wire_bytes": 6318,
+  "payload_bytes": 0,
+  "started": 1791717411.363026,
+  "ended": 1791717411.6849194,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 5,
+  "order": 2
+ },
+ {
+  "stage": "presto_q4",
+  "label": null,
+  "cfg": "L1:ocsnopd",
+  "time_s": 1.8881156310017104,
+  "wire_bytes": 185043516,
+  "payload_bytes": 0,
+  "started": 1791717411.6927016,
+  "ended": 1791717413.5817564,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 6,
+  "order": 0
+ },
+ {
+  "stage": "presto_q4",
+  "label": null,
+  "cfg": "L1:ocs",
+  "time_s": 0.36204397400433663,
+  "wire_bytes": 6318,
+  "payload_bytes": 0,
+  "started": 1791717413.5834048,
+  "ended": 1791717413.9463768,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 6,
+  "order": 1
+ },
+ {
+  "stage": "presto_q4",
+  "label": null,
+  "cfg": "L1:ocsfilter",
+  "time_s": 0.7927001409989316,
+  "wire_bytes": 39781940,
+  "payload_bytes": 0,
+  "started": 1791717413.948166,
+  "ended": 1791717414.741803,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 6,
+  "order": 2
+ },
+ {
+  "stage": "presto_q4",
+  "label": null,
+  "cfg": "L1:ocs",
+  "time_s": 0.37047202800022205,
+  "wire_bytes": 6699,
+  "payload_bytes": 0,
+  "started": 1791717414.7507055,
+  "ended": 1791717415.1221235,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 7,
+  "order": 0
+ },
+ {
+  "stage": "presto_q4",
+  "label": null,
+  "cfg": "L1:ocsnopd",
+  "time_s": 1.9454252750001615,
+  "wire_bytes": 185043749,
+  "payload_bytes": 0,
+  "started": 1791717415.123811,
+  "ended": 1791717417.0701718,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 7,
+  "order": 1
+ },
+ {
+  "stage": "presto_q4",
+  "label": null,
+  "cfg": "L1:ocsfilter",
+  "time_s": 0.7129910930016194,
+  "wire_bytes": 39782003,
+  "payload_bytes": 0,
+  "started": 1791717417.0720859,
+  "ended": 1791717417.7860548,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 7,
+  "order": 2
+ },
+ {
+  "stage": "presto_q4",
+  "label": null,
+  "cfg": "L1:ocsfilter",
+  "time_s": 0.677425100999244,
+  "wire_bytes": 39781329,
+  "payload_bytes": 0,
+  "started": 1791717417.7947567,
+  "ended": 1791717418.4731183,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 8,
+  "order": 0
+ },
+ {
+  "stage": "presto_q4",
+  "label": null,
+  "cfg": "L1:ocs",
+  "time_s": 0.3779091040050844,
+  "wire_bytes": 6550,
+  "payload_bytes": 0,
+  "started": 1791717418.474703,
+  "ended": 1791717418.8534873,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 8,
+  "order": 1
+ },
+ {
+  "stage": "presto_q4",
+  "label": null,
+  "cfg": "L1:ocsnopd",
+  "time_s": 1.9366548719990533,
+  "wire_bytes": 185043806,
+  "payload_bytes": 0,
+  "started": 1791717418.855419,
+  "ended": 1791717420.7929196,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 8,
+  "order": 2
+ },
+ {
+  "stage": "presto_q4",
+  "label": null,
+  "cfg": "L1:ocsnopd",
+  "time_s": 1.936977247998584,
+  "wire_bytes": 185043551,
+  "payload_bytes": 0,
+  "started": 1791717420.7989297,
+  "ended": 1791717422.7367535,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 9,
+  "order": 0
+ },
+ {
+  "stage": "presto_q4",
+  "label": null,
+  "cfg": "L1:ocsfilter",
+  "time_s": 0.7263646100036567,
+  "wire_bytes": 39781985,
+  "payload_bytes": 0,
+  "started": 1791717422.73888,
+  "ended": 1791717423.46612,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 9,
+  "order": 1
+ },
+ {
+  "stage": "presto_q4",
+  "label": null,
+  "cfg": "L1:ocs",
+  "time_s": 0.3687733800034039,
+  "wire_bytes": 6318,
+  "payload_bytes": 0,
+  "started": 1791717423.4677253,
+  "ended": 1791717423.8375478,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 9,
+  "order": 2
+ }
+]

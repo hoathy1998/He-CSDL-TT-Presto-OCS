@@ -1,0 +1,17 @@
+- Output[PlanNodeId 9][timestep, max_height] => [timestep:bigint, max:bigint]
+        max_height := max (1:26)
+    - RemoteStreamingExchange[PlanNodeId 309][GATHER] => [timestep:bigint, max:bigint]
+        - Aggregate(FINAL)[timestep][PlanNodeId 4] => [timestep:bigint, max:bigint]
+                max := "presto.default.max"((max_9)) (1:26)
+            - LocalExchange[PlanNodeId 355][HASH][$hashvalue] (timestep) => [timestep:bigint, max_9:bigint, $hashvalue:bigint]
+                - RemoteStreamingExchange[PlanNodeId 361][REPARTITION][$hashvalue_10] => [timestep:bigint, max_9:bigint, $hashvalue_10:bigint]
+                    - Project[PlanNodeId 393][projectLocality = LOCAL] => [timestep:bigint, max_9:bigint, $hashvalue_11:bigint]
+                            $hashvalue_11 := combine_hash(BIGINT'0', COALESCE($operator$hash_code(timestep), BIGINT'0')) (1:108)
+                        - Aggregate(PARTIAL)[timestep][PlanNodeId 359] => [timestep:bigint, max_9:bigint]
+                                max_9 := "presto.default.max"((expr)) (1:26)
+                            - ScanFilterProject[PlanNodeId 0,307,2][table = TableHandle {connectorId='ocsnopd', connectorHandle='ocs:deepwater', layout='Optional[ocs:deepwater]'}, filterPredicate = (v02) > (DOUBLE'0.1'), projectLocality = LOCAL] => [timestep:bigint, expr:bigint]
+                                    Estimates: {source: CostBasedSourceInfo, rows: ? (?), cpu: ?, memory: 0.00, network: 0.00}/{source: CostBasedSourceInfo, rows: ? (?), cpu: ?, memory: 0.00, network: 0.00}/{source: CostBasedSourceInfo, rows: ? (?), cpu: ?, memory: 0.00, network: 0.00}
+                                    expr := ((rowid) % (BIGINT'250000')) / (BIGINT'500') (1:74)
+                                    v02 := v02:double (1:73)
+                                    timestep := timestep:bigint (1:73)
+                                    rowid := rowid:bigint (1:73)

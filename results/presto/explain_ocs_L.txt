@@ -1,0 +1,19 @@
+- Output[PlanNodeId 12][timestep, vertex_id, vid, min_x, min_y, min_z, avg_e] => [timestep:bigint, vertex_id:integer, min:integer, min_7:double, min_8:double, min_9:double, avg:double]
+        vid := min (1:37)
+        min_x := min_7 (1:60)
+        min_y := min_8 (1:77)
+        min_z := min_9 (1:94)
+        avg_e := avg (1:111)
+    - TopN[PlanNodeId 305][100 by (avg ASC_NULLS_LAST, timestep ASC_NULLS_LAST, vertex_id ASC_NULLS_LAST)] => [timestep:bigint, vertex_id:integer, min:integer, min_7:double, min_8:double, min_9:double, avg:double]
+        - LocalExchange[PlanNodeId 350][SINGLE] () => [timestep:bigint, vertex_id:integer, min:integer, min_7:double, min_8:double, min_9:double, avg:double]
+            - RemoteStreamingExchange[PlanNodeId 329][GATHER] => [timestep:bigint, vertex_id:integer, min:integer, min_7:double, min_8:double, min_9:double, avg:double]
+                - TopNPartial[PlanNodeId 304][100 by (avg ASC_NULLS_LAST, timestep ASC_NULLS_LAST, vertex_id ASC_NULLS_LAST)] => [timestep:bigint, vertex_id:integer, min:integer, min_7:double, min_8:double, min_9:double, avg:double]
+                    - TableScan[PlanNodeId 291][TableHandle {connectorId='ocs', connectorHandle='ocs:laghos pushdown=[Filter -> Aggregation(COMPLETE) -> TopN(per object)] sql=[SELECT timestep AS c0, vertex_id AS c1, min(vertex_id) AS c2, min(x) AS c3, min(y) AS c4, min(z) AS c5, avg(e) AS c6 FROM t WHERE (((x BETWEEN CAST(0.8 AS DOUBLE) AND CAST(3.2 AS DOUBLE)) AND (y BETWEEN CAST(0.8 AS DOUBLE) AND CAST(3.2 AS DOUBLE))) AND (z BETWEEN CAST(0.8 AS DOUBLE) AND CAST(3.2 AS DOUBLE))) GROUP BY timestep, vertex_id ORDER BY avg(e) ASC NULLS LAST, timestep ASC NULLS LAST, vertex_id ASC NULLS LAST LIMIT 100]', layout='Optional[ocs:laghos pushdown=[Filter -> Aggregation(COMPLETE) -> TopN(per object)] sql=[SELECT timestep AS c0, vertex_id AS c1, min(vertex_id) AS c2, min(x) AS c3, min(y) AS c4, min(z) AS c5, avg(e) AS c6 FROM t WHERE (((x BETWEEN CAST(0.8 AS DOUBLE) AND CAST(3.2 AS DOUBLE)) AND (y BETWEEN CAST(0.8 AS DOUBLE) AND CAST(3.2 AS DOUBLE))) AND (z BETWEEN CAST(0.8 AS DOUBLE) AND CAST(3.2 AS DOUBLE))) GROUP BY timestep, vertex_id ORDER BY avg(e) ASC NULLS LAST, timestep ASC NULLS LAST, vertex_id ASC NULLS LAST LIMIT 100]]'}] => [timestep:bigint, vertex_id:integer, min:integer, min_7:double, min_8:double, min_9:double, avg:double]
+                            Estimates: {source: CostBasedSourceInfo, rows: ? (?), cpu: ?, memory: 0.00, network: 0.00}
+                            avg := c6:double (1:111)
+                            min_7 := c3:double (1:60)
+                            min_8 := c4:double (1:77)
+                            timestep := c0:bigint (1:228)
+                            min_9 := c5:double (1:94)
+                            min := c2:integer (1:37)
+                            vertex_id := c1:integer (1:238)

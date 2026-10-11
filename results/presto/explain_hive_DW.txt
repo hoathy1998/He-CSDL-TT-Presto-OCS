@@ -1,0 +1,18 @@
+- Output[PlanNodeId 9][timestep, max_height] => [timestep:bigint, max:bigint]
+        max_height := max (1:26)
+    - RemoteStreamingExchange[PlanNodeId 309][GATHER] => [timestep:bigint, max:bigint]
+        - Aggregate(FINAL)[timestep][PlanNodeId 4] => [timestep:bigint, max:bigint]
+                max := "presto.default.max"((max_9)) (1:26)
+            - LocalExchange[PlanNodeId 355][HASH][$hashvalue] (timestep) => [timestep:bigint, max_9:bigint, $hashvalue:bigint]
+                - RemoteStreamingExchange[PlanNodeId 361][REPARTITION][$hashvalue_10] => [timestep:bigint, max_9:bigint, $hashvalue_10:bigint]
+                    - Project[PlanNodeId 393][projectLocality = LOCAL] => [timestep:bigint, max_9:bigint, $hashvalue_11:bigint]
+                            $hashvalue_11 := combine_hash(BIGINT'0', COALESCE($operator$hash_code(timestep), BIGINT'0')) (1:118)
+                        - Aggregate(PARTIAL)[timestep][PlanNodeId 359] => [timestep:bigint, max_9:bigint]
+                                max_9 := "presto.default.max"((expr)) (1:26)
+                            - ScanFilterProject[PlanNodeId 0,307,2][table = TableHandle {connectorId='hive', connectorHandle='HiveTableHandle{schemaName=demo, tableName=deepwater, analyzePartitionValues=Optional.empty}', layout='Optional[demo.deepwater{domains={v02=[ [("0.1", <max>)] ]}}]'}, filterPredicate = (v02) > (DOUBLE'0.1'), projectLocality = LOCAL] => [timestep:bigint, expr:bigint]
+                                    Estimates: {source: CostBasedSourceInfo, rows: 0 (0B), cpu: 0.00, memory: 0.00, network: 0.00}/{source: CostBasedSourceInfo, rows: 0 (0B), cpu: 0.00, memory: 0.00, network: 0.00}/{source: CostBasedSourceInfo, rows: 0 (0B), cpu: 0.00, memory: 0.00, network: 0.00}
+                                    expr := ((rowid) % (BIGINT'250000')) / (BIGINT'500') (1:74)
+                                    LAYOUT: demo.deepwater{domains={v02=[ [("0.1", <max>)] ]}}
+                                    v02 := v02:double:1:REGULAR (1:73)
+                                    timestep := timestep:bigint:3:REGULAR (1:73)
+                                    rowid := rowid:bigint:0:REGULAR (1:73)

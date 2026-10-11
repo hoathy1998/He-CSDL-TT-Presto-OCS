@@ -1,0 +1,1282 @@
+[
+ {
+  "stage": "presto_q3",
+  "label": null,
+  "cfg": "DW_zstd:ocs",
+  "time_s": 0.6856079649951425,
+  "wire_bytes": 11073,
+  "payload_bytes": 0,
+  "started": 1791717090.7129579,
+  "ended": 1791717091.3997614,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 0,
+  "order": 0
+ },
+ {
+  "stage": "presto_q3",
+  "label": null,
+  "cfg": "DW_snappy:ocsfilter",
+  "time_s": 5.600343342994165,
+  "wire_bytes": 628285737,
+  "payload_bytes": 0,
+  "started": 1791717091.4006994,
+  "ended": 1791717097.0020626,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 0,
+  "order": 1
+ },
+ {
+  "stage": "presto_q3",
+  "label": null,
+  "cfg": "DW_none:ocsfilter",
+  "time_s": 6.557739007999771,
+  "wire_bytes": 628285600,
+  "payload_bytes": 0,
+  "started": 1791717097.0027497,
+  "ended": 1791717103.561618,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 0,
+  "order": 2
+ },
+ {
+  "stage": "presto_q3",
+  "label": null,
+  "cfg": "DW_none:ocs",
+  "time_s": 3.2956584970015683,
+  "wire_bytes": 11740,
+  "payload_bytes": 0,
+  "started": 1791717103.562449,
+  "ended": 1791717106.859175,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 0,
+  "order": 3
+ },
+ {
+  "stage": "presto_q3",
+  "label": null,
+  "cfg": "DW_gzip:ocs",
+  "time_s": 0.7238090479950188,
+  "wire_bytes": 10911,
+  "payload_bytes": 0,
+  "started": 1791717106.8600159,
+  "ended": 1791717107.584686,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 0,
+  "order": 4
+ },
+ {
+  "stage": "presto_q3",
+  "label": null,
+  "cfg": "DW_gzip:ocsfilter",
+  "time_s": 5.59626841100544,
+  "wire_bytes": 628285105,
+  "payload_bytes": 0,
+  "started": 1791717107.5855694,
+  "ended": 1791717113.1810076,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 0,
+  "order": 5
+ },
+ {
+  "stage": "presto_q3",
+  "label": null,
+  "cfg": "DW_zstd:ocsfilter",
+  "time_s": 5.566843854998297,
+  "wire_bytes": 628284533,
+  "payload_bytes": 0,
+  "started": 1791717113.1820295,
+  "ended": 1791717118.7500222,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 0,
+  "order": 6
+ },
+ {
+  "stage": "presto_q3",
+  "label": null,
+  "cfg": "DW_snappy:ocs",
+  "time_s": 0.8701042299944675,
+  "wire_bytes": 11267,
+  "payload_bytes": 0,
+  "started": 1791717118.7510655,
+  "ended": 1791717119.6220922,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 0,
+  "order": 7
+ },
+ {
+  "stage": "presto_q3",
+  "label": null,
+  "cfg": "DW_none:ocsfilter",
+  "time_s": 6.951415386000008,
+  "wire_bytes": 628285780,
+  "payload_bytes": 0,
+  "started": 1791717119.6282527,
+  "ended": 1791717126.5808265,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 1,
+  "order": 0
+ },
+ {
+  "stage": "presto_q3",
+  "label": null,
+  "cfg": "DW_none:ocs",
+  "time_s": 3.2603367299961974,
+  "wire_bytes": 11499,
+  "payload_bytes": 0,
+  "started": 1791717126.5817742,
+  "ended": 1791717129.8429723,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 1,
+  "order": 1
+ },
+ {
+  "stage": "presto_q3",
+  "label": null,
+  "cfg": "DW_snappy:ocsfilter",
+  "time_s": 5.559881165994739,
+  "wire_bytes": 628284663,
+  "payload_bytes": 0,
+  "started": 1791717129.8437371,
+  "ended": 1791717135.4046075,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 1,
+  "order": 2
+ },
+ {
+  "stage": "presto_q3",
+  "label": null,
+  "cfg": "DW_gzip:ocs",
+  "time_s": 0.7007957589958096,
+  "wire_bytes": 10841,
+  "payload_bytes": 0,
+  "started": 1791717135.4055667,
+  "ended": 1791717136.1073012,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 1,
+  "order": 3
+ },
+ {
+  "stage": "presto_q3",
+  "label": null,
+  "cfg": "DW_zstd:ocs",
+  "time_s": 0.6801426969977911,
+  "wire_bytes": 10775,
+  "payload_bytes": 0,
+  "started": 1791717136.1080909,
+  "ended": 1791717136.7893646,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 1,
+  "order": 4
+ },
+ {
+  "stage": "presto_q3",
+  "label": null,
+  "cfg": "DW_snappy:ocs",
+  "time_s": 0.7868823730022996,
+  "wire_bytes": 11007,
+  "payload_bytes": 0,
+  "started": 1791717136.7902293,
+  "ended": 1791717137.577972,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 1,
+  "order": 5
+ },
+ {
+  "stage": "presto_q3",
+  "label": null,
+  "cfg": "DW_zstd:ocsfilter",
+  "time_s": 5.615080219999072,
+  "wire_bytes": 628285054,
+  "payload_bytes": 0,
+  "started": 1791717137.5787244,
+  "ended": 1791717143.1936011,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 1,
+  "order": 6
+ },
+ {
+  "stage": "presto_q3",
+  "label": null,
+  "cfg": "DW_gzip:ocsfilter",
+  "time_s": 5.563845823999145,
+  "wire_bytes": 628286064,
+  "payload_bytes": 0,
+  "started": 1791717143.1945267,
+  "ended": 1791717148.759369,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 1,
+  "order": 7
+ },
+ {
+  "stage": "presto_q3",
+  "label": null,
+  "cfg": "DW_none:ocs",
+  "time_s": 3.2534198020002805,
+  "wire_bytes": 11565,
+  "payload_bytes": 0,
+  "started": 1791717148.7663243,
+  "ended": 1791717152.0206728,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 2,
+  "order": 0
+ },
+ {
+  "stage": "presto_q3",
+  "label": null,
+  "cfg": "DW_zstd:ocs",
+  "time_s": 0.6037147349998122,
+  "wire_bytes": 10815,
+  "payload_bytes": 0,
+  "started": 1791717152.0215786,
+  "ended": 1791717152.6263547,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 2,
+  "order": 1
+ },
+ {
+  "stage": "presto_q3",
+  "label": null,
+  "cfg": "DW_gzip:ocsfilter",
+  "time_s": 5.537174140998104,
+  "wire_bytes": 628285923,
+  "payload_bytes": 0,
+  "started": 1791717152.6452832,
+  "ended": 1791717158.1835518,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 2,
+  "order": 2
+ },
+ {
+  "stage": "presto_q3",
+  "label": null,
+  "cfg": "DW_none:ocsfilter",
+  "time_s": 6.495017130000633,
+  "wire_bytes": 628284490,
+  "payload_bytes": 0,
+  "started": 1791717158.1843827,
+  "ended": 1791717164.6803648,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 2,
+  "order": 3
+ },
+ {
+  "stage": "presto_q3",
+  "label": null,
+  "cfg": "DW_zstd:ocsfilter",
+  "time_s": 5.507644854995306,
+  "wire_bytes": 628284701,
+  "payload_bytes": 0,
+  "started": 1791717164.6812181,
+  "ended": 1791717170.1882985,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 2,
+  "order": 4
+ },
+ {
+  "stage": "presto_q3",
+  "label": null,
+  "cfg": "DW_snappy:ocsfilter",
+  "time_s": 5.589480679998815,
+  "wire_bytes": 628284398,
+  "payload_bytes": 0,
+  "started": 1791717170.1891303,
+  "ended": 1791717175.779481,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 2,
+  "order": 5
+ },
+ {
+  "stage": "presto_q3",
+  "label": null,
+  "cfg": "DW_snappy:ocs",
+  "time_s": 0.8310203750006622,
+  "wire_bytes": 11056,
+  "payload_bytes": 0,
+  "started": 1791717175.780487,
+  "ended": 1791717176.612695,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 2,
+  "order": 6
+ },
+ {
+  "stage": "presto_q3",
+  "label": null,
+  "cfg": "DW_gzip:ocs",
+  "time_s": 0.749786681997648,
+  "wire_bytes": 10762,
+  "payload_bytes": 0,
+  "started": 1791717176.6137774,
+  "ended": 1791717177.3644328,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 2,
+  "order": 7
+ },
+ {
+  "stage": "presto_q3",
+  "label": null,
+  "cfg": "DW_zstd:ocsfilter",
+  "time_s": 5.511169450001034,
+  "wire_bytes": 628285262,
+  "payload_bytes": 0,
+  "started": 1791717177.3687522,
+  "ended": 1791717182.88085,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 3,
+  "order": 0
+ },
+ {
+  "stage": "presto_q3",
+  "label": null,
+  "cfg": "DW_zstd:ocs",
+  "time_s": 0.6405409189974307,
+  "wire_bytes": 10911,
+  "payload_bytes": 0,
+  "started": 1791717182.8818316,
+  "ended": 1791717183.5232692,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 3,
+  "order": 1
+ },
+ {
+  "stage": "presto_q3",
+  "label": null,
+  "cfg": "DW_gzip:ocs",
+  "time_s": 0.7526173959995504,
+  "wire_bytes": 11047,
+  "payload_bytes": 0,
+  "started": 1791717183.524013,
+  "ended": 1791717184.2774534,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 3,
+  "order": 2
+ },
+ {
+  "stage": "presto_q3",
+  "label": null,
+  "cfg": "DW_snappy:ocsfilter",
+  "time_s": 5.677778136996494,
+  "wire_bytes": 628286062,
+  "payload_bytes": 0,
+  "started": 1791717184.2781842,
+  "ended": 1791717189.9569547,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 3,
+  "order": 3
+ },
+ {
+  "stage": "presto_q3",
+  "label": null,
+  "cfg": "DW_none:ocs",
+  "time_s": 3.2387964820009074,
+  "wire_bytes": 11433,
+  "payload_bytes": 0,
+  "started": 1791717189.9577162,
+  "ended": 1791717193.1973686,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 3,
+  "order": 4
+ },
+ {
+  "stage": "presto_q3",
+  "label": null,
+  "cfg": "DW_snappy:ocs",
+  "time_s": 0.7822851259988965,
+  "wire_bytes": 10722,
+  "payload_bytes": 0,
+  "started": 1791717193.198177,
+  "ended": 1791717193.9813285,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 3,
+  "order": 5
+ },
+ {
+  "stage": "presto_q3",
+  "label": null,
+  "cfg": "DW_none:ocsfilter",
+  "time_s": 6.521519005997106,
+  "wire_bytes": 628284383,
+  "payload_bytes": 0,
+  "started": 1791717193.98216,
+  "ended": 1791717200.5028198,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 3,
+  "order": 6
+ },
+ {
+  "stage": "presto_q3",
+  "label": null,
+  "cfg": "DW_gzip:ocsfilter",
+  "time_s": 5.4760775590038975,
+  "wire_bytes": 628284422,
+  "payload_bytes": 0,
+  "started": 1791717200.5038106,
+  "ended": 1791717205.9808404,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 3,
+  "order": 7
+ },
+ {
+  "stage": "presto_q3",
+  "label": null,
+  "cfg": "DW_snappy:ocsfilter",
+  "time_s": 5.560152308004035,
+  "wire_bytes": 628284774,
+  "payload_bytes": 0,
+  "started": 1791717205.9876797,
+  "ended": 1791717211.5486276,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 4,
+  "order": 0
+ },
+ {
+  "stage": "presto_q3",
+  "label": null,
+  "cfg": "DW_zstd:ocsfilter",
+  "time_s": 5.578857511005481,
+  "wire_bytes": 628284570,
+  "payload_bytes": 0,
+  "started": 1791717211.5493531,
+  "ended": 1791717217.1291742,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 4,
+  "order": 1
+ },
+ {
+  "stage": "presto_q3",
+  "label": null,
+  "cfg": "DW_gzip:ocsfilter",
+  "time_s": 5.7221758979940205,
+  "wire_bytes": 628284614,
+  "payload_bytes": 0,
+  "started": 1791717217.130109,
+  "ended": 1791717222.853222,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 4,
+  "order": 2
+ },
+ {
+  "stage": "presto_q3",
+  "label": null,
+  "cfg": "DW_none:ocsfilter",
+  "time_s": 6.530657292998512,
+  "wire_bytes": 628284686,
+  "payload_bytes": 0,
+  "started": 1791717222.854132,
+  "ended": 1791717229.3843963,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 4,
+  "order": 3
+ },
+ {
+  "stage": "presto_q3",
+  "label": null,
+  "cfg": "DW_none:ocs",
+  "time_s": 3.2667950660033966,
+  "wire_bytes": 11333,
+  "payload_bytes": 0,
+  "started": 1791717229.3851583,
+  "ended": 1791717232.6530979,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 4,
+  "order": 4
+ },
+ {
+  "stage": "presto_q3",
+  "label": null,
+  "cfg": "DW_zstd:ocs",
+  "time_s": 0.7343624760032981,
+  "wire_bytes": 11117,
+  "payload_bytes": 0,
+  "started": 1791717232.6541646,
+  "ended": 1791717233.3896165,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 4,
+  "order": 5
+ },
+ {
+  "stage": "presto_q3",
+  "label": null,
+  "cfg": "DW_snappy:ocs",
+  "time_s": 0.8611983070004499,
+  "wire_bytes": 10828,
+  "payload_bytes": 0,
+  "started": 1791717233.3905478,
+  "ended": 1791717234.252659,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 4,
+  "order": 6
+ },
+ {
+  "stage": "presto_q3",
+  "label": null,
+  "cfg": "DW_gzip:ocs",
+  "time_s": 0.7032523580055567,
+  "wire_bytes": 10920,
+  "payload_bytes": 0,
+  "started": 1791717234.2534564,
+  "ended": 1791717234.9577892,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 4,
+  "order": 7
+ },
+ {
+  "stage": "presto_q3",
+  "label": null,
+  "cfg": "DW_snappy:ocsfilter",
+  "time_s": 5.583593896000821,
+  "wire_bytes": 628285192,
+  "payload_bytes": 0,
+  "started": 1791717234.9639094,
+  "ended": 1791717240.5485897,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 5,
+  "order": 0
+ },
+ {
+  "stage": "presto_q3",
+  "label": null,
+  "cfg": "DW_none:ocs",
+  "time_s": 3.250205561002076,
+  "wire_bytes": 11267,
+  "payload_bytes": 0,
+  "started": 1791717240.5494604,
+  "ended": 1791717243.801396,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 5,
+  "order": 1
+ },
+ {
+  "stage": "presto_q3",
+  "label": null,
+  "cfg": "DW_snappy:ocs",
+  "time_s": 0.7854572470023413,
+  "wire_bytes": 11073,
+  "payload_bytes": 0,
+  "started": 1791717243.802303,
+  "ended": 1791717244.5887115,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 5,
+  "order": 2
+ },
+ {
+  "stage": "presto_q3",
+  "label": null,
+  "cfg": "DW_gzip:ocsfilter",
+  "time_s": 5.474058676998538,
+  "wire_bytes": 628285136,
+  "payload_bytes": 0,
+  "started": 1791717244.5895326,
+  "ended": 1791717250.0644784,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 5,
+  "order": 3
+ },
+ {
+  "stage": "presto_q3",
+  "label": null,
+  "cfg": "DW_gzip:ocs",
+  "time_s": 0.7970417179967626,
+  "wire_bytes": 10828,
+  "payload_bytes": 0,
+  "started": 1791717250.065314,
+  "ended": 1791717250.863631,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 5,
+  "order": 4
+ },
+ {
+  "stage": "presto_q3",
+  "label": null,
+  "cfg": "DW_zstd:ocsfilter",
+  "time_s": 5.5526826639979845,
+  "wire_bytes": 628284500,
+  "payload_bytes": 0,
+  "started": 1791717250.8644085,
+  "ended": 1791717256.4181015,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 5,
+  "order": 5
+ },
+ {
+  "stage": "presto_q3",
+  "label": null,
+  "cfg": "DW_none:ocsfilter",
+  "time_s": 6.512694263998128,
+  "wire_bytes": 628284555,
+  "payload_bytes": 0,
+  "started": 1791717256.4191515,
+  "ended": 1791717262.9313483,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 5,
+  "order": 6
+ },
+ {
+  "stage": "presto_q3",
+  "label": null,
+  "cfg": "DW_zstd:ocs",
+  "time_s": 0.640216091000184,
+  "wire_bytes": 11175,
+  "payload_bytes": 0,
+  "started": 1791717262.9326847,
+  "ended": 1791717263.573772,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 5,
+  "order": 7
+ },
+ {
+  "stage": "presto_q3",
+  "label": null,
+  "cfg": "DW_snappy:ocsfilter",
+  "time_s": 5.609229786998185,
+  "wire_bytes": 628284170,
+  "payload_bytes": 0,
+  "started": 1791717263.5802777,
+  "ended": 1791717269.1903286,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 6,
+  "order": 0
+ },
+ {
+  "stage": "presto_q3",
+  "label": null,
+  "cfg": "DW_zstd:ocs",
+  "time_s": 0.6649865500003216,
+  "wire_bytes": 11073,
+  "payload_bytes": 0,
+  "started": 1791717269.1911893,
+  "ended": 1791717269.857115,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 6,
+  "order": 1
+ },
+ {
+  "stage": "presto_q3",
+  "label": null,
+  "cfg": "DW_gzip:ocsfilter",
+  "time_s": 5.50974612400023,
+  "wire_bytes": 628285178,
+  "payload_bytes": 0,
+  "started": 1791717269.8579125,
+  "ended": 1791717275.3685465,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 6,
+  "order": 2
+ },
+ {
+  "stage": "presto_q3",
+  "label": null,
+  "cfg": "DW_none:ocs",
+  "time_s": 3.288915671000723,
+  "wire_bytes": 11184,
+  "payload_bytes": 0,
+  "started": 1791717275.3694608,
+  "ended": 1791717278.6592665,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 6,
+  "order": 3
+ },
+ {
+  "stage": "presto_q3",
+  "label": null,
+  "cfg": "DW_zstd:ocsfilter",
+  "time_s": 5.4874377619998995,
+  "wire_bytes": 628285589,
+  "payload_bytes": 0,
+  "started": 1791717278.660021,
+  "ended": 1791717284.1485145,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 6,
+  "order": 4
+ },
+ {
+  "stage": "presto_q3",
+  "label": null,
+  "cfg": "DW_snappy:ocs",
+  "time_s": 0.8183821550046559,
+  "wire_bytes": 11218,
+  "payload_bytes": 0,
+  "started": 1791717284.149457,
+  "ended": 1791717284.9687266,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 6,
+  "order": 5
+ },
+ {
+  "stage": "presto_q3",
+  "label": null,
+  "cfg": "DW_gzip:ocs",
+  "time_s": 0.7244085880010971,
+  "wire_bytes": 10828,
+  "payload_bytes": 0,
+  "started": 1791717284.9694712,
+  "ended": 1791717285.6947463,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 6,
+  "order": 6
+ },
+ {
+  "stage": "presto_q3",
+  "label": null,
+  "cfg": "DW_none:ocsfilter",
+  "time_s": 6.7976161659971694,
+  "wire_bytes": 628285405,
+  "payload_bytes": 0,
+  "started": 1791717285.6955438,
+  "ended": 1791717292.492429,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 6,
+  "order": 7
+ },
+ {
+  "stage": "presto_q3",
+  "label": null,
+  "cfg": "DW_none:ocsfilter",
+  "time_s": 6.497484751998854,
+  "wire_bytes": 628284639,
+  "payload_bytes": 0,
+  "started": 1791717292.5016084,
+  "ended": 1791717299.0001009,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 7,
+  "order": 0
+ },
+ {
+  "stage": "presto_q3",
+  "label": null,
+  "cfg": "DW_snappy:ocs",
+  "time_s": 0.7828043620029348,
+  "wire_bytes": 10924,
+  "payload_bytes": 0,
+  "started": 1791717299.0011897,
+  "ended": 1791717299.7847881,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 7,
+  "order": 1
+ },
+ {
+  "stage": "presto_q3",
+  "label": null,
+  "cfg": "DW_gzip:ocs",
+  "time_s": 0.7008176040035323,
+  "wire_bytes": 11192,
+  "payload_bytes": 0,
+  "started": 1791717299.7855623,
+  "ended": 1791717300.487332,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 7,
+  "order": 2
+ },
+ {
+  "stage": "presto_q3",
+  "label": null,
+  "cfg": "DW_snappy:ocsfilter",
+  "time_s": 5.607000758995127,
+  "wire_bytes": 628284849,
+  "payload_bytes": 0,
+  "started": 1791717300.4881542,
+  "ended": 1791717306.0961275,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 7,
+  "order": 3
+ },
+ {
+  "stage": "presto_q3",
+  "label": null,
+  "cfg": "DW_zstd:ocsfilter",
+  "time_s": 5.52796293800202,
+  "wire_bytes": 628284949,
+  "payload_bytes": 0,
+  "started": 1791717306.096899,
+  "ended": 1791717311.6257114,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 7,
+  "order": 4
+ },
+ {
+  "stage": "presto_q3",
+  "label": null,
+  "cfg": "DW_none:ocs",
+  "time_s": 3.252759219998552,
+  "wire_bytes": 11438,
+  "payload_bytes": 0,
+  "started": 1791717311.6264102,
+  "ended": 1791717314.879978,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 7,
+  "order": 5
+ },
+ {
+  "stage": "presto_q3",
+  "label": null,
+  "cfg": "DW_gzip:ocsfilter",
+  "time_s": 5.599129186994105,
+  "wire_bytes": 628285427,
+  "payload_bytes": 0,
+  "started": 1791717314.8807354,
+  "ended": 1791717320.4794595,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 7,
+  "order": 6
+ },
+ {
+  "stage": "presto_q3",
+  "label": null,
+  "cfg": "DW_zstd:ocs",
+  "time_s": 0.714367588996538,
+  "wire_bytes": 10907,
+  "payload_bytes": 0,
+  "started": 1791717320.4802911,
+  "ended": 1791717321.1957526,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 7,
+  "order": 7
+ },
+ {
+  "stage": "presto_q3",
+  "label": null,
+  "cfg": "DW_zstd:ocs",
+  "time_s": 0.6578781129937852,
+  "wire_bytes": 10894,
+  "payload_bytes": 0,
+  "started": 1791717321.202338,
+  "ended": 1791717321.8612447,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 8,
+  "order": 0
+ },
+ {
+  "stage": "presto_q3",
+  "label": null,
+  "cfg": "DW_zstd:ocsfilter",
+  "time_s": 5.43712175499968,
+  "wire_bytes": 628285157,
+  "payload_bytes": 0,
+  "started": 1791717321.8619955,
+  "ended": 1791717327.300093,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 8,
+  "order": 1
+ },
+ {
+  "stage": "presto_q3",
+  "label": null,
+  "cfg": "DW_snappy:ocsfilter",
+  "time_s": 5.591230986006849,
+  "wire_bytes": 628284725,
+  "payload_bytes": 0,
+  "started": 1791717327.3009663,
+  "ended": 1791717332.8933032,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 8,
+  "order": 2
+ },
+ {
+  "stage": "presto_q3",
+  "label": null,
+  "cfg": "DW_gzip:ocs",
+  "time_s": 0.7684981849961332,
+  "wire_bytes": 11003,
+  "payload_bytes": 0,
+  "started": 1791717332.8941998,
+  "ended": 1791717333.6635191,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 8,
+  "order": 3
+ },
+ {
+  "stage": "presto_q3",
+  "label": null,
+  "cfg": "DW_none:ocsfilter",
+  "time_s": 6.503125932998955,
+  "wire_bytes": 628284468,
+  "payload_bytes": 0,
+  "started": 1791717333.6643574,
+  "ended": 1791717340.168549,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 8,
+  "order": 4
+ },
+ {
+  "stage": "presto_q3",
+  "label": null,
+  "cfg": "DW_snappy:ocs",
+  "time_s": 0.8341182439980912,
+  "wire_bytes": 11135,
+  "payload_bytes": 0,
+  "started": 1791717340.1693559,
+  "ended": 1791717341.0046387,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 8,
+  "order": 5
+ },
+ {
+  "stage": "presto_q3",
+  "label": null,
+  "cfg": "DW_gzip:ocsfilter",
+  "time_s": 5.506018255997333,
+  "wire_bytes": 628284443,
+  "payload_bytes": 0,
+  "started": 1791717341.0057905,
+  "ended": 1791717346.5128825,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 8,
+  "order": 6
+ },
+ {
+  "stage": "presto_q3",
+  "label": null,
+  "cfg": "DW_none:ocs",
+  "time_s": 3.255787644004158,
+  "wire_bytes": 11118,
+  "payload_bytes": 0,
+  "started": 1791717346.513726,
+  "ended": 1791717349.7687182,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 8,
+  "order": 7
+ },
+ {
+  "stage": "presto_q3",
+  "label": null,
+  "cfg": "DW_snappy:ocs",
+  "time_s": 0.7877591919968836,
+  "wire_bytes": 10960,
+  "payload_bytes": 0,
+  "started": 1791717349.776109,
+  "ended": 1791717350.5647209,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 9,
+  "order": 0
+ },
+ {
+  "stage": "presto_q3",
+  "label": null,
+  "cfg": "DW_none:ocs",
+  "time_s": 3.2656846579993726,
+  "wire_bytes": 11499,
+  "payload_bytes": 0,
+  "started": 1791717350.5654497,
+  "ended": 1791717353.8319597,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 9,
+  "order": 1
+ },
+ {
+  "stage": "presto_q3",
+  "label": null,
+  "cfg": "DW_snappy:ocsfilter",
+  "time_s": 5.617773504003708,
+  "wire_bytes": 628285136,
+  "payload_bytes": 0,
+  "started": 1791717353.832683,
+  "ended": 1791717359.4512725,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 9,
+  "order": 2
+ },
+ {
+  "stage": "presto_q3",
+  "label": null,
+  "cfg": "DW_none:ocsfilter",
+  "time_s": 6.49560466499679,
+  "wire_bytes": 628284360,
+  "payload_bytes": 0,
+  "started": 1791717359.4520624,
+  "ended": 1791717365.9484925,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 9,
+  "order": 3
+ },
+ {
+  "stage": "presto_q3",
+  "label": null,
+  "cfg": "DW_zstd:ocsfilter",
+  "time_s": 5.456798928003991,
+  "wire_bytes": 628284330,
+  "payload_bytes": 0,
+  "started": 1791717365.9492486,
+  "ended": 1791717371.407013,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 9,
+  "order": 4
+ },
+ {
+  "stage": "presto_q3",
+  "label": null,
+  "cfg": "DW_gzip:ocs",
+  "time_s": 0.6893375580038992,
+  "wire_bytes": 11043,
+  "payload_bytes": 0,
+  "started": 1791717371.4078166,
+  "ended": 1791717372.09804,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 9,
+  "order": 5
+ },
+ {
+  "stage": "presto_q3",
+  "label": null,
+  "cfg": "DW_gzip:ocsfilter",
+  "time_s": 5.522586926002987,
+  "wire_bytes": 628284052,
+  "payload_bytes": 0,
+  "started": 1791717372.0987523,
+  "ended": 1791717377.6222625,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 9,
+  "order": 6
+ },
+ {
+  "stage": "presto_q3",
+  "label": null,
+  "cfg": "DW_zstd:ocs",
+  "time_s": 0.6692453450014,
+  "wire_bytes": 10841,
+  "payload_bytes": 0,
+  "started": 1791717377.623015,
+  "ended": 1791717378.2915854,
+  "storage": {
+   "media_bytes": 0
+  },
+  "correct": true,
+  "rep": 9,
+  "order": 7
+ }
+]

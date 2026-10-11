@@ -1,0 +1,42 @@
+[
+ {
+  "feature": "TQ_two_phase",
+  "correct_vs_hive": true,
+  "expected_pushdown": "Aggregation(PARTIAL)",
+  "pushdown_seen": true,
+  "rows": 4,
+  "time_s": 0.6249990340002114
+ },
+ {
+  "feature": "TQ_decimal_sum",
+  "correct_vs_hive": true,
+  "expected_pushdown": "Aggregation(PARTIAL)",
+  "pushdown_seen": true,
+  "rows": 4,
+  "time_s": 0.6371889210022346
+ },
+ {
+  "feature": "TQ_decimal_avg",
+  "correct_vs_hive": true,
+  "expected_pushdown": "Filter",
+  "pushdown_seen": true,
+  "rows": 4,
+  "time_s": 4.155429450001975
+ },
+ {
+  "feature": "DW_window",
+  "correct_vs_hive": true,
+  "expected_pushdown": "Aggregation(COMPLETE)",
+  "pushdown_seen": true,
+  "rows": 16,
+  "time_s": 3.4297961999982363
+ },
+ {
+  "feature": "TQ_like_residual",
+  "correct_vs_hive": true,
+  "expected_pushdown": "Filter(partial)",
+  "pushdown_seen": true,
+  "rows": 7,
+  "time_s": 0.6518548889980593
+ }
+]

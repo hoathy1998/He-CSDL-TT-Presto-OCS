@@ -1,0 +1,2227 @@
+{
+ "cluster": {
+  "net_mbit": 1000.0,
+  "media_mbps": 500.0,
+  "storage_threads": 2,
+  "compute_threads": 16
+ },
+ "reps": 3,
+ "rows": [
+  {
+   "exp": "E1",
+   "query": "laghos",
+   "table": "laghos",
+   "mode": "none",
+   "k": 0,
+   "net_mbit": 1000.0,
+   "splits": 16,
+   "time_s": 14.738441108000188,
+   "time_all": [
+    16.086418988999867,
+    14.738441108000188,
+    14.409973465999883
+   ],
+   "wire_bytes": 1628041347,
+   "payload_bytes": 1624968474,
+   "timings": {
+    "plan_analysis": 0.00010635800026648212,
+    "substrait_gen": 0.00013410399969870923,
+    "pushdown_transfer": 14.438184766999711,
+    "post_scan": 0.2986331689999133,
+    "others": 0.0013827100005983084
+   },
+   "storage": {
+    "read_s": 6.3373257499997635,
+    "exec_s": 0.0,
+    "media_bytes": 1624968474,
+    "in_rows": 0,
+    "out_rows": 0
+   },
+   "substrait_bytes": 0,
+   "result_rows": 100,
+   "correct": true,
+   "storage_sql": null,
+   "residual_sql": "SELECT * FROM (SELECT timestep, vertex_id, min(vertex_id) AS vid, min(x) AS min_x, min(y) AS min_y, min(z) AS min_z, avg(e) AS avg_e FROM (SELECT vertex_id, x, y, z, e, timestep FROM (SELECT vertex_id, x, y, z, e, timestep FROM t) AS s WHERE x BETWEEN 0.8 AND 3.2 AND y BETWEEN 0.8 AND 3.2 AND z BETWEEN 0.8 AND 3.2) AS s GROUP BY timestep, vertex_id) AS s ORDER BY avg_e, timestep, vertex_id LIMIT 100"
+  },
+  {
+   "exp": "E1",
+   "query": "laghos",
+   "table": "laghos",
+   "mode": "filter",
+   "k": 1,
+   "net_mbit": 1000.0,
+   "splits": 16,
+   "time_s": 6.534566986999835,
+   "time_all": [
+    6.651921093000055,
+    6.534566986999835,
+    5.8887278269999115
+   ],
+   "wire_bytes": 636180226,
+   "payload_bytes": 634943936,
+   "timings": {
+    "plan_analysis": 9.556500026519643e-05,
+    "substrait_gen": 0.0016475750003337453,
+    "pushdown_transfer": 6.3986749269997745,
+    "post_scan": 0.13301351700010855,
+    "others": 0.0011354029993526638
+   },
+   "storage": {
+    "read_s": 7.904493398000795,
+    "exec_s": 1.030031135000172,
+    "media_bytes": 742012669,
+    "in_rows": 67108864,
+    "out_rows": 14430544
+   },
+   "substrait_bytes": 482,
+   "result_rows": 100,
+   "correct": true,
+   "storage_sql": "SELECT vertex_id, x, y, z, e, timestep FROM (SELECT vertex_id, x, y, z, e, timestep FROM t) AS s WHERE x BETWEEN 0.8 AND 3.2 AND y BETWEEN 0.8 AND 3.2 AND z BETWEEN 0.8 AND 3.2",
+   "residual_sql": "SELECT * FROM (SELECT timestep, vertex_id, min(vertex_id) AS vid, min(x) AS min_x, min(y) AS min_y, min(z) AS min_z, avg(e) AS avg_e FROM (SELECT * FROM t) AS s GROUP BY timestep, vertex_id) AS s ORDER BY avg_e, timestep, vertex_id LIMIT 100"
+  },
+  {
+   "exp": "E1",
+   "query": "laghos",
+   "table": "laghos",
+   "mode": "filter+aggr",
+   "k": 2,
+   "net_mbit": 1000.0,
+   "splits": 16,
+   "time_s": 3.2766350100000636,
+   "time_all": [
+    3.057648515999972,
+    3.2766350100000636,
+    3.3451463439996587
+   ],
+   "wire_bytes": 101079001,
+   "payload_bytes": 100821456,
+   "timings": {
+    "plan_analysis": 8.47569999677944e-05,
+    "substrait_gen": 0.002258079000057478,
+    "pushdown_transfer": 3.265426330000082,
+    "post_scan": 0.007098183999914909,
+    "others": 0.00176766000004136
+   },
+   "storage": {
+    "read_s": 9.404896251999162,
+    "exec_s": 1.0822484949990212,
+    "media_bytes": 742012669,
+    "in_rows": 67108864,
+    "out_rows": 2100447
+   },
+   "substrait_bytes": 802,
+   "result_rows": 100,
+   "correct": true,
+   "storage_sql": "SELECT timestep, vertex_id, min(vertex_id) AS vid, min(x) AS min_x, min(y) AS min_y, min(z) AS min_z, avg(e) AS avg_e FROM (SELECT vertex_id, x, y, z, e, timestep FROM (SELECT vertex_id, x, y, z, e, timestep FROM t) AS s WHERE x BETWEEN 0.8 AND 3.2 AND y BETWEEN 0.8 AND 3.2 AND z BETWEEN 0.8 AND 3.2) AS s GROUP BY timestep, vertex_id",
+   "residual_sql": "SELECT * FROM (SELECT * FROM t) AS s ORDER BY avg_e, timestep, vertex_id LIMIT 100"
+  },
+  {
+   "exp": "E1",
+   "query": "laghos",
+   "table": "laghos",
+   "mode": "filter+aggr+topN",
+   "k": 3,
+   "net_mbit": 1000.0,
+   "splits": 16,
+   "time_s": 3.181798453000283,
+   "time_all": [
+    3.2481852750001963,
+    3.1556114540003364,
+    3.181798453000283
+   ],
+   "wire_bytes": 106587,
+   "payload_bytes": 76800,
+   "timings": {
+    "plan_analysis": 8.077499978753622e-05,
+    "substrait_gen": 0.002368038999975397,
+    "pushdown_transfer": 3.1764504950001538,
+    "post_scan": 0.0018163439999625552,
+    "others": 0.0010828000004039495
+   },
+   "storage": {
+    "read_s": 10.186890183001651,
+    "exec_s": 1.4907834689988704,
+    "media_bytes": 742012669,
+    "in_rows": 67108864,
+    "out_rows": 1600
+   },
+   "substrait_bytes": 866,
+   "result_rows": 100,
+   "correct": true,
+   "storage_sql": "SELECT * FROM (SELECT timestep, vertex_id, min(vertex_id) AS vid, min(x) AS min_x, min(y) AS min_y, min(z) AS min_z, avg(e) AS avg_e FROM (SELECT vertex_id, x, y, z, e, timestep FROM (SELECT vertex_id, x, y, z, e, timestep FROM t) AS s WHERE x BETWEEN 0.8 AND 3.2 AND y BETWEEN 0.8 AND 3.2 AND z BETWEEN 0.8 AND 3.2) AS s GROUP BY timestep, vertex_id) AS s ORDER BY avg_e, timestep, vertex_id LIMIT 100",
+   "residual_sql": "SELECT * FROM (SELECT * FROM t) AS s ORDER BY avg_e, timestep, vertex_id LIMIT 100"
+  },
+  {
+   "exp": "E1",
+   "query": "laghos",
+   "table": "laghos",
+   "mode": "filter(csv)",
+   "k": 1,
+   "net_mbit": 1000.0,
+   "splits": 16,
+   "time_s": 9.701078356999915,
+   "time_all": [
+    8.938566706000074,
+    9.701078356999915,
+    9.776893972999915
+   ],
+   "wire_bytes": 861776858,
+   "payload_bytes": 860724601,
+   "timings": {
+    "plan_analysis": 8.640299984108424e-05,
+    "substrait_gen": 0.001819016999888845,
+    "pushdown_transfer": 9.565329822999956,
+    "post_scan": 0.131385820000105,
+    "others": 0.002457294000123511
+   },
+   "storage": {
+    "read_s": 7.848999228999219,
+    "exec_s": 0.4361200560006182,
+    "media_bytes": 742012669,
+    "in_rows": 67108864,
+    "out_rows": 14430544
+   },
+   "substrait_bytes": 482,
+   "result_rows": 100,
+   "correct": true,
+   "storage_sql": "SELECT vertex_id, x, y, z, e, timestep FROM (SELECT vertex_id, x, y, z, e, timestep FROM t) AS s WHERE x BETWEEN 0.8 AND 3.2 AND y BETWEEN 0.8 AND 3.2 AND z BETWEEN 0.8 AND 3.2",
+   "residual_sql": "SELECT * FROM (SELECT timestep, vertex_id, min(vertex_id) AS vid, min(x) AS min_x, min(y) AS min_y, min(z) AS min_z, avg(e) AS avg_e FROM (SELECT * FROM t) AS s GROUP BY timestep, vertex_id) AS s ORDER BY avg_e, timestep, vertex_id LIMIT 100"
+  },
+  {
+   "exp": "E2",
+   "query": "deepwater",
+   "table": "deepwater",
+   "mode": "none",
+   "k": 0,
+   "net_mbit": 1000.0,
+   "splits": 16,
+   "time_s": 17.68952902700039,
+   "time_all": [
+    17.695641684999828,
+    17.686685211999702,
+    17.68952902700039
+   ],
+   "wire_bytes": 2050651192,
+   "payload_bytes": 2048189264,
+   "timings": {
+    "plan_analysis": 7.445500023095519e-05,
+    "substrait_gen": 9.52279997363803e-05,
+    "pushdown_transfer": 17.64308963900021,
+    "post_scan": 0.04512592700029927,
+    "others": 0.001143777999914164
+   },
+   "storage": {
+    "read_s": 6.826863354999205,
+    "exec_s": 0.0,
+    "media_bytes": 2048189264,
+    "in_rows": 0,
+    "out_rows": 0
+   },
+   "substrait_bytes": 0,
+   "result_rows": 16,
+   "correct": true,
+   "storage_sql": null,
+   "residual_sql": "SELECT timestep, max(height_idx) AS max_height FROM (SELECT (rowid % 250000) / 500 AS height_idx, timestep AS timestep FROM (SELECT rowid, timestep FROM (SELECT rowid, v02, timestep FROM t) AS s WHERE v02 > 0.1) AS s) AS s GROUP BY timestep"
+  },
+  {
+   "exp": "E2",
+   "query": "deepwater",
+   "table": "deepwater",
+   "mode": "filter",
+   "k": 1,
+   "net_mbit": 1000.0,
+   "splits": 16,
+   "time_s": 4.460961225000119,
+   "time_all": [
+    4.555814558999828,
+    4.460961225000119,
+    4.402453928999876
+   ],
+   "wire_bytes": 418753515,
+   "payload_bytes": 417700112,
+   "timings": {
+    "plan_analysis": 8.22749998405925e-05,
+    "substrait_gen": 0.001328877999640099,
+    "pushdown_transfer": 4.422259622000183,
+    "post_scan": 0.0356483800001115,
+    "others": 0.001642070000343665
+   },
+   "storage": {
+    "read_s": 7.995386495000275,
+    "exec_s": 0.15757715899962932,
+    "media_bytes": 1537163056,
+    "in_rows": 64000000,
+    "out_rows": 26106257
+   },
+   "substrait_bytes": 195,
+   "result_rows": 16,
+   "correct": true,
+   "storage_sql": "SELECT rowid, timestep FROM (SELECT rowid, v02, timestep FROM t) AS s WHERE v02 > 0.1",
+   "residual_sql": "SELECT timestep, max(height_idx) AS max_height FROM (SELECT (rowid % 250000) / 500 AS height_idx, timestep AS timestep FROM (SELECT * FROM t) AS s) AS s GROUP BY timestep"
+  },
+  {
+   "exp": "E2",
+   "query": "deepwater",
+   "table": "deepwater",
+   "mode": "filter+proj",
+   "k": 2,
+   "net_mbit": 1000.0,
+   "splits": 16,
+   "time_s": 4.468216015000053,
+   "time_all": [
+    4.43684627499988,
+    4.468216015000053,
+    4.519388844999867
+   ],
+   "wire_bytes": 418753686,
+   "payload_bytes": 417700112,
+   "timings": {
+    "plan_analysis": 8.695799988345243e-05,
+    "substrait_gen": 0.0015629989998160454,
+    "pushdown_transfer": 4.433519988999706,
+    "post_scan": 0.031607363000148325,
+    "others": 0.0014387060004992236
+   },
+   "storage": {
+    "read_s": 8.375752962001116,
+    "exec_s": 0.20361352199961402,
+    "media_bytes": 1537163056,
+    "in_rows": 64000000,
+    "out_rows": 26106257
+   },
+   "substrait_bytes": 312,
+   "result_rows": 16,
+   "correct": true,
+   "storage_sql": "SELECT (rowid % 250000) / 500 AS height_idx, timestep AS timestep FROM (SELECT rowid, timestep FROM (SELECT rowid, v02, timestep FROM t) AS s WHERE v02 > 0.1) AS s",
+   "residual_sql": "SELECT timestep, max(height_idx) AS max_height FROM (SELECT * FROM t) AS s GROUP BY timestep"
+  },
+  {
+   "exp": "E2",
+   "query": "deepwater",
+   "table": "deepwater",
+   "mode": "filter+proj+aggr",
+   "k": 3,
+   "net_mbit": 1000.0,
+   "splits": 16,
+   "time_s": 3.2039324840002337,
+   "time_all": [
+    3.20565473500028,
+    3.1917201380001643,
+    3.2039324840002337
+   ],
+   "wire_bytes": 21077,
+   "payload_bytes": 256,
+   "timings": {
+    "plan_analysis": 7.128799961719778e-05,
+    "substrait_gen": 0.0017180740001094819,
+    "pushdown_transfer": 3.198997570999836,
+    "post_scan": 0.0015885390002949862,
+    "others": 0.0015570120003758348
+   },
+   "storage": {
+    "read_s": 12.196617626999341,
+    "exec_s": 0.17879245500125762,
+    "media_bytes": 1537163056,
+    "in_rows": 64000000,
+    "out_rows": 16
+   },
+   "substrait_bytes": 420,
+   "result_rows": 16,
+   "correct": true,
+   "storage_sql": "SELECT timestep, max(height_idx) AS max_height FROM (SELECT (rowid % 250000) / 500 AS height_idx, timestep AS timestep FROM (SELECT rowid, timestep FROM (SELECT rowid, v02, timestep FROM t) AS s WHERE v02 > 0.1) AS s) AS s GROUP BY timestep",
+   "residual_sql": "SELECT * FROM t"
+  },
+  {
+   "exp": "E2",
+   "query": "tpch_q1",
+   "table": "lineitem",
+   "mode": "none",
+   "k": 0,
+   "net_mbit": 1000.0,
+   "splits": 8,
+   "time_s": 3.5153740860000653,
+   "time_all": [
+    3.520284649000132,
+    3.4913544480000382,
+    3.5153740860000653
+   ],
+   "wire_bytes": 387709549,
+   "payload_bytes": 386205568,
+   "timings": {
+    "plan_analysis": 0.00010240799974781112,
+    "substrait_gen": 0.0001257039998563414,
+    "pushdown_transfer": 3.426693283000077,
+    "post_scan": 0.08738683899991884,
+    "others": 0.0010658520004653838
+   },
+   "storage": {
+    "read_s": 1.6331580229998508,
+    "exec_s": 0.0,
+    "media_bytes": 386205568,
+    "in_rows": 0,
+    "out_rows": 0
+   },
+   "substrait_bytes": 0,
+   "result_rows": 4,
+   "correct": true,
+   "storage_sql": null,
+   "residual_sql": "SELECT * FROM (SELECT l_returnflag, l_linestatus, sum(l_quantity) AS sum_qty, sum(l_extendedprice) AS sum_base_price, sum(disc_price) AS sum_disc_price, sum(charge) AS sum_charge, avg(l_quantity) AS avg_qty, avg(l_extendedprice) AS avg_price, avg(l_discount) AS avg_disc, count(*) AS count_order FROM (SELECT l_returnflag AS l_returnflag, l_linestatus AS l_linestatus, l_quantity AS l_quantity, l_extendedprice AS l_extendedprice, l_discount AS l_discount, l_extendedprice * (1 - l_discount) AS disc_price, l_extendedprice * (1 - l_discount) * (1 + l_tax) AS charge FROM (SELECT l_returnflag, l_linestatus, l_quantity, l_extendedprice, l_discount, l_tax FROM (SELECT l_returnflag, l_linestatus, l_quantity, l_extendedprice, l_discount, l_tax, l_shipdate FROM t) AS s WHERE l_shipdate <= DATE '1998-09-02') AS s) AS s GROUP BY l_returnflag, l_linestatus) AS s ORDER BY l_returnflag, l_linestatus"
+  },
+  {
+   "exp": "E2",
+   "query": "tpch_q1",
+   "table": "lineitem",
+   "mode": "filter",
+   "k": 1,
+   "net_mbit": 1000.0,
+   "splits": 8,
+   "time_s": 3.760342968000259,
+   "time_all": [
+    3.760342968000259,
+    3.7599083980003343,
+    3.7626637769999434
+   ],
+   "wire_bytes": 438450628,
+   "payload_bytes": 437827734,
+   "timings": {
+    "plan_analysis": 9.417000001121778e-05,
+    "substrait_gen": 0.0016396039995925094,
+    "pushdown_transfer": 3.7104837820002103,
+    "post_scan": 0.04589823400010573,
+    "others": 0.002227178000339336
+   },
+   "storage": {
+    "read_s": 0.4219648610001059,
+    "exec_s": 0.1876828409999689,
+    "media_bytes": 71249070,
+    "in_rows": 6001215,
+    "out_rows": 5916591
+   },
+   "substrait_bytes": 434,
+   "result_rows": 4,
+   "correct": true,
+   "storage_sql": "SELECT l_returnflag, l_linestatus, l_quantity, l_extendedprice, l_discount, l_tax FROM (SELECT l_returnflag, l_linestatus, l_quantity, l_extendedprice, l_discount, l_tax, l_shipdate FROM t) AS s WHERE l_shipdate <= DATE '1998-09-02'",
+   "residual_sql": "SELECT * FROM (SELECT l_returnflag, l_linestatus, sum(l_quantity) AS sum_qty, sum(l_extendedprice) AS sum_base_price, sum(disc_price) AS sum_disc_price, sum(charge) AS sum_charge, avg(l_quantity) AS avg_qty, avg(l_extendedprice) AS avg_price, avg(l_discount) AS avg_disc, count(*) AS count_order FROM (SELECT l_returnflag AS l_returnflag, l_linestatus AS l_linestatus, l_quantity AS l_quantity, l_extendedprice AS l_extendedprice, l_discount AS l_discount, l_extendedprice * (1 - l_discount) AS disc_price, l_extendedprice * (1 - l_discount) * (1 + l_tax) AS charge FROM (SELECT * FROM t) AS s) AS s GROUP BY l_returnflag, l_linestatus) AS s ORDER BY l_returnflag, l_linestatus"
+  },
+  {
+   "exp": "E2",
+   "query": "tpch_q1",
+   "table": "lineitem",
+   "mode": "filter+proj",
+   "k": 2,
+   "net_mbit": 1000.0,
+   "splits": 8,
+   "time_s": 4.564276809999683,
+   "time_all": [
+    4.596216095999807,
+    4.558066924000286,
+    4.564276809999683
+   ],
+   "wire_bytes": 533236406,
+   "payload_bytes": 532493190,
+   "timings": {
+    "plan_analysis": 0.00018405500031803967,
+    "substrait_gen": 0.002792886999941402,
+    "pushdown_transfer": 4.526886353000009,
+    "post_scan": 0.0330870650000179,
+    "others": 0.0013264499993965728
+   },
+   "storage": {
+    "read_s": 0.42198756199968557,
+    "exec_s": 0.17988138800046727,
+    "media_bytes": 71249070,
+    "in_rows": 6001215,
+    "out_rows": 5916591
+   },
+   "substrait_bytes": 826,
+   "result_rows": 4,
+   "correct": true,
+   "storage_sql": "SELECT l_returnflag AS l_returnflag, l_linestatus AS l_linestatus, l_quantity AS l_quantity, l_extendedprice AS l_extendedprice, l_discount AS l_discount, l_extendedprice * (1 - l_discount) AS disc_price, l_extendedprice * (1 - l_discount) * (1 + l_tax) AS charge FROM (SELECT l_returnflag, l_linestatus, l_quantity, l_extendedprice, l_discount, l_tax FROM (SELECT l_returnflag, l_linestatus, l_quantity, l_extendedprice, l_discount, l_tax, l_shipdate FROM t) AS s WHERE l_shipdate <= DATE '1998-09-02') AS s",
+   "residual_sql": "SELECT * FROM (SELECT l_returnflag, l_linestatus, sum(l_quantity) AS sum_qty, sum(l_extendedprice) AS sum_base_price, sum(disc_price) AS sum_disc_price, sum(charge) AS sum_charge, avg(l_quantity) AS avg_qty, avg(l_extendedprice) AS avg_price, avg(l_discount) AS avg_disc, count(*) AS count_order FROM (SELECT * FROM t) AS s GROUP BY l_returnflag, l_linestatus) AS s ORDER BY l_returnflag, l_linestatus"
+  },
+  {
+   "exp": "E2",
+   "query": "tpch_q1",
+   "table": "lineitem",
+   "mode": "filter+proj+aggr",
+   "k": 3,
+   "net_mbit": 1000.0,
+   "splits": 8,
+   "time_s": 0.39189131600005567,
+   "time_all": [
+    0.473668875000385,
+    0.39189131600005567,
+    0.38471760700031155
+   ],
+   "wire_bytes": 33571,
+   "payload_bytes": 4928,
+   "timings": {
+    "plan_analysis": 0.00010181700008615735,
+    "substrait_gen": 0.0036226310003257822,
+    "pushdown_transfer": 0.3823416539999016,
+    "post_scan": 0.004225942000175564,
+    "others": 0.0015992719995665539
+   },
+   "storage": {
+    "read_s": 0.5392509739995148,
+    "exec_s": 0.7459322850008903,
+    "media_bytes": 71249070,
+    "in_rows": 6001215,
+    "out_rows": 32
+   },
+   "substrait_bytes": 1384,
+   "result_rows": 4,
+   "correct": true,
+   "storage_sql": "SELECT l_returnflag, l_linestatus, sum(l_quantity) AS sum_qty, sum(l_extendedprice) AS sum_base_price, sum(disc_price) AS sum_disc_price, sum(charge) AS sum_charge, sum(l_quantity) AS avg_qty__sum, count(l_quantity) AS avg_qty__cnt, sum(l_extendedprice) AS avg_price__sum, count(l_extendedprice) AS avg_price__cnt, sum(l_discount) AS avg_disc__sum, count(l_discount) AS avg_disc__cnt, count(*) AS count_order FROM (SELECT l_returnflag AS l_returnflag, l_linestatus AS l_linestatus, l_quantity AS l_quantity, l_extendedprice AS l_extendedprice, l_discount AS l_discount, l_extendedprice * (1 - l_discount) AS disc_price, l_extendedprice * (1 - l_discount) * (1 + l_tax) AS charge FROM (SELECT l_returnflag, l_linestatus, l_quantity, l_extendedprice, l_discount, l_tax FROM (SELECT l_returnflag, l_linestatus, l_quantity, l_extendedprice, l_discount, l_tax, l_shipdate FROM t) AS s WHERE l_shipdate <= DATE '1998-09-02') AS s) AS s GROUP BY l_returnflag, l_linestatus",
+   "residual_sql": "SELECT * FROM (SELECT l_returnflag, l_linestatus, sum(sum_qty) AS sum_qty, sum(sum_base_price) AS sum_base_price, sum(sum_disc_price) AS sum_disc_price, sum(sum_charge) AS sum_charge, sum(avg_qty__sum) / sum(avg_qty__cnt) AS avg_qty, sum(avg_price__sum) / sum(avg_price__cnt) AS avg_price, sum(avg_disc__sum) / sum(avg_disc__cnt) AS avg_disc, sum(count_order) AS count_order FROM (SELECT * FROM t) AS s GROUP BY l_returnflag, l_linestatus) AS s ORDER BY l_returnflag, l_linestatus"
+  },
+  {
+   "exp": "E3",
+   "query": "deepwater@deepwater",
+   "table": "deepwater",
+   "mode": "filter",
+   "k": 1,
+   "net_mbit": 1000.0,
+   "splits": 16,
+   "time_s": 4.624799758000336,
+   "time_all": [
+    4.624799758000336,
+    4.732560060999731,
+    4.397489296999993
+   ],
+   "wire_bytes": 418756818,
+   "payload_bytes": 417700112,
+   "timings": {
+    "plan_analysis": 8.597399983045761e-05,
+    "substrait_gen": 0.0016565030000492698,
+    "pushdown_transfer": 4.581499104000159,
+    "post_scan": 0.04038244899993515,
+    "others": 0.0011757280003621418
+   },
+   "storage": {
+    "read_s": 8.648576481999498,
+    "exec_s": 0.15111864600021363,
+    "media_bytes": 1537163056,
+    "in_rows": 64000000,
+    "out_rows": 26106257
+   },
+   "substrait_bytes": 195,
+   "result_rows": 16,
+   "correct": true,
+   "storage_sql": "SELECT rowid, timestep FROM (SELECT rowid, v02, timestep FROM t) AS s WHERE v02 > 0.1",
+   "residual_sql": "SELECT timestep, max(height_idx) AS max_height FROM (SELECT (rowid % 250000) / 500 AS height_idx, timestep AS timestep FROM (SELECT * FROM t) AS s) AS s GROUP BY timestep",
+   "codec": "raw"
+  },
+  {
+   "exp": "E3",
+   "query": "deepwater@deepwater",
+   "table": "deepwater",
+   "mode": "filter+proj+aggr",
+   "k": 3,
+   "net_mbit": 1000.0,
+   "splits": 16,
+   "time_s": 3.190290750999793,
+   "time_all": [
+    3.200737144999948,
+    3.190290750999793,
+    3.1863956910001434
+   ],
+   "wire_bytes": 20944,
+   "payload_bytes": 256,
+   "timings": {
+    "plan_analysis": 6.936499994480982e-05,
+    "substrait_gen": 0.001723122999919724,
+    "pushdown_transfer": 3.186276273000203,
+    "post_scan": 0.0010275879999426252,
+    "others": 0.0011944019997827127
+   },
+   "storage": {
+    "read_s": 12.173095601000114,
+    "exec_s": 0.17583945900014442,
+    "media_bytes": 1537163056,
+    "in_rows": 64000000,
+    "out_rows": 16
+   },
+   "substrait_bytes": 420,
+   "result_rows": 16,
+   "correct": true,
+   "storage_sql": "SELECT timestep, max(height_idx) AS max_height FROM (SELECT (rowid % 250000) / 500 AS height_idx, timestep AS timestep FROM (SELECT rowid, timestep FROM (SELECT rowid, v02, timestep FROM t) AS s WHERE v02 > 0.1) AS s) AS s GROUP BY timestep",
+   "residual_sql": "SELECT * FROM t",
+   "codec": "raw"
+  },
+  {
+   "exp": "E3",
+   "query": "deepwater@deepwater_snappy",
+   "table": "deepwater_snappy",
+   "mode": "filter",
+   "k": 1,
+   "net_mbit": 1000.0,
+   "splits": 16,
+   "time_s": 3.6986143220001395,
+   "time_all": [
+    3.6986143220001395,
+    3.7170761200000015,
+    3.679434621999917
+   ],
+   "wire_bytes": 418754414,
+   "payload_bytes": 417700112,
+   "timings": {
+    "plan_analysis": 8.035300015762914e-05,
+    "substrait_gen": 0.001326880999840796,
+    "pushdown_transfer": 3.658512181000333,
+    "post_scan": 0.03751917699992191,
+    "others": 0.0011757299998862436
+   },
+   "storage": {
+    "read_s": 1.3415235789993858,
+    "exec_s": 0.1815408420006861,
+    "media_bytes": 276739616,
+    "in_rows": 64000000,
+    "out_rows": 26106257
+   },
+   "substrait_bytes": 195,
+   "result_rows": 16,
+   "correct": true,
+   "storage_sql": "SELECT rowid, timestep FROM (SELECT rowid, v02, timestep FROM t) AS s WHERE v02 > 0.1",
+   "residual_sql": "SELECT timestep, max(height_idx) AS max_height FROM (SELECT (rowid % 250000) / 500 AS height_idx, timestep AS timestep FROM (SELECT * FROM t) AS s) AS s GROUP BY timestep",
+   "codec": "snappy"
+  },
+  {
+   "exp": "E3",
+   "query": "deepwater@deepwater_snappy",
+   "table": "deepwater_snappy",
+   "mode": "filter+proj+aggr",
+   "k": 3,
+   "net_mbit": 1000.0,
+   "splits": 16,
+   "time_s": 0.7325561779998679,
+   "time_all": [
+    0.7325561779998679,
+    0.7437553549998484,
+    0.722502410999823
+   ],
+   "wire_bytes": 20507,
+   "payload_bytes": 256,
+   "timings": {
+    "plan_analysis": 6.370599976435187e-05,
+    "substrait_gen": 0.0015555079999103327,
+    "pushdown_transfer": 0.7285406430000876,
+    "post_scan": 0.001011995999760984,
+    "others": 0.0013843250003446883
+   },
+   "storage": {
+    "read_s": 2.402508360000411,
+    "exec_s": 0.3269997499987767,
+    "media_bytes": 276739616,
+    "in_rows": 64000000,
+    "out_rows": 16
+   },
+   "substrait_bytes": 420,
+   "result_rows": 16,
+   "correct": true,
+   "storage_sql": "SELECT timestep, max(height_idx) AS max_height FROM (SELECT (rowid % 250000) / 500 AS height_idx, timestep AS timestep FROM (SELECT rowid, timestep FROM (SELECT rowid, v02, timestep FROM t) AS s WHERE v02 > 0.1) AS s) AS s GROUP BY timestep",
+   "residual_sql": "SELECT * FROM t",
+   "codec": "snappy"
+  },
+  {
+   "exp": "E3",
+   "query": "deepwater@deepwater_gzip",
+   "table": "deepwater_gzip",
+   "mode": "filter",
+   "k": 1,
+   "net_mbit": 1000.0,
+   "splits": 16,
+   "time_s": 3.716157241000019,
+   "time_all": [
+    3.716157241000019,
+    3.723358510000253,
+    3.631650030000401
+   ],
+   "wire_bytes": 418751795,
+   "payload_bytes": 417700112,
+   "timings": {
+    "plan_analysis": 8.678800031702849e-05,
+    "substrait_gen": 0.0013695060001737147,
+    "pushdown_transfer": 3.675920614000006,
+    "post_scan": 0.03701069599992479,
+    "others": 0.0017696369995974237
+   },
+   "storage": {
+    "read_s": 1.1645371830009026,
+    "exec_s": 0.2961791189991345,
+    "media_bytes": 116113047,
+    "in_rows": 64000000,
+    "out_rows": 26106257
+   },
+   "substrait_bytes": 195,
+   "result_rows": 16,
+   "correct": true,
+   "storage_sql": "SELECT rowid, timestep FROM (SELECT rowid, v02, timestep FROM t) AS s WHERE v02 > 0.1",
+   "residual_sql": "SELECT timestep, max(height_idx) AS max_height FROM (SELECT (rowid % 250000) / 500 AS height_idx, timestep AS timestep FROM (SELECT * FROM t) AS s) AS s GROUP BY timestep",
+   "codec": "gzip"
+  },
+  {
+   "exp": "E3",
+   "query": "deepwater@deepwater_gzip",
+   "table": "deepwater_gzip",
+   "mode": "filter+proj+aggr",
+   "k": 3,
+   "net_mbit": 1000.0,
+   "splits": 16,
+   "time_s": 0.6898642219998692,
+   "time_all": [
+    0.6862506119996397,
+    0.7224831849998736,
+    0.6898642219998692
+   ],
+   "wire_bytes": 20562,
+   "payload_bytes": 256,
+   "timings": {
+    "plan_analysis": 6.666899980700691e-05,
+    "substrait_gen": 0.0017149149998658686,
+    "pushdown_transfer": 0.6855807790002473,
+    "post_scan": 0.001046608000251581,
+    "others": 0.001455250999697455
+   },
+   "storage": {
+    "read_s": 2.0832523770004627,
+    "exec_s": 0.410165114999927,
+    "media_bytes": 116113047,
+    "in_rows": 64000000,
+    "out_rows": 16
+   },
+   "substrait_bytes": 420,
+   "result_rows": 16,
+   "correct": true,
+   "storage_sql": "SELECT timestep, max(height_idx) AS max_height FROM (SELECT (rowid % 250000) / 500 AS height_idx, timestep AS timestep FROM (SELECT rowid, timestep FROM (SELECT rowid, v02, timestep FROM t) AS s WHERE v02 > 0.1) AS s) AS s GROUP BY timestep",
+   "residual_sql": "SELECT * FROM t",
+   "codec": "gzip"
+  },
+  {
+   "exp": "E3",
+   "query": "deepwater@deepwater_zstd",
+   "table": "deepwater_zstd",
+   "mode": "filter",
+   "k": 1,
+   "net_mbit": 1000.0,
+   "splits": 16,
+   "time_s": 3.648364777000097,
+   "time_all": [
+    3.6495621110002503,
+    3.6359093850001045,
+    3.648364777000097
+   ],
+   "wire_bytes": 418751560,
+   "payload_bytes": 417700112,
+   "timings": {
+    "plan_analysis": 8.054699992499081e-05,
+    "substrait_gen": 0.0012982570001440763,
+    "pushdown_transfer": 3.6088817169998038,
+    "post_scan": 0.03684435699960886,
+    "others": 0.0012598990006154054
+   },
+   "storage": {
+    "read_s": 0.8412061859994537,
+    "exec_s": 0.21755164999967747,
+    "media_bytes": 84896066,
+    "in_rows": 64000000,
+    "out_rows": 26106257
+   },
+   "substrait_bytes": 195,
+   "result_rows": 16,
+   "correct": true,
+   "storage_sql": "SELECT rowid, timestep FROM (SELECT rowid, v02, timestep FROM t) AS s WHERE v02 > 0.1",
+   "residual_sql": "SELECT timestep, max(height_idx) AS max_height FROM (SELECT (rowid % 250000) / 500 AS height_idx, timestep AS timestep FROM (SELECT * FROM t) AS s) AS s GROUP BY timestep",
+   "codec": "zstd"
+  },
+  {
+   "exp": "E3",
+   "query": "deepwater@deepwater_zstd",
+   "table": "deepwater_zstd",
+   "mode": "filter+proj+aggr",
+   "k": 3,
+   "net_mbit": 1000.0,
+   "splits": 16,
+   "time_s": 0.6008299969998916,
+   "time_all": [
+    0.6069603570003892,
+    0.5949955080000109,
+    0.6008299969998916
+   ],
+   "wire_bytes": 20195,
+   "payload_bytes": 256,
+   "timings": {
+    "plan_analysis": 7.05760003256728e-05,
+    "substrait_gen": 0.0015849290002734051,
+    "pushdown_transfer": 0.5970533760000762,
+    "post_scan": 0.0010158979998777795,
+    "others": 0.0011052179993384925
+   },
+   "storage": {
+    "read_s": 1.7729151850007838,
+    "exec_s": 0.43869610599904263,
+    "media_bytes": 84896066,
+    "in_rows": 64000000,
+    "out_rows": 16
+   },
+   "substrait_bytes": 420,
+   "result_rows": 16,
+   "correct": true,
+   "storage_sql": "SELECT timestep, max(height_idx) AS max_height FROM (SELECT (rowid % 250000) / 500 AS height_idx, timestep AS timestep FROM (SELECT rowid, timestep FROM (SELECT rowid, v02, timestep FROM t) AS s WHERE v02 > 0.1) AS s) AS s GROUP BY timestep",
+   "residual_sql": "SELECT * FROM t",
+   "codec": "zstd"
+  },
+  {
+   "exp": "E4",
+   "query": "laghos",
+   "table": "laghos",
+   "mode": "filter+aggr+topN",
+   "k": 3,
+   "net_mbit": 1000.0,
+   "splits": 1,
+   "time_s": 0.3196661110000605,
+   "time_all": [
+    0.3196661110000605,
+    0.31157528300036574,
+    0.3067859879997741,
+    0.3186610460002157,
+    0.3303520709996519,
+    0.34457454299990786,
+    1.0344563590001599
+   ],
+   "wire_bytes": 7571,
+   "payload_bytes": 4800,
+   "timings": {
+    "plan_analysis": 6.69890000608575e-05,
+    "substrait_gen": 0.0018989679997503117,
+    "pushdown_transfer": 0.3151387089997115,
+    "post_scan": 0.0012866489996667951,
+    "others": 0.0012747960008709924
+   },
+   "storage": {
+    "read_s": 0.2537749119996988,
+    "exec_s": 0.05225658600011229,
+    "media_bytes": 46369454,
+    "in_rows": 4194304,
+    "out_rows": 100
+   },
+   "substrait_bytes": 866,
+   "result_rows": 100,
+   "correct": true,
+   "storage_sql": "SELECT * FROM (SELECT timestep, vertex_id, min(vertex_id) AS vid, min(x) AS min_x, min(y) AS min_y, min(z) AS min_z, avg(e) AS avg_e FROM (SELECT vertex_id, x, y, z, e, timestep FROM (SELECT vertex_id, x, y, z, e, timestep FROM t) AS s WHERE x BETWEEN 0.8 AND 3.2 AND y BETWEEN 0.8 AND 3.2 AND z BETWEEN 0.8 AND 3.2) AS s GROUP BY timestep, vertex_id) AS s ORDER BY avg_e, timestep, vertex_id LIMIT 100",
+   "residual_sql": "SELECT * FROM (SELECT * FROM t) AS s ORDER BY avg_e, timestep, vertex_id LIMIT 100"
+  },
+  {
+   "exp": "E5",
+   "query": "laghos",
+   "table": "laghos",
+   "mode": "none",
+   "k": 0,
+   "net_mbit": 100.0,
+   "splits": 16,
+   "time_s": 136.85245037499976,
+   "time_all": [
+    136.94535497399966,
+    136.75954577599987
+   ],
+   "wire_bytes": 1695578851.5,
+   "payload_bytes": 1624968474,
+   "timings": {
+    "plan_analysis": 0.0001299739997193683,
+    "substrait_gen": 0.00012207800000396674,
+    "pushdown_transfer": 136.75204173600014,
+    "post_scan": 0.19180738800014296,
+    "others": 0.0012537979996523063
+   },
+   "storage": {
+    "read_s": 7.1149435249994895,
+    "exec_s": 0.0,
+    "media_bytes": 1624968474,
+    "in_rows": 0,
+    "out_rows": 0
+   },
+   "substrait_bytes": 0,
+   "result_rows": 100,
+   "correct": true,
+   "storage_sql": null,
+   "residual_sql": "SELECT * FROM (SELECT timestep, vertex_id, min(vertex_id) AS vid, min(x) AS min_x, min(y) AS min_y, min(z) AS min_z, avg(e) AS avg_e FROM (SELECT vertex_id, x, y, z, e, timestep FROM (SELECT vertex_id, x, y, z, e, timestep FROM t) AS s WHERE x BETWEEN 0.8 AND 3.2 AND y BETWEEN 0.8 AND 3.2 AND z BETWEEN 0.8 AND 3.2) AS s GROUP BY timestep, vertex_id) AS s ORDER BY avg_e, timestep, vertex_id LIMIT 100"
+  },
+  {
+   "exp": "E5",
+   "query": "laghos",
+   "table": "laghos",
+   "mode": "filter",
+   "k": 1,
+   "net_mbit": 100.0,
+   "splits": 16,
+   "time_s": 53.967370776999815,
+   "time_all": [
+    54.31636807199993,
+    53.6183734819997
+   ],
+   "wire_bytes": 662403497.0,
+   "payload_bytes": 634943936,
+   "timings": {
+    "plan_analysis": 9.926300026563695e-05,
+    "substrait_gen": 0.0022237989996938268,
+    "pushdown_transfer": 54.156709238000076,
+    "post_scan": 0.15577502599990112,
+    "others": 0.0015607459999955609
+   },
+   "storage": {
+    "read_s": 8.514287886000602,
+    "exec_s": 0.4733104930019181,
+    "media_bytes": 742012669,
+    "in_rows": 67108864,
+    "out_rows": 14430544
+   },
+   "substrait_bytes": 482,
+   "result_rows": 100,
+   "correct": true,
+   "storage_sql": "SELECT vertex_id, x, y, z, e, timestep FROM (SELECT vertex_id, x, y, z, e, timestep FROM t) AS s WHERE x BETWEEN 0.8 AND 3.2 AND y BETWEEN 0.8 AND 3.2 AND z BETWEEN 0.8 AND 3.2",
+   "residual_sql": "SELECT * FROM (SELECT timestep, vertex_id, min(vertex_id) AS vid, min(x) AS min_x, min(y) AS min_y, min(z) AS min_z, avg(e) AS avg_e FROM (SELECT * FROM t) AS s GROUP BY timestep, vertex_id) AS s ORDER BY avg_e, timestep, vertex_id LIMIT 100"
+  },
+  {
+   "exp": "E5",
+   "query": "laghos",
+   "table": "laghos",
+   "mode": "filter+aggr+topN",
+   "k": 3,
+   "net_mbit": 100.0,
+   "splits": 16,
+   "time_s": 2.930906296500325,
+   "time_all": [
+    2.8869839890003277,
+    2.9748286040003222
+   ],
+   "wire_bytes": 106237.5,
+   "payload_bytes": 76800,
+   "timings": {
+    "plan_analysis": 0.0001874859999588807,
+    "substrait_gen": 0.0021462009999595466,
+    "pushdown_transfer": 2.969247631000144,
+    "post_scan": 0.0018485210002836538,
+    "others": 0.0013987649999762652
+   },
+   "storage": {
+    "read_s": 8.763979225002004,
+    "exec_s": 2.04590719800035,
+    "media_bytes": 742012669,
+    "in_rows": 67108864,
+    "out_rows": 1600
+   },
+   "substrait_bytes": 866,
+   "result_rows": 100,
+   "correct": true,
+   "storage_sql": "SELECT * FROM (SELECT timestep, vertex_id, min(vertex_id) AS vid, min(x) AS min_x, min(y) AS min_y, min(z) AS min_z, avg(e) AS avg_e FROM (SELECT vertex_id, x, y, z, e, timestep FROM (SELECT vertex_id, x, y, z, e, timestep FROM t) AS s WHERE x BETWEEN 0.8 AND 3.2 AND y BETWEEN 0.8 AND 3.2 AND z BETWEEN 0.8 AND 3.2) AS s GROUP BY timestep, vertex_id) AS s ORDER BY avg_e, timestep, vertex_id LIMIT 100",
+   "residual_sql": "SELECT * FROM (SELECT * FROM t) AS s ORDER BY avg_e, timestep, vertex_id LIMIT 100"
+  },
+  {
+   "exp": "E5",
+   "query": "tpch_q1",
+   "table": "lineitem",
+   "mode": "none",
+   "k": 0,
+   "net_mbit": 100.0,
+   "splits": 8,
+   "time_s": 32.56020905300011,
+   "time_all": [
+    32.5664691689999,
+    32.553948937000314
+   ],
+   "wire_bytes": 402356325.5,
+   "payload_bytes": 386205568,
+   "timings": {
+    "plan_analysis": 8.43739999254467e-05,
+    "substrait_gen": 0.00010808099978021346,
+    "pushdown_transfer": 32.4823906849997,
+    "post_scan": 0.08296456499920168,
+    "others": 0.0009214640012942255
+   },
+   "storage": {
+    "read_s": 1.627299201999449,
+    "exec_s": 0.0,
+    "media_bytes": 386205568,
+    "in_rows": 0,
+    "out_rows": 0
+   },
+   "substrait_bytes": 0,
+   "result_rows": 4,
+   "correct": true,
+   "storage_sql": null,
+   "residual_sql": "SELECT * FROM (SELECT l_returnflag, l_linestatus, sum(l_quantity) AS sum_qty, sum(l_extendedprice) AS sum_base_price, sum(disc_price) AS sum_disc_price, sum(charge) AS sum_charge, avg(l_quantity) AS avg_qty, avg(l_extendedprice) AS avg_price, avg(l_discount) AS avg_disc, count(*) AS count_order FROM (SELECT l_returnflag AS l_returnflag, l_linestatus AS l_linestatus, l_quantity AS l_quantity, l_extendedprice AS l_extendedprice, l_discount AS l_discount, l_extendedprice * (1 - l_discount) AS disc_price, l_extendedprice * (1 - l_discount) * (1 + l_tax) AS charge FROM (SELECT l_returnflag, l_linestatus, l_quantity, l_extendedprice, l_discount, l_tax FROM (SELECT l_returnflag, l_linestatus, l_quantity, l_extendedprice, l_discount, l_tax, l_shipdate FROM t) AS s WHERE l_shipdate <= DATE '1998-09-02') AS s) AS s GROUP BY l_returnflag, l_linestatus) AS s ORDER BY l_returnflag, l_linestatus"
+  },
+  {
+   "exp": "E5",
+   "query": "tpch_q1",
+   "table": "lineitem",
+   "mode": "filter",
+   "k": 1,
+   "net_mbit": 100.0,
+   "splits": 8,
+   "time_s": 36.73664833599969,
+   "time_all": [
+    36.73591673699957,
+    36.73737993499981
+   ],
+   "wire_bytes": 457467268.5,
+   "payload_bytes": 437827734,
+   "timings": {
+    "plan_analysis": 9.460100045544095e-05,
+    "substrait_gen": 0.0016411739998147823,
+    "pushdown_transfer": 36.68879860800007,
+    "post_scan": 0.04576055599954998,
+    "others": 0.0010849959999177372
+   },
+   "storage": {
+    "read_s": 0.4019849710002745,
+    "exec_s": 0.06994059499993455,
+    "media_bytes": 71249070,
+    "in_rows": 6001215,
+    "out_rows": 5916591
+   },
+   "substrait_bytes": 434,
+   "result_rows": 4,
+   "correct": true,
+   "storage_sql": "SELECT l_returnflag, l_linestatus, l_quantity, l_extendedprice, l_discount, l_tax FROM (SELECT l_returnflag, l_linestatus, l_quantity, l_extendedprice, l_discount, l_tax, l_shipdate FROM t) AS s WHERE l_shipdate <= DATE '1998-09-02'",
+   "residual_sql": "SELECT * FROM (SELECT l_returnflag, l_linestatus, sum(l_quantity) AS sum_qty, sum(l_extendedprice) AS sum_base_price, sum(disc_price) AS sum_disc_price, sum(charge) AS sum_charge, avg(l_quantity) AS avg_qty, avg(l_extendedprice) AS avg_price, avg(l_discount) AS avg_disc, count(*) AS count_order FROM (SELECT l_returnflag AS l_returnflag, l_linestatus AS l_linestatus, l_quantity AS l_quantity, l_extendedprice AS l_extendedprice, l_discount AS l_discount, l_extendedprice * (1 - l_discount) AS disc_price, l_extendedprice * (1 - l_discount) * (1 + l_tax) AS charge FROM (SELECT * FROM t) AS s) AS s GROUP BY l_returnflag, l_linestatus) AS s ORDER BY l_returnflag, l_linestatus"
+  },
+  {
+   "exp": "E5",
+   "query": "tpch_q1",
+   "table": "lineitem",
+   "mode": "filter+proj",
+   "k": 2,
+   "net_mbit": 100.0,
+   "splits": 8,
+   "time_s": 44.69514634449979,
+   "time_all": [
+    44.69789318999938,
+    44.6923994990002
+   ],
+   "wire_bytes": 556529630.0,
+   "payload_bytes": 532493190,
+   "timings": {
+    "plan_analysis": 0.00010241899963148171,
+    "substrait_gen": 0.002598534000753716,
+    "pushdown_transfer": 44.64834236799925,
+    "post_scan": 0.0452400240001225,
+    "others": 0.001609844999620691
+   },
+   "storage": {
+    "read_s": 0.4382891750001363,
+    "exec_s": 0.2288965730003838,
+    "media_bytes": 71249070,
+    "in_rows": 6001215,
+    "out_rows": 5916591
+   },
+   "substrait_bytes": 826,
+   "result_rows": 4,
+   "correct": true,
+   "storage_sql": "SELECT l_returnflag AS l_returnflag, l_linestatus AS l_linestatus, l_quantity AS l_quantity, l_extendedprice AS l_extendedprice, l_discount AS l_discount, l_extendedprice * (1 - l_discount) AS disc_price, l_extendedprice * (1 - l_discount) * (1 + l_tax) AS charge FROM (SELECT l_returnflag, l_linestatus, l_quantity, l_extendedprice, l_discount, l_tax FROM (SELECT l_returnflag, l_linestatus, l_quantity, l_extendedprice, l_discount, l_tax, l_shipdate FROM t) AS s WHERE l_shipdate <= DATE '1998-09-02') AS s",
+   "residual_sql": "SELECT * FROM (SELECT l_returnflag, l_linestatus, sum(l_quantity) AS sum_qty, sum(l_extendedprice) AS sum_base_price, sum(disc_price) AS sum_disc_price, sum(charge) AS sum_charge, avg(l_quantity) AS avg_qty, avg(l_extendedprice) AS avg_price, avg(l_discount) AS avg_disc, count(*) AS count_order FROM (SELECT * FROM t) AS s GROUP BY l_returnflag, l_linestatus) AS s ORDER BY l_returnflag, l_linestatus"
+  },
+  {
+   "exp": "E5",
+   "query": "tpch_q1",
+   "table": "lineitem",
+   "mode": "filter+proj+aggr+sort",
+   "k": 4,
+   "net_mbit": 100.0,
+   "splits": 8,
+   "time_s": 0.2980199844996605,
+   "time_all": [
+    0.29273886600003607,
+    0.3033011029992849
+   ],
+   "wire_bytes": 26678.5,
+   "payload_bytes": 4928,
+   "timings": {
+    "plan_analysis": 8.924400026444346e-05,
+    "substrait_gen": 0.00299100099982752,
+    "pushdown_transfer": 0.2955775049995282,
+    "post_scan": 0.0035322359999554465,
+    "others": 0.0011111169997093384
+   },
+   "storage": {
+    "read_s": 0.4861326280006324,
+    "exec_s": 0.45255787699898065,
+    "media_bytes": 71249070,
+    "in_rows": 6001215,
+    "out_rows": 32
+   },
+   "substrait_bytes": 1420,
+   "result_rows": 4,
+   "correct": true,
+   "storage_sql": "SELECT * FROM (SELECT l_returnflag, l_linestatus, sum(l_quantity) AS sum_qty, sum(l_extendedprice) AS sum_base_price, sum(disc_price) AS sum_disc_price, sum(charge) AS sum_charge, sum(l_quantity) AS avg_qty__sum, count(l_quantity) AS avg_qty__cnt, sum(l_extendedprice) AS avg_price__sum, count(l_extendedprice) AS avg_price__cnt, sum(l_discount) AS avg_disc__sum, count(l_discount) AS avg_disc__cnt, count(*) AS count_order FROM (SELECT l_returnflag AS l_returnflag, l_linestatus AS l_linestatus, l_quantity AS l_quantity, l_extendedprice AS l_extendedprice, l_discount AS l_discount, l_extendedprice * (1 - l_discount) AS disc_price, l_extendedprice * (1 - l_discount) * (1 + l_tax) AS charge FROM (SELECT l_returnflag, l_linestatus, l_quantity, l_extendedprice, l_discount, l_tax FROM (SELECT l_returnflag, l_linestatus, l_quantity, l_extendedprice, l_discount, l_tax, l_shipdate FROM t) AS s WHERE l_shipdate <= DATE '1998-09-02') AS s) AS s GROUP BY l_returnflag, l_linestatus) AS s ORDER BY l_returnflag, l_linestatus",
+   "residual_sql": "SELECT * FROM (SELECT l_returnflag, l_linestatus, sum(sum_qty) AS sum_qty, sum(sum_base_price) AS sum_base_price, sum(sum_disc_price) AS sum_disc_price, sum(sum_charge) AS sum_charge, sum(avg_qty__sum) / sum(avg_qty__cnt) AS avg_qty, sum(avg_price__sum) / sum(avg_price__cnt) AS avg_price, sum(avg_disc__sum) / sum(avg_disc__cnt) AS avg_disc, sum(count_order) AS count_order FROM (SELECT * FROM t) AS s GROUP BY l_returnflag, l_linestatus) AS s ORDER BY l_returnflag, l_linestatus"
+  },
+  {
+   "exp": "E5",
+   "query": "laghos",
+   "table": "laghos",
+   "mode": "none",
+   "k": 0,
+   "net_mbit": 1000.0,
+   "splits": 16,
+   "time_s": 14.568057673000112,
+   "time_all": [
+    14.66731595500005,
+    14.468799391000175
+   ],
+   "wire_bytes": 1628576625.5,
+   "payload_bytes": 1624968474,
+   "timings": {
+    "plan_analysis": 0.0001131330000134767,
+    "substrait_gen": 0.00012028699984512059,
+    "pushdown_transfer": 14.47429719000047,
+    "post_scan": 0.19173227400006,
+    "others": 0.0010530709996601217
+   },
+   "storage": {
+    "read_s": 6.903510873002233,
+    "exec_s": 0.0,
+    "media_bytes": 1624968474,
+    "in_rows": 0,
+    "out_rows": 0
+   },
+   "substrait_bytes": 0,
+   "result_rows": 100,
+   "correct": true,
+   "storage_sql": null,
+   "residual_sql": "SELECT * FROM (SELECT timestep, vertex_id, min(vertex_id) AS vid, min(x) AS min_x, min(y) AS min_y, min(z) AS min_z, avg(e) AS avg_e FROM (SELECT vertex_id, x, y, z, e, timestep FROM (SELECT vertex_id, x, y, z, e, timestep FROM t) AS s WHERE x BETWEEN 0.8 AND 3.2 AND y BETWEEN 0.8 AND 3.2 AND z BETWEEN 0.8 AND 3.2) AS s GROUP BY timestep, vertex_id) AS s ORDER BY avg_e, timestep, vertex_id LIMIT 100"
+  },
+  {
+   "exp": "E5",
+   "query": "laghos",
+   "table": "laghos",
+   "mode": "filter",
+   "k": 1,
+   "net_mbit": 1000.0,
+   "splits": 16,
+   "time_s": 5.779571563999525,
+   "time_all": [
+    5.74209975299982,
+    5.81704337499923
+   ],
+   "wire_bytes": 636177254.5,
+   "payload_bytes": 634943936,
+   "timings": {
+    "plan_analysis": 8.581700058130082e-05,
+    "substrait_gen": 0.0016419579997091205,
+    "pushdown_transfer": 5.689634882999599,
+    "post_scan": 0.1245729170004779,
+    "others": 0.0011077999988629017
+   },
+   "storage": {
+    "read_s": 6.378061948998948,
+    "exec_s": 0.42968725399896357,
+    "media_bytes": 742012669,
+    "in_rows": 67108864,
+    "out_rows": 14430544
+   },
+   "substrait_bytes": 482,
+   "result_rows": 100,
+   "correct": true,
+   "storage_sql": "SELECT vertex_id, x, y, z, e, timestep FROM (SELECT vertex_id, x, y, z, e, timestep FROM t) AS s WHERE x BETWEEN 0.8 AND 3.2 AND y BETWEEN 0.8 AND 3.2 AND z BETWEEN 0.8 AND 3.2",
+   "residual_sql": "SELECT * FROM (SELECT timestep, vertex_id, min(vertex_id) AS vid, min(x) AS min_x, min(y) AS min_y, min(z) AS min_z, avg(e) AS avg_e FROM (SELECT * FROM t) AS s GROUP BY timestep, vertex_id) AS s ORDER BY avg_e, timestep, vertex_id LIMIT 100"
+  },
+  {
+   "exp": "E5",
+   "query": "laghos",
+   "table": "laghos",
+   "mode": "filter+aggr+topN",
+   "k": 3,
+   "net_mbit": 1000.0,
+   "splits": 16,
+   "time_s": 3.0363248229996316,
+   "time_all": [
+    3.0679990389999148,
+    3.0046506069993484
+   ],
+   "wire_bytes": 106502.0,
+   "payload_bytes": 76800,
+   "timings": {
+    "plan_analysis": 6.561700047313934e-05,
+    "substrait_gen": 0.0020895990001008613,
+    "pushdown_transfer": 3.062123247999807,
+    "post_scan": 0.0017572050001035677,
+    "others": 0.0019633699994301423
+   },
+   "storage": {
+    "read_s": 9.699832809999862,
+    "exec_s": 1.807466590000331,
+    "media_bytes": 742012669,
+    "in_rows": 67108864,
+    "out_rows": 1600
+   },
+   "substrait_bytes": 866,
+   "result_rows": 100,
+   "correct": true,
+   "storage_sql": "SELECT * FROM (SELECT timestep, vertex_id, min(vertex_id) AS vid, min(x) AS min_x, min(y) AS min_y, min(z) AS min_z, avg(e) AS avg_e FROM (SELECT vertex_id, x, y, z, e, timestep FROM (SELECT vertex_id, x, y, z, e, timestep FROM t) AS s WHERE x BETWEEN 0.8 AND 3.2 AND y BETWEEN 0.8 AND 3.2 AND z BETWEEN 0.8 AND 3.2) AS s GROUP BY timestep, vertex_id) AS s ORDER BY avg_e, timestep, vertex_id LIMIT 100",
+   "residual_sql": "SELECT * FROM (SELECT * FROM t) AS s ORDER BY avg_e, timestep, vertex_id LIMIT 100"
+  },
+  {
+   "exp": "E5",
+   "query": "tpch_q1",
+   "table": "lineitem",
+   "mode": "none",
+   "k": 0,
+   "net_mbit": 1000.0,
+   "splits": 8,
+   "time_s": 3.527817800500543,
+   "time_all": [
+    3.5384493610008576,
+    3.5171862400002283
+   ],
+   "wire_bytes": 386683586.5,
+   "payload_bytes": 386205568,
+   "timings": {
+    "plan_analysis": 8.308199994644383e-05,
+    "substrait_gen": 0.00010565499997028382,
+    "pushdown_transfer": 3.455570037999678,
+    "post_scan": 0.0813772430001336,
+    "others": 0.0013133430011293967
+   },
+   "storage": {
+    "read_s": 1.5608683939990442,
+    "exec_s": 0.0,
+    "media_bytes": 386205568,
+    "in_rows": 0,
+    "out_rows": 0
+   },
+   "substrait_bytes": 0,
+   "result_rows": 4,
+   "correct": true,
+   "storage_sql": null,
+   "residual_sql": "SELECT * FROM (SELECT l_returnflag, l_linestatus, sum(l_quantity) AS sum_qty, sum(l_extendedprice) AS sum_base_price, sum(disc_price) AS sum_disc_price, sum(charge) AS sum_charge, avg(l_quantity) AS avg_qty, avg(l_extendedprice) AS avg_price, avg(l_discount) AS avg_disc, count(*) AS count_order FROM (SELECT l_returnflag AS l_returnflag, l_linestatus AS l_linestatus, l_quantity AS l_quantity, l_extendedprice AS l_extendedprice, l_discount AS l_discount, l_extendedprice * (1 - l_discount) AS disc_price, l_extendedprice * (1 - l_discount) * (1 + l_tax) AS charge FROM (SELECT l_returnflag, l_linestatus, l_quantity, l_extendedprice, l_discount, l_tax FROM (SELECT l_returnflag, l_linestatus, l_quantity, l_extendedprice, l_discount, l_tax, l_shipdate FROM t) AS s WHERE l_shipdate <= DATE '1998-09-02') AS s) AS s GROUP BY l_returnflag, l_linestatus) AS s ORDER BY l_returnflag, l_linestatus"
+  },
+  {
+   "exp": "E5",
+   "query": "tpch_q1",
+   "table": "lineitem",
+   "mode": "filter",
+   "k": 1,
+   "net_mbit": 1000.0,
+   "splits": 8,
+   "time_s": 3.7636667675001263,
+   "time_all": [
+    3.760224462000224,
+    3.7671090730000287
+   ],
+   "wire_bytes": 438453321.5,
+   "payload_bytes": 437827734,
+   "timings": {
+    "plan_analysis": 9.744900035002502e-05,
+    "substrait_gen": 0.0018052800005534664,
+    "pushdown_transfer": 3.712653075000162,
+    "post_scan": 0.05137287399975321,
+    "others": 0.001180394999209966
+   },
+   "storage": {
+    "read_s": 0.4043236050001724,
+    "exec_s": 0.06820164700002351,
+    "media_bytes": 71249070,
+    "in_rows": 6001215,
+    "out_rows": 5916591
+   },
+   "substrait_bytes": 434,
+   "result_rows": 4,
+   "correct": true,
+   "storage_sql": "SELECT l_returnflag, l_linestatus, l_quantity, l_extendedprice, l_discount, l_tax FROM (SELECT l_returnflag, l_linestatus, l_quantity, l_extendedprice, l_discount, l_tax, l_shipdate FROM t) AS s WHERE l_shipdate <= DATE '1998-09-02'",
+   "residual_sql": "SELECT * FROM (SELECT l_returnflag, l_linestatus, sum(l_quantity) AS sum_qty, sum(l_extendedprice) AS sum_base_price, sum(disc_price) AS sum_disc_price, sum(charge) AS sum_charge, avg(l_quantity) AS avg_qty, avg(l_extendedprice) AS avg_price, avg(l_discount) AS avg_disc, count(*) AS count_order FROM (SELECT l_returnflag AS l_returnflag, l_linestatus AS l_linestatus, l_quantity AS l_quantity, l_extendedprice AS l_extendedprice, l_discount AS l_discount, l_extendedprice * (1 - l_discount) AS disc_price, l_extendedprice * (1 - l_discount) * (1 + l_tax) AS charge FROM (SELECT * FROM t) AS s) AS s GROUP BY l_returnflag, l_linestatus) AS s ORDER BY l_returnflag, l_linestatus"
+  },
+  {
+   "exp": "E5",
+   "query": "tpch_q1",
+   "table": "lineitem",
+   "mode": "filter+proj",
+   "k": 2,
+   "net_mbit": 1000.0,
+   "splits": 8,
+   "time_s": 4.546246282500306,
+   "time_all": [
+    4.543434144000457,
+    4.549058421000154
+   ],
+   "wire_bytes": 533231849.0,
+   "payload_bytes": 532493190,
+   "timings": {
+    "plan_analysis": 9.872200007521315e-05,
+    "substrait_gen": 0.0025440340004934114,
+    "pushdown_transfer": 4.516377349999857,
+    "post_scan": 0.028895233000184817,
+    "others": 0.0011430819995439379
+   },
+   "storage": {
+    "read_s": 0.4713869160004833,
+    "exec_s": 0.28420141600145143,
+    "media_bytes": 71249070,
+    "in_rows": 6001215,
+    "out_rows": 5916591
+   },
+   "substrait_bytes": 826,
+   "result_rows": 4,
+   "correct": true,
+   "storage_sql": "SELECT l_returnflag AS l_returnflag, l_linestatus AS l_linestatus, l_quantity AS l_quantity, l_extendedprice AS l_extendedprice, l_discount AS l_discount, l_extendedprice * (1 - l_discount) AS disc_price, l_extendedprice * (1 - l_discount) * (1 + l_tax) AS charge FROM (SELECT l_returnflag, l_linestatus, l_quantity, l_extendedprice, l_discount, l_tax FROM (SELECT l_returnflag, l_linestatus, l_quantity, l_extendedprice, l_discount, l_tax, l_shipdate FROM t) AS s WHERE l_shipdate <= DATE '1998-09-02') AS s",
+   "residual_sql": "SELECT * FROM (SELECT l_returnflag, l_linestatus, sum(l_quantity) AS sum_qty, sum(l_extendedprice) AS sum_base_price, sum(disc_price) AS sum_disc_price, sum(charge) AS sum_charge, avg(l_quantity) AS avg_qty, avg(l_extendedprice) AS avg_price, avg(l_discount) AS avg_disc, count(*) AS count_order FROM (SELECT * FROM t) AS s GROUP BY l_returnflag, l_linestatus) AS s ORDER BY l_returnflag, l_linestatus"
+  },
+  {
+   "exp": "E5",
+   "query": "tpch_q1",
+   "table": "lineitem",
+   "mode": "filter+proj+aggr+sort",
+   "k": 4,
+   "net_mbit": 1000.0,
+   "splits": 8,
+   "time_s": 0.31726472199989075,
+   "time_all": [
+    0.3115263119998417,
+    0.3230031319999398
+   ],
+   "wire_bytes": 26746.0,
+   "payload_bytes": 4928,
+   "timings": {
+    "plan_analysis": 9.633700028643943e-05,
+    "substrait_gen": 0.0030634309996457887,
+    "pushdown_transfer": 0.3132857620003051,
+    "post_scan": 0.005438255000626668,
+    "others": 0.0011193469990757876
+   },
+   "storage": {
+    "read_s": 0.6305920699996932,
+    "exec_s": 0.4333398210001178,
+    "media_bytes": 71249070,
+    "in_rows": 6001215,
+    "out_rows": 32
+   },
+   "substrait_bytes": 1420,
+   "result_rows": 4,
+   "correct": true,
+   "storage_sql": "SELECT * FROM (SELECT l_returnflag, l_linestatus, sum(l_quantity) AS sum_qty, sum(l_extendedprice) AS sum_base_price, sum(disc_price) AS sum_disc_price, sum(charge) AS sum_charge, sum(l_quantity) AS avg_qty__sum, count(l_quantity) AS avg_qty__cnt, sum(l_extendedprice) AS avg_price__sum, count(l_extendedprice) AS avg_price__cnt, sum(l_discount) AS avg_disc__sum, count(l_discount) AS avg_disc__cnt, count(*) AS count_order FROM (SELECT l_returnflag AS l_returnflag, l_linestatus AS l_linestatus, l_quantity AS l_quantity, l_extendedprice AS l_extendedprice, l_discount AS l_discount, l_extendedprice * (1 - l_discount) AS disc_price, l_extendedprice * (1 - l_discount) * (1 + l_tax) AS charge FROM (SELECT l_returnflag, l_linestatus, l_quantity, l_extendedprice, l_discount, l_tax FROM (SELECT l_returnflag, l_linestatus, l_quantity, l_extendedprice, l_discount, l_tax, l_shipdate FROM t) AS s WHERE l_shipdate <= DATE '1998-09-02') AS s) AS s GROUP BY l_returnflag, l_linestatus) AS s ORDER BY l_returnflag, l_linestatus",
+   "residual_sql": "SELECT * FROM (SELECT l_returnflag, l_linestatus, sum(sum_qty) AS sum_qty, sum(sum_base_price) AS sum_base_price, sum(sum_disc_price) AS sum_disc_price, sum(sum_charge) AS sum_charge, sum(avg_qty__sum) / sum(avg_qty__cnt) AS avg_qty, sum(avg_price__sum) / sum(avg_price__cnt) AS avg_price, sum(avg_disc__sum) / sum(avg_disc__cnt) AS avg_disc, sum(count_order) AS count_order FROM (SELECT * FROM t) AS s GROUP BY l_returnflag, l_linestatus) AS s ORDER BY l_returnflag, l_linestatus"
+  },
+  {
+   "exp": "E5",
+   "query": "laghos",
+   "table": "laghos",
+   "mode": "none",
+   "k": 0,
+   "net_mbit": 10000.0,
+   "splits": 16,
+   "time_s": 4.5168451559998175,
+   "time_all": [
+    4.554684402000021,
+    4.479005909999614
+   ],
+   "wire_bytes": 1638509012.5,
+   "payload_bytes": 1624968474,
+   "timings": {
+    "plan_analysis": 8.711999998922693e-05,
+    "substrait_gen": 0.00010866200045711594,
+    "pushdown_transfer": 4.368469144000301,
+    "post_scan": 0.18450151599972742,
+    "others": 0.0015179599995462922
+   },
+   "storage": {
+    "read_s": 6.307640795002044,
+    "exec_s": 0.0,
+    "media_bytes": 1624968474,
+    "in_rows": 0,
+    "out_rows": 0
+   },
+   "substrait_bytes": 0,
+   "result_rows": 100,
+   "correct": true,
+   "storage_sql": null,
+   "residual_sql": "SELECT * FROM (SELECT timestep, vertex_id, min(vertex_id) AS vid, min(x) AS min_x, min(y) AS min_y, min(z) AS min_z, avg(e) AS avg_e FROM (SELECT vertex_id, x, y, z, e, timestep FROM (SELECT vertex_id, x, y, z, e, timestep FROM t) AS s WHERE x BETWEEN 0.8 AND 3.2 AND y BETWEEN 0.8 AND 3.2 AND z BETWEEN 0.8 AND 3.2) AS s GROUP BY timestep, vertex_id) AS s ORDER BY avg_e, timestep, vertex_id LIMIT 100"
+  },
+  {
+   "exp": "E5",
+   "query": "laghos",
+   "table": "laghos",
+   "mode": "filter",
+   "k": 1,
+   "net_mbit": 10000.0,
+   "splits": 16,
+   "time_s": 3.0884199224997246,
+   "time_all": [
+    3.038630496999758,
+    3.138209347999691
+   ],
+   "wire_bytes": 636811686.0,
+   "payload_bytes": 634943936,
+   "timings": {
+    "plan_analysis": 8.661800075060455e-05,
+    "substrait_gen": 0.0015772890001244377,
+    "pushdown_transfer": 3.015779857999405,
+    "post_scan": 0.11937275200034492,
+    "others": 0.0013928309990660637
+   },
+   "storage": {
+    "read_s": 8.923830505000296,
+    "exec_s": 1.5219828699982827,
+    "media_bytes": 742012669,
+    "in_rows": 67108864,
+    "out_rows": 14430544
+   },
+   "substrait_bytes": 482,
+   "result_rows": 100,
+   "correct": true,
+   "storage_sql": "SELECT vertex_id, x, y, z, e, timestep FROM (SELECT vertex_id, x, y, z, e, timestep FROM t) AS s WHERE x BETWEEN 0.8 AND 3.2 AND y BETWEEN 0.8 AND 3.2 AND z BETWEEN 0.8 AND 3.2",
+   "residual_sql": "SELECT * FROM (SELECT timestep, vertex_id, min(vertex_id) AS vid, min(x) AS min_x, min(y) AS min_y, min(z) AS min_z, avg(e) AS avg_e FROM (SELECT * FROM t) AS s GROUP BY timestep, vertex_id) AS s ORDER BY avg_e, timestep, vertex_id LIMIT 100"
+  },
+  {
+   "exp": "E5",
+   "query": "laghos",
+   "table": "laghos",
+   "mode": "filter+aggr+topN",
+   "k": 3,
+   "net_mbit": 10000.0,
+   "splits": 16,
+   "time_s": 3.3273952750000717,
+   "time_all": [
+    3.2822230290003063,
+    3.372567520999837
+   ],
+   "wire_bytes": 106058.5,
+   "payload_bytes": 76800,
+   "timings": {
+    "plan_analysis": 7.174999973358354e-05,
+    "substrait_gen": 0.0020698250000350527,
+    "pushdown_transfer": 3.3634137130002273,
+    "post_scan": 0.0016645860005155555,
+    "others": 0.0053476469993256615
+   },
+   "storage": {
+    "read_s": 9.927257207000366,
+    "exec_s": 2.3640778219987624,
+    "media_bytes": 742012669,
+    "in_rows": 67108864,
+    "out_rows": 1600
+   },
+   "substrait_bytes": 866,
+   "result_rows": 100,
+   "correct": true,
+   "storage_sql": "SELECT * FROM (SELECT timestep, vertex_id, min(vertex_id) AS vid, min(x) AS min_x, min(y) AS min_y, min(z) AS min_z, avg(e) AS avg_e FROM (SELECT vertex_id, x, y, z, e, timestep FROM (SELECT vertex_id, x, y, z, e, timestep FROM t) AS s WHERE x BETWEEN 0.8 AND 3.2 AND y BETWEEN 0.8 AND 3.2 AND z BETWEEN 0.8 AND 3.2) AS s GROUP BY timestep, vertex_id) AS s ORDER BY avg_e, timestep, vertex_id LIMIT 100",
+   "residual_sql": "SELECT * FROM (SELECT * FROM t) AS s ORDER BY avg_e, timestep, vertex_id LIMIT 100"
+  },
+  {
+   "exp": "E5",
+   "query": "tpch_q1",
+   "table": "lineitem",
+   "mode": "none",
+   "k": 0,
+   "net_mbit": 10000.0,
+   "splits": 8,
+   "time_s": 0.9537636835002559,
+   "time_all": [
+    0.9591558040001473,
+    0.9483715630003644
+   ],
+   "wire_bytes": 386690991.5,
+   "payload_bytes": 386205568,
+   "timings": {
+    "plan_analysis": 8.454499948129524e-05,
+    "substrait_gen": 0.00010475399994902546,
+    "pushdown_transfer": 0.8801851540001735,
+    "post_scan": 0.07781992200034438,
+    "others": 0.0009614290001991321
+   },
+   "storage": {
+    "read_s": 2.253593582000576,
+    "exec_s": 0.0,
+    "media_bytes": 386205568,
+    "in_rows": 0,
+    "out_rows": 0
+   },
+   "substrait_bytes": 0,
+   "result_rows": 4,
+   "correct": true,
+   "storage_sql": null,
+   "residual_sql": "SELECT * FROM (SELECT l_returnflag, l_linestatus, sum(l_quantity) AS sum_qty, sum(l_extendedprice) AS sum_base_price, sum(disc_price) AS sum_disc_price, sum(charge) AS sum_charge, avg(l_quantity) AS avg_qty, avg(l_extendedprice) AS avg_price, avg(l_discount) AS avg_disc, count(*) AS count_order FROM (SELECT l_returnflag AS l_returnflag, l_linestatus AS l_linestatus, l_quantity AS l_quantity, l_extendedprice AS l_extendedprice, l_discount AS l_discount, l_extendedprice * (1 - l_discount) AS disc_price, l_extendedprice * (1 - l_discount) * (1 + l_tax) AS charge FROM (SELECT l_returnflag, l_linestatus, l_quantity, l_extendedprice, l_discount, l_tax FROM (SELECT l_returnflag, l_linestatus, l_quantity, l_extendedprice, l_discount, l_tax, l_shipdate FROM t) AS s WHERE l_shipdate <= DATE '1998-09-02') AS s) AS s GROUP BY l_returnflag, l_linestatus) AS s ORDER BY l_returnflag, l_linestatus"
+  },
+  {
+   "exp": "E5",
+   "query": "tpch_q1",
+   "table": "lineitem",
+   "mode": "filter",
+   "k": 1,
+   "net_mbit": 10000.0,
+   "splits": 8,
+   "time_s": 0.49908515900006023,
+   "time_all": [
+    0.5055919229998835,
+    0.4925783950002369
+   ],
+   "wire_bytes": 438677049.0,
+   "payload_bytes": 437827734,
+   "timings": {
+    "plan_analysis": 0.00010024499988503521,
+    "substrait_gen": 0.0016887230003703735,
+    "pushdown_transfer": 0.4504211960002067,
+    "post_scan": 0.05201535200012586,
+    "others": 0.0013664069992955774
+   },
+   "storage": {
+    "read_s": 0.44556642699990334,
+    "exec_s": 0.15466229300091072,
+    "media_bytes": 71249070,
+    "in_rows": 6001215,
+    "out_rows": 5916591
+   },
+   "substrait_bytes": 434,
+   "result_rows": 4,
+   "correct": true,
+   "storage_sql": "SELECT l_returnflag, l_linestatus, l_quantity, l_extendedprice, l_discount, l_tax FROM (SELECT l_returnflag, l_linestatus, l_quantity, l_extendedprice, l_discount, l_tax, l_shipdate FROM t) AS s WHERE l_shipdate <= DATE '1998-09-02'",
+   "residual_sql": "SELECT * FROM (SELECT l_returnflag, l_linestatus, sum(l_quantity) AS sum_qty, sum(l_extendedprice) AS sum_base_price, sum(disc_price) AS sum_disc_price, sum(charge) AS sum_charge, avg(l_quantity) AS avg_qty, avg(l_extendedprice) AS avg_price, avg(l_discount) AS avg_disc, count(*) AS count_order FROM (SELECT l_returnflag AS l_returnflag, l_linestatus AS l_linestatus, l_quantity AS l_quantity, l_extendedprice AS l_extendedprice, l_discount AS l_discount, l_extendedprice * (1 - l_discount) AS disc_price, l_extendedprice * (1 - l_discount) * (1 + l_tax) AS charge FROM (SELECT * FROM t) AS s) AS s GROUP BY l_returnflag, l_linestatus) AS s ORDER BY l_returnflag, l_linestatus"
+  },
+  {
+   "exp": "E5",
+   "query": "tpch_q1",
+   "table": "lineitem",
+   "mode": "filter+proj",
+   "k": 2,
+   "net_mbit": 10000.0,
+   "splits": 8,
+   "time_s": 0.5897196725004505,
+   "time_all": [
+    0.5836098710005899,
+    0.5958294740003112
+   ],
+   "wire_bytes": 533663539.0,
+   "payload_bytes": 532493190,
+   "timings": {
+    "plan_analysis": 9.859199963102583e-05,
+    "substrait_gen": 0.0025197879995175754,
+    "pushdown_transfer": 0.563801773000705,
+    "post_scan": 0.02828407399920252,
+    "others": 0.0011252470012550475
+   },
+   "storage": {
+    "read_s": 0.4562503460019798,
+    "exec_s": 0.2319660479979575,
+    "media_bytes": 71249070,
+    "in_rows": 6001215,
+    "out_rows": 5916591
+   },
+   "substrait_bytes": 826,
+   "result_rows": 4,
+   "correct": true,
+   "storage_sql": "SELECT l_returnflag AS l_returnflag, l_linestatus AS l_linestatus, l_quantity AS l_quantity, l_extendedprice AS l_extendedprice, l_discount AS l_discount, l_extendedprice * (1 - l_discount) AS disc_price, l_extendedprice * (1 - l_discount) * (1 + l_tax) AS charge FROM (SELECT l_returnflag, l_linestatus, l_quantity, l_extendedprice, l_discount, l_tax FROM (SELECT l_returnflag, l_linestatus, l_quantity, l_extendedprice, l_discount, l_tax, l_shipdate FROM t) AS s WHERE l_shipdate <= DATE '1998-09-02') AS s",
+   "residual_sql": "SELECT * FROM (SELECT l_returnflag, l_linestatus, sum(l_quantity) AS sum_qty, sum(l_extendedprice) AS sum_base_price, sum(disc_price) AS sum_disc_price, sum(charge) AS sum_charge, avg(l_quantity) AS avg_qty, avg(l_extendedprice) AS avg_price, avg(l_discount) AS avg_disc, count(*) AS count_order FROM (SELECT * FROM t) AS s GROUP BY l_returnflag, l_linestatus) AS s ORDER BY l_returnflag, l_linestatus"
+  },
+  {
+   "exp": "E5",
+   "query": "tpch_q1",
+   "table": "lineitem",
+   "mode": "filter+proj+aggr+sort",
+   "k": 4,
+   "net_mbit": 10000.0,
+   "splits": 8,
+   "time_s": 0.31208550550036307,
+   "time_all": [
+    0.3180569200003447,
+    0.30611409100038145
+   ],
+   "wire_bytes": 26695.5,
+   "payload_bytes": 4928,
+   "timings": {
+    "plan_analysis": 8.376299956580624e-05,
+    "substrait_gen": 0.002988831000038772,
+    "pushdown_transfer": 0.3103827350005304,
+    "post_scan": 0.0034932779999508057,
+    "others": 0.0011083130002589314
+   },
+   "storage": {
+    "read_s": 0.48618691000046965,
+    "exec_s": 0.5825030389996755,
+    "media_bytes": 71249070,
+    "in_rows": 6001215,
+    "out_rows": 32
+   },
+   "substrait_bytes": 1420,
+   "result_rows": 4,
+   "correct": true,
+   "storage_sql": "SELECT * FROM (SELECT l_returnflag, l_linestatus, sum(l_quantity) AS sum_qty, sum(l_extendedprice) AS sum_base_price, sum(disc_price) AS sum_disc_price, sum(charge) AS sum_charge, sum(l_quantity) AS avg_qty__sum, count(l_quantity) AS avg_qty__cnt, sum(l_extendedprice) AS avg_price__sum, count(l_extendedprice) AS avg_price__cnt, sum(l_discount) AS avg_disc__sum, count(l_discount) AS avg_disc__cnt, count(*) AS count_order FROM (SELECT l_returnflag AS l_returnflag, l_linestatus AS l_linestatus, l_quantity AS l_quantity, l_extendedprice AS l_extendedprice, l_discount AS l_discount, l_extendedprice * (1 - l_discount) AS disc_price, l_extendedprice * (1 - l_discount) * (1 + l_tax) AS charge FROM (SELECT l_returnflag, l_linestatus, l_quantity, l_extendedprice, l_discount, l_tax FROM (SELECT l_returnflag, l_linestatus, l_quantity, l_extendedprice, l_discount, l_tax, l_shipdate FROM t) AS s WHERE l_shipdate <= DATE '1998-09-02') AS s) AS s GROUP BY l_returnflag, l_linestatus) AS s ORDER BY l_returnflag, l_linestatus",
+   "residual_sql": "SELECT * FROM (SELECT l_returnflag, l_linestatus, sum(sum_qty) AS sum_qty, sum(sum_base_price) AS sum_base_price, sum(sum_disc_price) AS sum_disc_price, sum(sum_charge) AS sum_charge, sum(avg_qty__sum) / sum(avg_qty__cnt) AS avg_qty, sum(avg_price__sum) / sum(avg_price__cnt) AS avg_price, sum(avg_disc__sum) / sum(avg_disc__cnt) AS avg_disc, sum(count_order) AS count_order FROM (SELECT * FROM t) AS s GROUP BY l_returnflag, l_linestatus) AS s ORDER BY l_returnflag, l_linestatus"
+  },
+  {
+   "exp": "E6",
+   "query": "laghos",
+   "table": "laghos",
+   "mode": "none",
+   "k": 0,
+   "net_mbit": 1000.0,
+   "splits": 16,
+   "time_s": 14.230672759999834,
+   "time_all": [
+    14.196970189999774,
+    14.264375329999893
+   ],
+   "wire_bytes": 1626966239.0,
+   "payload_bytes": 1624968474,
+   "timings": {
+    "plan_analysis": 8.897399948182283e-05,
+    "substrait_gen": 0.00010625800041452749,
+    "pushdown_transfer": 14.100177345000702,
+    "post_scan": 0.1629528069997832,
+    "others": 0.0010499459995116922
+   },
+   "storage": {
+    "read_s": 5.3394530509986,
+    "exec_s": 0.0,
+    "media_bytes": 1624968474,
+    "in_rows": 0,
+    "out_rows": 0
+   },
+   "substrait_bytes": 0,
+   "result_rows": 100,
+   "correct": true,
+   "storage_sql": null,
+   "residual_sql": "SELECT * FROM (SELECT timestep, vertex_id, min(vertex_id) AS vid, min(x) AS min_x, min(y) AS min_y, min(z) AS min_z, avg(e) AS avg_e FROM (SELECT vertex_id, x, y, z, e, timestep FROM (SELECT vertex_id, x, y, z, e, timestep FROM t) AS s WHERE x BETWEEN 0.8 AND 3.2 AND y BETWEEN 0.8 AND 3.2 AND z BETWEEN 0.8 AND 3.2) AS s GROUP BY timestep, vertex_id) AS s ORDER BY avg_e, timestep, vertex_id LIMIT 100",
+   "est_rows": 67108864,
+   "est_bytes": 1624968474,
+   "est_s": 13.30634974796421,
+   "est_selectivity": 1.0
+  },
+  {
+   "exp": "E6",
+   "query": "laghos",
+   "table": "laghos",
+   "mode": "filter",
+   "k": 1,
+   "net_mbit": 1000.0,
+   "splits": 16,
+   "time_s": 5.731440437999936,
+   "time_all": [
+    5.729769175999536,
+    5.733111700000336
+   ],
+   "wire_bytes": 636177431.0,
+   "payload_bytes": 634943936,
+   "timings": {
+    "plan_analysis": 0.0001510739994046162,
+    "substrait_gen": 0.002121941999575938,
+    "pushdown_transfer": 5.597425433999888,
+    "post_scan": 0.13217419699958555,
+    "others": 0.0012390530018819845
+   },
+   "storage": {
+    "read_s": 6.0782397459988715,
+    "exec_s": 0.4003827039996395,
+    "media_bytes": 742012669,
+    "in_rows": 67108864,
+    "out_rows": 14430544
+   },
+   "substrait_bytes": 482,
+   "result_rows": 100,
+   "correct": true,
+   "storage_sql": "SELECT vertex_id, x, y, z, e, timestep FROM (SELECT vertex_id, x, y, z, e, timestep FROM t) AS s WHERE x BETWEEN 0.8 AND 3.2 AND y BETWEEN 0.8 AND 3.2 AND z BETWEEN 0.8 AND 3.2",
+   "residual_sql": "SELECT * FROM (SELECT timestep, vertex_id, min(vertex_id) AS vid, min(x) AS min_x, min(y) AS min_y, min(z) AS min_z, avg(e) AS avg_e FROM (SELECT * FROM t) AS s GROUP BY timestep, vertex_id) AS s ORDER BY avg_e, timestep, vertex_id LIMIT 100",
+   "est_rows": 21998201.58363871,
+   "est_bytes": 967920869.6801032,
+   "est_s": 9.811576593405036,
+   "est_selectivity": 0.3277987477725552
+  },
+  {
+   "exp": "E6",
+   "query": "laghos",
+   "table": "laghos",
+   "mode": "filter+aggr",
+   "k": 2,
+   "net_mbit": 1000.0,
+   "splits": 16,
+   "time_s": 3.0823007454996514,
+   "time_all": [
+    3.1080054099993504,
+    3.0565960809999524
+   ],
+   "wire_bytes": 101077804.0,
+   "payload_bytes": 100821456,
+   "timings": {
+    "plan_analysis": 7.453499983967049e-05,
+    "substrait_gen": 0.0021650979997502873,
+    "pushdown_transfer": 3.097095492000335,
+    "post_scan": 0.007233141000142496,
+    "others": 0.0014371439992828527
+   },
+   "storage": {
+    "read_s": 8.64113421500133,
+    "exec_s": 1.0335341179988973,
+    "media_bytes": 742012669,
+    "in_rows": 67108864,
+    "out_rows": 2100447
+   },
+   "substrait_bytes": 802,
+   "result_rows": 100,
+   "correct": true,
+   "storage_sql": "SELECT timestep, vertex_id, min(vertex_id) AS vid, min(x) AS min_x, min(y) AS min_y, min(z) AS min_z, avg(e) AS avg_e FROM (SELECT vertex_id, x, y, z, e, timestep FROM (SELECT vertex_id, x, y, z, e, timestep FROM t) AS s WHERE x BETWEEN 0.8 AND 3.2 AND y BETWEEN 0.8 AND 3.2 AND z BETWEEN 0.8 AND 3.2) AS s GROUP BY timestep, vertex_id",
+   "residual_sql": "SELECT * FROM (SELECT * FROM t) AS s ORDER BY avg_e, timestep, vertex_id LIMIT 100",
+   "est_rows": 10916240.0,
+   "est_bytes": 567644480.0,
+   "est_s": 6.946212937713677,
+   "est_selectivity": 0.49623329245782605
+  },
+  {
+   "exp": "E6",
+   "query": "laghos",
+   "table": "laghos",
+   "mode": "filter+aggr+topN",
+   "k": 3,
+   "net_mbit": 1000.0,
+   "splits": 16,
+   "time_s": 2.9866445704997204,
+   "time_all": [
+    3.0076953620000495,
+    2.9655937789993914
+   ],
+   "wire_bytes": 106463.0,
+   "payload_bytes": 76800,
+   "timings": {
+    "plan_analysis": 7.056699996610405e-05,
+    "substrait_gen": 0.0018315109991817735,
+    "pushdown_transfer": 3.003139684999951,
+    "post_scan": 0.0017393509997418732,
+    "others": 0.0009142480012087617
+   },
+   "storage": {
+    "read_s": 8.815357375999156,
+    "exec_s": 3.0071235020013773,
+    "media_bytes": 742012669,
+    "in_rows": 67108864,
+    "out_rows": 1600
+   },
+   "substrait_bytes": 866,
+   "result_rows": 100,
+   "correct": true,
+   "storage_sql": "SELECT * FROM (SELECT timestep, vertex_id, min(vertex_id) AS vid, min(x) AS min_x, min(y) AS min_y, min(z) AS min_z, avg(e) AS avg_e FROM (SELECT vertex_id, x, y, z, e, timestep FROM (SELECT vertex_id, x, y, z, e, timestep FROM t) AS s WHERE x BETWEEN 0.8 AND 3.2 AND y BETWEEN 0.8 AND 3.2 AND z BETWEEN 0.8 AND 3.2) AS s GROUP BY timestep, vertex_id) AS s ORDER BY avg_e, timestep, vertex_id LIMIT 100",
+   "residual_sql": "SELECT * FROM (SELECT * FROM t) AS s ORDER BY avg_e, timestep, vertex_id LIMIT 100",
+   "est_rows": 1600,
+   "est_bytes": 83200.0,
+   "est_s": 2.453481247713677,
+   "est_selectivity": 0.0001465706140575876
+  },
+  {
+   "exp": "E6-decision",
+   "query": "laghos",
+   "auto_mode": "filter+aggr+topN",
+   "auto_k": 3,
+   "best_mode": "filter+aggr+topN",
+   "best_k": 3,
+   "auto_time_s": 2.9866445704997204,
+   "best_time_s": 2.9866445704997204,
+   "notes": []
+  },
+  {
+   "exp": "E6",
+   "query": "deepwater",
+   "table": "deepwater",
+   "mode": "none",
+   "k": 0,
+   "net_mbit": 1000.0,
+   "splits": 16,
+   "time_s": 17.658994576999703,
+   "time_all": [
+    17.678085837999788,
+    17.639903315999618
+   ],
+   "wire_bytes": 2050650650.5,
+   "payload_bytes": 2048189264,
+   "timings": {
+    "plan_analysis": 7.486499998776708e-05,
+    "substrait_gen": 9.661700005381135e-05,
+    "pushdown_transfer": 17.629642788000638,
+    "post_scan": 0.04690054700040491,
+    "others": 0.001371020998703898
+   },
+   "storage": {
+    "read_s": 6.823830805999933,
+    "exec_s": 0.0,
+    "media_bytes": 2048189264,
+    "in_rows": 0,
+    "out_rows": 0
+   },
+   "substrait_bytes": 0,
+   "result_rows": 16,
+   "correct": true,
+   "storage_sql": null,
+   "residual_sql": "SELECT timestep, max(height_idx) AS max_height FROM (SELECT (rowid % 250000) / 500 AS height_idx, timestep AS timestep FROM (SELECT rowid, timestep FROM (SELECT rowid, v02, timestep FROM t) AS s WHERE v02 > 0.1) AS s) AS s GROUP BY timestep",
+   "est_rows": 64000000,
+   "est_bytes": 2048189264,
+   "est_s": 16.624366456970556,
+   "est_selectivity": 1.0
+  },
+  {
+   "exp": "E6",
+   "query": "deepwater",
+   "table": "deepwater",
+   "mode": "filter",
+   "k": 1,
+   "net_mbit": 1000.0,
+   "splits": 16,
+   "time_s": 4.454745189000278,
+   "time_all": [
+    4.427004273000421,
+    4.482486105000135
+   ],
+   "wire_bytes": 418753313.5,
+   "payload_bytes": 417700112,
+   "timings": {
+    "plan_analysis": 7.982500028447248e-05,
+    "substrait_gen": 0.0014262229997257236,
+    "pushdown_transfer": 4.443866290000187,
+    "post_scan": 0.03603533900059119,
+    "others": 0.0010784279993458767
+   },
+   "storage": {
+    "read_s": 8.423045422999166,
+    "exec_s": 0.1498057750022781,
+    "media_bytes": 1537163056,
+    "in_rows": 64000000,
+    "out_rows": 26106257
+   },
+   "substrait_bytes": 195,
+   "result_rows": 16,
+   "correct": true,
+   "storage_sql": "SELECT rowid, timestep FROM (SELECT rowid, v02, timestep FROM t) AS s WHERE v02 > 0.1",
+   "residual_sql": "SELECT timestep, max(height_idx) AS max_height FROM (SELECT (rowid % 250000) / 500 AS height_idx, timestep AS timestep FROM (SELECT * FROM t) AS s) AS s GROUP BY timestep",
+   "est_rows": 63475357.700825855,
+   "est_bytes": 1015605723.2132137,
+   "est_s": 9.063698130676267,
+   "est_selectivity": 0.991802464075404
+  },
+  {
+   "exp": "E6",
+   "query": "deepwater",
+   "table": "deepwater",
+   "mode": "filter+proj",
+   "k": 2,
+   "net_mbit": 1000.0,
+   "splits": 16,
+   "time_s": 4.5204861050001455,
+   "time_all": [
+    4.597528864000196,
+    4.443443346000095
+   ],
+   "wire_bytes": 418754147.0,
+   "payload_bytes": 417700112,
+   "timings": {
+    "plan_analysis": 9.407200013811234e-05,
+    "substrait_gen": 0.0014349709999805782,
+    "pushdown_transfer": 4.564946168000461,
+    "post_scan": 0.029418641999654938,
+    "others": 0.0016350109999621054
+   },
+   "storage": {
+    "read_s": 8.541120508999484,
+    "exec_s": 0.188647513999058,
+    "media_bytes": 1537163056,
+    "in_rows": 64000000,
+    "out_rows": 26106257
+   },
+   "substrait_bytes": 312,
+   "result_rows": 16,
+   "correct": true,
+   "storage_sql": "SELECT (rowid % 250000) / 500 AS height_idx, timestep AS timestep FROM (SELECT rowid, timestep FROM (SELECT rowid, v02, timestep FROM t) AS s WHERE v02 > 0.1) AS s",
+   "residual_sql": "SELECT timestep, max(height_idx) AS max_height FROM (SELECT * FROM t) AS s GROUP BY timestep",
+   "est_rows": 63475357.700825855,
+   "est_bytes": 1015605723.2132137,
+   "est_s": 9.619107510558491,
+   "est_selectivity": 1.0
+  },
+  {
+   "exp": "E6",
+   "query": "deepwater",
+   "table": "deepwater",
+   "mode": "filter+proj+aggr",
+   "k": 3,
+   "net_mbit": 1000.0,
+   "splits": 16,
+   "time_s": 3.2279204944998128,
+   "time_all": [
+    3.227412899000228,
+    3.2284280899993973
+   ],
+   "wire_bytes": 20921.5,
+   "payload_bytes": 256,
+   "timings": {
+    "plan_analysis": 6.768099956389051e-05,
+    "substrait_gen": 0.0014616910002587247,
+    "pushdown_transfer": 3.224830352999561,
+    "post_scan": 0.0010745090003183577,
+    "others": 0.00099385599969537
+   },
+   "storage": {
+    "read_s": 12.313434863996918,
+    "exec_s": 0.18103688200335455,
+    "media_bytes": 1537163056,
+    "in_rows": 64000000,
+    "out_rows": 16
+   },
+   "substrait_bytes": 420,
+   "result_rows": 16,
+   "correct": true,
+   "storage_sql": "SELECT timestep, max(height_idx) AS max_height FROM (SELECT (rowid % 250000) / 500 AS height_idx, timestep AS timestep FROM (SELECT rowid, timestep FROM (SELECT rowid, v02, timestep FROM t) AS s WHERE v02 > 0.1) AS s) AS s GROUP BY timestep",
+   "residual_sql": "SELECT * FROM t",
+   "est_rows": 16.0,
+   "est_bytes": 256.0,
+   "est_s": 1.9108208077644526,
+   "est_selectivity": 2.520663227360093e-07
+  },
+  {
+   "exp": "E6-decision",
+   "query": "deepwater",
+   "auto_mode": "filter+proj+aggr",
+   "auto_k": 3,
+   "best_mode": "filter+proj+aggr",
+   "best_k": 3,
+   "auto_time_s": 3.2279204944998128,
+   "best_time_s": 3.2279204944998128,
+   "notes": [
+    "filter: to\u00e1n t\u1eed cu\u1ed1i kh\u00f4ng gi\u1ea3m d\u1eef li\u1ec7u (selectivity\u22480.99) -> ch\u1ec9 c\u00f3 l\u1ee3i n\u1ebfu to\u00e1n t\u1eed ph\u00eda sau gi\u1ea3m m\u1ea1nh",
+    "filter+proj: to\u00e1n t\u1eed cu\u1ed1i kh\u00f4ng gi\u1ea3m d\u1eef li\u1ec7u (selectivity\u22481.00) -> ch\u1ec9 c\u00f3 l\u1ee3i n\u1ebfu to\u00e1n t\u1eed ph\u00eda sau gi\u1ea3m m\u1ea1nh"
+   ]
+  },
+  {
+   "exp": "E6",
+   "query": "tpch_q1",
+   "table": "lineitem",
+   "mode": "none",
+   "k": 0,
+   "net_mbit": 1000.0,
+   "splits": 8,
+   "time_s": 3.4775276479999775,
+   "time_all": [
+    3.4794447849999415,
+    3.4756105110000135
+   ],
+   "wire_bytes": 386679234.5,
+   "payload_bytes": 386205568,
+   "timings": {
+    "plan_analysis": 8.066700047493214e-05,
+    "substrait_gen": 0.00010301099973730743,
+    "pushdown_transfer": 3.3941829550003604,
+    "post_scan": 0.08002429200041661,
+    "others": 0.005053859998952248
+   },
+   "storage": {
+    "read_s": 1.6183891610007777,
+    "exec_s": 0.0,
+    "media_bytes": 386205568,
+    "in_rows": 0,
+    "out_rows": 0
+   },
+   "substrait_bytes": 0,
+   "result_rows": 4,
+   "correct": true,
+   "storage_sql": null,
+   "residual_sql": "SELECT * FROM (SELECT l_returnflag, l_linestatus, sum(l_quantity) AS sum_qty, sum(l_extendedprice) AS sum_base_price, sum(disc_price) AS sum_disc_price, sum(charge) AS sum_charge, avg(l_quantity) AS avg_qty, avg(l_extendedprice) AS avg_price, avg(l_discount) AS avg_disc, count(*) AS count_order FROM (SELECT l_returnflag AS l_returnflag, l_linestatus AS l_linestatus, l_quantity AS l_quantity, l_extendedprice AS l_extendedprice, l_discount AS l_discount, l_extendedprice * (1 - l_discount) AS disc_price, l_extendedprice * (1 - l_discount) * (1 + l_tax) AS charge FROM (SELECT l_returnflag, l_linestatus, l_quantity, l_extendedprice, l_discount, l_tax FROM (SELECT l_returnflag, l_linestatus, l_quantity, l_extendedprice, l_discount, l_tax, l_shipdate FROM t) AS s WHERE l_shipdate <= DATE '1998-09-02') AS s) AS s GROUP BY l_returnflag, l_linestatus) AS s ORDER BY l_returnflag, l_linestatus",
+   "est_rows": 6001215,
+   "est_bytes": 386205568,
+   "est_s": 3.143930582077607,
+   "est_selectivity": 1.0
+  },
+  {
+   "exp": "E6",
+   "query": "tpch_q1",
+   "table": "lineitem",
+   "mode": "filter",
+   "k": 1,
+   "net_mbit": 1000.0,
+   "splits": 8,
+   "time_s": 3.7837338295003065,
+   "time_all": [
+    3.795691772000282,
+    3.771775887000331
+   ],
+   "wire_bytes": 438451615.5,
+   "payload_bytes": 437827734,
+   "timings": {
+    "plan_analysis": 8.455399984086398e-05,
+    "substrait_gen": 0.0014405980000447016,
+    "pushdown_transfer": 3.7491971729996294,
+    "post_scan": 0.04391045100055635,
+    "others": 0.0010589960002107546
+   },
+   "storage": {
+    "read_s": 0.4862053389997527,
+    "exec_s": 0.23625661999994918,
+    "media_bytes": 71249070,
+    "in_rows": 6001215,
+    "out_rows": 5916591
+   },
+   "substrait_bytes": 434,
+   "result_rows": 4,
+   "correct": true,
+   "storage_sql": "SELECT l_returnflag, l_linestatus, l_quantity, l_extendedprice, l_discount, l_tax FROM (SELECT l_returnflag, l_linestatus, l_quantity, l_extendedprice, l_discount, l_tax, l_shipdate FROM t) AS s WHERE l_shipdate <= DATE '1998-09-02'",
+   "residual_sql": "SELECT * FROM (SELECT l_returnflag, l_linestatus, sum(l_quantity) AS sum_qty, sum(l_extendedprice) AS sum_base_price, sum(disc_price) AS sum_disc_price, sum(charge) AS sum_charge, avg(l_quantity) AS avg_qty, avg(l_extendedprice) AS avg_price, avg(l_discount) AS avg_disc, count(*) AS count_order FROM (SELECT l_returnflag AS l_returnflag, l_linestatus AS l_linestatus, l_quantity AS l_quantity, l_extendedprice AS l_extendedprice, l_discount AS l_discount, l_extendedprice * (1 - l_discount) AS disc_price, l_extendedprice * (1 - l_discount) * (1 + l_tax) AS charge FROM (SELECT * FROM t) AS s) AS s GROUP BY l_returnflag, l_linestatus) AS s ORDER BY l_returnflag, l_linestatus",
+   "est_rows": 5985209.742417147,
+   "est_bytes": 478816779.3933718,
+   "est_s": 4.002969193537082,
+   "est_selectivity": 0.9973329971376041
+  },
+  {
+   "exp": "E6",
+   "query": "tpch_q1",
+   "table": "lineitem",
+   "mode": "filter+proj",
+   "k": 2,
+   "net_mbit": 1000.0,
+   "splits": 8,
+   "time_s": 4.544628725000166,
+   "time_all": [
+    4.542074893000063,
+    4.547182557000269
+   ],
+   "wire_bytes": 533233169.5,
+   "payload_bytes": 532493190,
+   "timings": {
+    "plan_analysis": 0.00010504500005481532,
+    "substrait_gen": 0.002895668999371992,
+    "pushdown_transfer": 4.512904535999951,
+    "post_scan": 0.029775770000014745,
+    "others": 0.0015015370008768514
+   },
+   "storage": {
+    "read_s": 0.4595645380013593,
+    "exec_s": 0.12981943899922044,
+    "media_bytes": 71249070,
+    "in_rows": 6001215,
+    "out_rows": 5916591
+   },
+   "substrait_bytes": 826,
+   "result_rows": 4,
+   "correct": true,
+   "storage_sql": "SELECT l_returnflag AS l_returnflag, l_linestatus AS l_linestatus, l_quantity AS l_quantity, l_extendedprice AS l_extendedprice, l_discount AS l_discount, l_extendedprice * (1 - l_discount) AS disc_price, l_extendedprice * (1 - l_discount) * (1 + l_tax) AS charge FROM (SELECT l_returnflag, l_linestatus, l_quantity, l_extendedprice, l_discount, l_tax FROM (SELECT l_returnflag, l_linestatus, l_quantity, l_extendedprice, l_discount, l_tax, l_shipdate FROM t) AS s WHERE l_shipdate <= DATE '1998-09-02') AS s",
+   "residual_sql": "SELECT * FROM (SELECT l_returnflag, l_linestatus, sum(l_quantity) AS sum_qty, sum(l_extendedprice) AS sum_base_price, sum(disc_price) AS sum_disc_price, sum(charge) AS sum_charge, avg(l_quantity) AS avg_qty, avg(l_extendedprice) AS avg_price, avg(l_discount) AS avg_disc, count(*) AS count_order FROM (SELECT * FROM t) AS s GROUP BY l_returnflag, l_linestatus) AS s ORDER BY l_returnflag, l_linestatus",
+   "est_rows": 5985209.742417147,
+   "est_bytes": 490787198.8782061,
+   "est_s": 4.229659012531131,
+   "est_selectivity": 1.0
+  },
+  {
+   "exp": "E6",
+   "query": "tpch_q1",
+   "table": "lineitem",
+   "mode": "filter+proj+aggr",
+   "k": 3,
+   "net_mbit": 1000.0,
+   "splits": 8,
+   "time_s": 0.30737994249966505,
+   "time_all": [
+    0.2972839469994142,
+    0.3174759379999159
+   ],
+   "wire_bytes": 33505.5,
+   "payload_bytes": 4928,
+   "timings": {
+    "plan_analysis": 8.171900026354706e-05,
+    "substrait_gen": 0.002422028000182763,
+    "pushdown_transfer": 0.31067639100001543,
+    "post_scan": 0.003279493999798433,
+    "others": 0.0010163059996557422
+   },
+   "storage": {
+    "read_s": 0.6491927710012533,
+    "exec_s": 0.36817878399870096,
+    "media_bytes": 71249070,
+    "in_rows": 6001215,
+    "out_rows": 32
+   },
+   "substrait_bytes": 1384,
+   "result_rows": 4,
+   "correct": true,
+   "storage_sql": "SELECT l_returnflag, l_linestatus, sum(l_quantity) AS sum_qty, sum(l_extendedprice) AS sum_base_price, sum(disc_price) AS sum_disc_price, sum(charge) AS sum_charge, sum(l_quantity) AS avg_qty__sum, count(l_quantity) AS avg_qty__cnt, sum(l_extendedprice) AS avg_price__sum, count(l_extendedprice) AS avg_price__cnt, sum(l_discount) AS avg_disc__sum, count(l_discount) AS avg_disc__cnt, count(*) AS count_order FROM (SELECT l_returnflag AS l_returnflag, l_linestatus AS l_linestatus, l_quantity AS l_quantity, l_extendedprice AS l_extendedprice, l_discount AS l_discount, l_extendedprice * (1 - l_discount) AS disc_price, l_extendedprice * (1 - l_discount) * (1 + l_tax) AS charge FROM (SELECT l_returnflag, l_linestatus, l_quantity, l_extendedprice, l_discount, l_tax FROM (SELECT l_returnflag, l_linestatus, l_quantity, l_extendedprice, l_discount, l_tax, l_shipdate FROM t) AS s WHERE l_shipdate <= DATE '1998-09-02') AS s) AS s GROUP BY l_returnflag, l_linestatus",
+   "residual_sql": "SELECT * FROM (SELECT l_returnflag, l_linestatus, sum(sum_qty) AS sum_qty, sum(sum_base_price) AS sum_base_price, sum(sum_disc_price) AS sum_disc_price, sum(sum_charge) AS sum_charge, sum(avg_qty__sum) / sum(avg_qty__cnt) AS avg_qty, sum(avg_price__sum) / sum(avg_price__cnt) AS avg_price, sum(avg_disc__sum) / sum(avg_disc__cnt) AS avg_disc, sum(count_order) AS count_order FROM (SELECT * FROM t) AS s GROUP BY l_returnflag, l_linestatus) AS s ORDER BY l_returnflag, l_linestatus",
+   "est_rows": 48.0,
+   "est_bytes": 3840.0,
+   "est_s": 0.4343186046208574,
+   "est_selectivity": 8.01976907506253e-06
+  },
+  {
+   "exp": "E6",
+   "query": "tpch_q1",
+   "table": "lineitem",
+   "mode": "filter+proj+aggr+sort",
+   "k": 4,
+   "net_mbit": 1000.0,
+   "splits": 8,
+   "time_s": 0.32689040649984236,
+   "time_all": [
+    0.3043780730004073,
+    0.3494027399992774
+   ],
+   "wire_bytes": 26646.5,
+   "payload_bytes": 4928,
+   "timings": {
+    "plan_analysis": 8.441399950243067e-05,
+    "substrait_gen": 0.002638207999552833,
+    "pushdown_transfer": 0.3415005789993302,
+    "post_scan": 0.003936461999728635,
+    "others": 0.0012430770011633285
+   },
+   "storage": {
+    "read_s": 0.6542918109998936,
+    "exec_s": 0.45624424499965244,
+    "media_bytes": 71249070,
+    "in_rows": 6001215,
+    "out_rows": 32
+   },
+   "substrait_bytes": 1420,
+   "result_rows": 4,
+   "correct": true,
+   "storage_sql": "SELECT * FROM (SELECT l_returnflag, l_linestatus, sum(l_quantity) AS sum_qty, sum(l_extendedprice) AS sum_base_price, sum(disc_price) AS sum_disc_price, sum(charge) AS sum_charge, sum(l_quantity) AS avg_qty__sum, count(l_quantity) AS avg_qty__cnt, sum(l_extendedprice) AS avg_price__sum, count(l_extendedprice) AS avg_price__cnt, sum(l_discount) AS avg_disc__sum, count(l_discount) AS avg_disc__cnt, count(*) AS count_order FROM (SELECT l_returnflag AS l_returnflag, l_linestatus AS l_linestatus, l_quantity AS l_quantity, l_extendedprice AS l_extendedprice, l_discount AS l_discount, l_extendedprice * (1 - l_discount) AS disc_price, l_extendedprice * (1 - l_discount) * (1 + l_tax) AS charge FROM (SELECT l_returnflag, l_linestatus, l_quantity, l_extendedprice, l_discount, l_tax FROM (SELECT l_returnflag, l_linestatus, l_quantity, l_extendedprice, l_discount, l_tax, l_shipdate FROM t) AS s WHERE l_shipdate <= DATE '1998-09-02') AS s) AS s GROUP BY l_returnflag, l_linestatus) AS s ORDER BY l_returnflag, l_linestatus",
+   "residual_sql": "SELECT * FROM (SELECT l_returnflag, l_linestatus, sum(sum_qty) AS sum_qty, sum(sum_base_price) AS sum_base_price, sum(sum_disc_price) AS sum_disc_price, sum(sum_charge) AS sum_charge, sum(avg_qty__sum) / sum(avg_qty__cnt) AS avg_qty, sum(avg_price__sum) / sum(avg_price__cnt) AS avg_price, sum(avg_disc__sum) / sum(avg_disc__cnt) AS avg_disc, sum(count_order) AS count_order FROM (SELECT * FROM t) AS s GROUP BY l_returnflag, l_linestatus) AS s ORDER BY l_returnflag, l_linestatus",
+   "est_rows": 48.0,
+   "est_bytes": 3840.0,
+   "est_s": 0.43431902462085736,
+   "est_selectivity": 1.0
+  },
+  {
+   "exp": "E6-decision",
+   "query": "tpch_q1",
+   "auto_mode": "filter+proj+aggr",
+   "auto_k": 3,
+   "best_mode": "filter+proj+aggr",
+   "best_k": 3,
+   "auto_time_s": 0.30737994249966505,
+   "best_time_s": 0.30737994249966505,
+   "notes": [
+    "filter: to\u00e1n t\u1eed cu\u1ed1i kh\u00f4ng gi\u1ea3m d\u1eef li\u1ec7u (selectivity\u22481.00) -> ch\u1ec9 c\u00f3 l\u1ee3i n\u1ebfu to\u00e1n t\u1eed ph\u00eda sau gi\u1ea3m m\u1ea1nh",
+    "filter+proj: to\u00e1n t\u1eed cu\u1ed1i kh\u00f4ng gi\u1ea3m d\u1eef li\u1ec7u (selectivity\u22481.00) -> ch\u1ec9 c\u00f3 l\u1ee3i n\u1ebfu to\u00e1n t\u1eed ph\u00eda sau gi\u1ea3m m\u1ea1nh",
+    "filter+proj+aggr+sort: to\u00e1n t\u1eed cu\u1ed1i kh\u00f4ng gi\u1ea3m d\u1eef li\u1ec7u (selectivity\u22481.00) -> ch\u1ec9 c\u00f3 l\u1ee3i n\u1ebfu to\u00e1n t\u1eed ph\u00eda sau gi\u1ea3m m\u1ea1nh"
+   ]
+  },
+  {
+   "exp": "E6",
+   "query": "tpch_proj",
+   "table": "lineitem",
+   "mode": "none",
+   "k": 0,
+   "net_mbit": 1000.0,
+   "splits": 8,
+   "time_s": 3.4030895979999514,
+   "time_all": [
+    3.410711167000045,
+    3.395468028999858
+   ],
+   "wire_bytes": 386683227.0,
+   "payload_bytes": 386205568,
+   "timings": {
+    "plan_analysis": 5.958600013400428e-05,
+    "substrait_gen": 9.481400047661737e-05,
+    "pushdown_transfer": 3.4010068359993966,
+    "post_scan": 0.00857765099954122,
+    "others": 0.0009722800004965393
+   },
+   "storage": {
+    "read_s": 1.5377370550004343,
+    "exec_s": 0.0,
+    "media_bytes": 386205568,
+    "in_rows": 0,
+    "out_rows": 0
+   },
+   "substrait_bytes": 0,
+   "result_rows": 309594,
+   "correct": true,
+   "storage_sql": null,
+   "residual_sql": "SELECT l_orderkey AS l_orderkey, l_extendedprice AS l_extendedprice, l_discount AS l_discount, l_tax AS l_tax, l_extendedprice * (1 - l_discount) * (1 + l_tax) AS charge FROM (SELECT l_orderkey, l_extendedprice, l_discount, l_tax FROM (SELECT l_orderkey, l_extendedprice, l_discount, l_tax, l_shipdate FROM t) AS s WHERE l_shipdate >= DATE '1998-06-01') AS s",
+   "est_rows": 6001215,
+   "est_bytes": 386205568,
+   "est_s": 3.1028495662141395,
+   "est_selectivity": 1.0
+  },
+  {
+   "exp": "E6",
+   "query": "tpch_proj",
+   "table": "lineitem",
+   "mode": "filter",
+   "k": 1,
+   "net_mbit": 1000.0,
+   "splits": 8,
+   "time_s": 0.27732710350028356,
+   "time_all": [
+    0.2735985810004422,
+    0.2810556260001249
+   ],
+   "wire_bytes": 17382107.5,
+   "payload_bytes": 17337264,
+   "timings": {
+    "plan_analysis": 6.40540001768386e-05,
+    "substrait_gen": 0.0012994959997740807,
+    "pushdown_transfer": 0.26763893400038796,
+    "post_scan": 0.011121909999928903,
+    "others": 0.0009312319998571184
+   },
+   "storage": {
+    "read_s": 0.7324141839999356,
+    "exec_s": 0.023807052999472944,
+    "media_bytes": 111703910,
+    "in_rows": 6001215,
+    "out_rows": 309594
+   },
+   "substrait_bytes": 326,
+   "result_rows": 309594,
+   "correct": true,
+   "storage_sql": "SELECT l_orderkey, l_extendedprice, l_discount, l_tax FROM (SELECT l_orderkey, l_extendedprice, l_discount, l_tax, l_shipdate FROM t) AS s WHERE l_shipdate >= DATE '1998-06-01'",
+   "residual_sql": "SELECT l_orderkey AS l_orderkey, l_extendedprice AS l_extendedprice, l_discount AS l_discount, l_tax AS l_tax, l_extendedprice * (1 - l_discount) * (1 + l_tax) AS charge FROM (SELECT * FROM t) AS s",
+   "est_rows": 30945.760655828122,
+   "est_bytes": 1732962.596726375,
+   "est_s": 0.11896232767545056,
+   "est_selectivity": 0.005156582568001333
+  },
+  {
+   "exp": "E6",
+   "query": "tpch_proj",
+   "table": "lineitem",
+   "mode": "filter+proj",
+   "k": 2,
+   "net_mbit": 1000.0,
+   "splits": 8,
+   "time_s": 0.281215926999721,
+   "time_all": [
+    0.2815582679995714,
+    0.28087358599987056
+   ],
+   "wire_bytes": 22343736.5,
+   "payload_bytes": 22290768,
+   "timings": {
+    "plan_analysis": 5.794200023956364e-05,
+    "substrait_gen": 0.0012751179992847028,
+    "pushdown_transfer": 0.27553617199919245,
+    "post_scan": 0.00377330500032258,
+    "others": 0.0009157310005321051
+   },
+   "storage": {
+    "read_s": 0.690473546001158,
+    "exec_s": 0.03035665400147991,
+    "media_bytes": 111703910,
+    "in_rows": 6001215,
+    "out_rows": 309594
+   },
+   "substrait_bytes": 588,
+   "result_rows": 309594,
+   "correct": true,
+   "storage_sql": "SELECT l_orderkey AS l_orderkey, l_extendedprice AS l_extendedprice, l_discount AS l_discount, l_tax AS l_tax, l_extendedprice * (1 - l_discount) * (1 + l_tax) AS charge FROM (SELECT l_orderkey, l_extendedprice, l_discount, l_tax FROM (SELECT l_orderkey, l_extendedprice, l_discount, l_tax, l_shipdate FROM t) AS s WHERE l_shipdate >= DATE '1998-06-01') AS s",
+   "residual_sql": "SELECT * FROM t",
+   "est_rows": 30945.760655828122,
+   "est_bytes": 2228094.767219625,
+   "est_s": 0.12346493585087355,
+   "est_selectivity": 1.0
+  },
+  {
+   "exp": "E6-decision",
+   "query": "tpch_proj",
+   "auto_mode": "filter",
+   "auto_k": 1,
+   "best_mode": "filter",
+   "best_k": 1,
+   "auto_time_s": 0.27732710350028356,
+   "best_time_s": 0.27732710350028356,
+   "notes": [
+    "filter+proj: to\u00e1n t\u1eed cu\u1ed1i kh\u00f4ng gi\u1ea3m d\u1eef li\u1ec7u (selectivity\u22481.00) -> ch\u1ec9 c\u00f3 l\u1ee3i n\u1ebfu to\u00e1n t\u1eed ph\u00eda sau gi\u1ea3m m\u1ea1nh"
+   ]
+  }
+ ]
+}

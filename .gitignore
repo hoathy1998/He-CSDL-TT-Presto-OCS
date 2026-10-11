@@ -1,0 +1,15 @@
+# Các lượt đo làm lại / lỗi, log trung gian (giữ cục bộ, không đưa lên repo)
+_luu-tru/
+results/*.log
+results/reliability/*.log
+
+# Sản phẩm build và cache (tạo lại bằng lệnh build trong README)
+presto-ocs/target/
+__pycache__/
+*.pyc
+
+# Bài báo gốc (bản quyền ACM) và bản báo cáo PDF của nhóm
+*.pdf
+
+# Báo cáo nộp riêng, không đưa lên repo
+report/
