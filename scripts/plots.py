@@ -102,6 +102,120 @@ def fig_progressive(rows, exp, query, title, fname, baseline="filter", note=DEFA
     plt.close(fig)
 
 
+# ------------------------------------------------------------------ kiểu hình của bài báo (Figure 5, Figure 6)
+# Số liệu bài báo gốc (Ryu et al., SC Workshops '25), mục 5.2: (thời gian giây, data movement GB; TPC-H tính MB). Số ghi trong văn bản,
+# trừ: Deep Water filter+proj = 441 × 1,07 (chậm 7%), data movement giữ 5,37 GB ("không giảm data movement");
+# TPC-H none = 9 × 1,22, filter+proj = 9 × 1,55; Q3 snappy/gzip lọc-only đọc xấp xỉ từ Figure 6,
+# đẩy toàn bộ suy từ tỉ số 1,37× / 1,39×.
+PAPER = {
+    "laghos": {"none": (2710, 24.0), "filter": (1015, 5.1), "filter+aggr": (828, 0.75),
+               "filter+aggr+topN": (450, 0.0005)},
+    "deepwater": {"none": (1033, 30.0), "filter": (441, 5.37), "filter+proj": (441 * 1.07, 5.37),
+                  "filter+proj+aggr": (335, 0.001)},
+    "tpch_q1": {"none": (9.0 * 1.22, 194), "filter": (9.0, 192), "filter+proj": (9.0 * 1.55, 192),
+                "filter+proj+aggr": (2.21, 0.5)},
+}
+PAPER_Q3 = {"raw": (649.3, 530.4), "snappy": (502, 502 / 1.37), "gzip": (465, 465 / 1.39),
+            "zstd": (451.7, 331.6)}
+P_YEL, P_RED, P_LINE = "#ffd35c", "#e53935", "#e53935"
+HALO = [__import__("matplotlib.patheffects", fromlist=["x"]).withStroke(linewidth=2.5, foreground="white")]
+PAPER_RC = {
+    "font.family": "DejaVu Sans", "font.size": 10, "axes.edgecolor": "black", "axes.labelcolor": "black",
+    "xtick.color": "black", "ytick.color": "black", "figure.facecolor": "white", "axes.facecolor": "white",
+    "axes.spines.top": True, "axes.spines.right": True, "axes.grid": True, "axes.grid.axis": "y",
+    "grid.color": "#bbbbbb", "grid.linestyle": "--", "grid.linewidth": 0.6, "axes.axisbelow": True,
+    "xtick.direction": "in", "ytick.direction": "in", "hatch.linewidth": 0.8, "savefig.dpi": 200,
+}
+P_LABEL = {"none": "không\npushdown", "filter": "filter", "filter+aggr": "filter\n+aggr.",
+           "filter+aggr+topN": "filter\n+aggr.\n+top-N", "filter+proj": "filter\n+proj.",
+           "filter+proj+aggr": "filter\n+proj.\n+aggr.", "đẩy toàn bộ": "đẩy\ntoàn bộ"}
+
+
+def _sec(t):
+    return f"{t:.0f}" if t >= 100 else f"{t:.1f}" if t >= 10 else f"{t:.2f}"
+
+
+def fig_vs_paper(rows, exp, query, fname, paper_modes=None):
+    """Cột (thời gian) + đường (data movement) như Figure 5 của bài; cột gạch chéo / đường nét đứt = bài báo,
+    cột đặc / đường liền = tái hiện. Cả hai chuẩn hóa theo 'không pushdown' = 100% vì phần cứng khác hẳn.
+    paper_modes: tên chế độ của bài tương ứng từng chế độ tái hiện (mặc định trùng tên)."""
+    rs = [r for r in rows if r["exp"] == exp and r["query"] == query and r["mode"] in P_LABEL]
+    if not rs:
+        return
+    pm = paper_modes or {}
+    paper = PAPER[query]
+    pv = [paper[pm.get(r["mode"], r["mode"])] for r in rs]
+    t0, b0, pt0, pb0 = rs[0]["time_s"], max(rs[0]["wire_bytes"], 1), pv[0][0], pv[0][1]
+    with plt.rc_context(PAPER_RC):
+        fig, ax = plt.subplots(figsize=(6.4, 4.3))
+        xs = range(len(rs))
+        w = 0.38
+        ptime = [p[0] / pt0 * 100 for p in pv]
+        rtime = [r["time_s"] / t0 * 100 for r in rs]
+        ax.bar([x - w / 2 for x in xs], ptime, w, color="white", edgecolor="#c99a00", hatch="////", lw=1,
+               label="Thời gian – bài báo [4]")
+        ax.bar([x + w / 2 for x in xs], rtime, w, color=P_YEL, edgecolor="black", lw=1,
+               label="Thời gian – tái hiện")
+        a2 = ax.twinx()  # nhãn số vẽ trên trục phụ để nằm trên đường data movement
+        for x, p, r, pt, rt in zip(xs, pv, rs, ptime, rtime):
+            a2.text(x - w / 2, pt + 1.5, _sec(p[0]) + "s", ha="center", va="bottom", fontsize=7, color="#7a5c00",
+                    rotation=90, path_effects=HALO, zorder=5, transform=ax.transData)
+            a2.text(x + w / 2, rt + 1.5, _sec(r["time_s"]) + "s", ha="center", va="bottom", fontsize=7,
+                    rotation=90, path_effects=HALO, zorder=5, transform=ax.transData)
+        ax.set_ylim(0, max(ptime + rtime) * 1.32)
+        ax.set_ylabel("Thời gian thực thi (% so với không pushdown)")
+        ax.set_xticks(list(xs), [P_LABEL[r["mode"]] for r in rs])
+        ax.set_xlabel("Loại toán tử được pushdown")
+        a2.grid(False)
+        pdm = [p[1] / pb0 * 100 for p in pv]
+        rdm = [max(r["wire_bytes"], 1) / b0 * 100 for r in rs]
+        a2.plot(xs, pdm, color=P_LINE, ls="--", lw=1.4, marker="o", ms=6, mfc="white", mew=1.4,
+                label="Data movement – bài báo [4]")
+        a2.plot(xs, rdm, color=P_LINE, lw=1.6, marker="o", ms=6, label="Data movement – tái hiện")
+        a2.set_ylim(0, max(pdm + rdm) * 1.32)
+        a2.set_ylabel("Data movement (% so với không pushdown)")
+        h1, l1 = ax.get_legend_handles_labels()
+        h2, l2 = a2.get_legend_handles_labels()
+        ax.legend(h1 + h2, l1 + l2, loc="upper right", fontsize=7.5, ncol=2, frameon=True, edgecolor="#999999",
+                  framealpha=1)
+        fig.text(0.01, 0.005, "Số trên cột: thời gian thực (giây). Số liệu bài báo: mục 5.2 và Figure 5 của [4] "
+                 "(một số giá trị suy từ tỉ số tăng tốc bài nêu).", fontsize=7, color="#555555")
+        fig.tight_layout(rect=(0, 0.03, 1, 1))
+        fig.savefig(os.path.join(OUT, fname))
+        plt.close(fig)
+
+
+def fig_compression_vs_paper(codecs, filt, allp, fname):
+    """Cột đôi như Figure 6 của bài (vàng = Filter Pushdown, đỏ = All Pushdown), thêm cột gạch chéo của bài báo.
+    Chuẩn hóa theo Filter Pushdown trên dữ liệu thô (raw) = 100% của từng nguồn."""
+    pf = [PAPER_Q3[c][0] / PAPER_Q3["raw"][0] * 100 for c in codecs]
+    pa = [PAPER_Q3[c][1] / PAPER_Q3["raw"][0] * 100 for c in codecs]
+    rf = [t / filt[0] * 100 for t in filt]
+    ra = [t / filt[0] * 100 for t in allp]
+    with plt.rc_context(PAPER_RC):
+        fig, ax = plt.subplots(figsize=(6.8, 4.1))
+        w = 0.2
+        series = ((-1.5, pf, [PAPER_Q3[c][0] for c in codecs], "white", "#c99a00", "////", "Filter Pushdown – bài báo [4]"),
+                  (-0.5, rf, filt, P_YEL, "black", None, "Filter Pushdown – tái hiện"),
+                  (0.5, pa, [PAPER_Q3[c][1] for c in codecs], "white", P_RED, "\\\\\\\\", "All Pushdown – bài báo [4]"),
+                  (1.5, ra, allp, P_RED, "black", None, "All Pushdown – tái hiện"))
+        for off, vals, secs, fc, ec, hatch, lab in series:
+            xs = [x + off * w for x in range(len(codecs))]
+            ax.bar(xs, vals, w, color=fc, edgecolor=ec, hatch=hatch, lw=1, label=lab)
+            for x, v, s in zip(xs, vals, secs):
+                ax.text(x, v + 1.5, _sec(s) + "s", ha="center", va="bottom", fontsize=6.5, rotation=90,
+                        color="#555555" if hatch else "black", path_effects=HALO)
+        ax.set_xticks(range(len(codecs)), codecs)
+        ax.set_ylim(0, max(pf + rf + pa + ra) * 1.45)
+        ax.set_ylabel("Thời gian thực thi\n(% so với Filter Pushdown, raw)")
+        ax.legend(loc="upper right", fontsize=7.5, ncol=2, frameon=True, edgecolor="#999999", framealpha=1)
+        fig.text(0.01, 0.005, "Số trên cột: thời gian thực (giây). Số liệu bài báo: mục 5.2 và Figure 6 của [4]; "
+                 "lọc-only snappy/gzip đọc xấp xỉ từ hình.", fontsize=7, color="#555555")
+        fig.tight_layout(rect=(0, 0.03, 1, 1))
+        fig.savefig(os.path.join(OUT, fname))
+        plt.close(fig)
+
+
 def fig_compression(rows):
     rs = [r for r in rows if r["exp"] == "E3"]
     if not rs:

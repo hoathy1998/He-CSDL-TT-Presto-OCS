@@ -5,6 +5,36 @@ Tái hiện ý tưởng bài báo *"Integrating Distributed SQL Query Engines wi
 ta **giả lập OCS** nhưng giữ đúng các giao thức trong bài: **Substrait IR** cho plan, **gRPC** (Arrow Flight)
 cho giao tiếp, **Apache Arrow** cho kết quả.
 
+Mã nguồn này đi kèm **Báo cáo thực nghiệm của Nhóm 3** (môn Hệ cơ sở dữ liệu tiên tiến, UIT). Hệ thống có hai bản cài đặt
+dùng chung một OCS giả lập:
+
+- **Bản Python** (`ocsdemo/`): "Presto thu nhỏ", chọn toán tử đẩy xuống bằng mô hình chi phí (ước lượng độ chọn lọc từ
+  thống kê, cộng chi phí mạng + CPU, chọn phương án rẻ nhất). Dùng cho các thí nghiệm chính Q1–Q4 và thí nghiệm mở rộng.
+- **Bản Java** (`presto-ocs/`): connector cho **Presto 0.286 thật** qua Connector SPI. Bộ tối ưu hóa dùng quy tắc cố định:
+  phép lọc luôn được đẩy; phép tổng hợp chỉ được đẩy khi số nhóm ước lượng ≤ 50% số dòng của mỗi object
+  (`OcsPlanOptimizer.java`). Dùng để kiểm chứng kết quả trên một hệ truy vấn phân tán thực tế.
+
+## Đối chiếu báo cáo ↔ mã nguồn
+
+| Trong báo cáo | Tệp / thư mục |
+|---|---|
+| Hình 1, Bảng 5 – kiến trúc và các thành phần | `ocsdemo/` (bản Python), `presto-ocs/` (bản Java); bảng *Thành phần trong bài* bên dưới |
+| Mục 4.2 – giữ kết quả đúng khi dữ liệu nằm trên nhiều object | `ocsdemo/plan.py` (Top-N cục bộ → toàn cục, tổng hợp hai pha, AVG → SUM + COUNT) |
+| Mục 5, Bảng 6 – đáp án độc lập, hiệu chuẩn, đo lặp, kiểm định | `scripts/oracle.py`, `scripts/reliability.py`, `scripts/stats.py`; kết quả trong `results/oracle/`, `results/reliability/summary.md` |
+| Hình 2 – Q1 Laghos | `results/figures/fig_q1_laghos.png` |
+| Hình 3, Hình 4 – Q2 Deep Water, TPC-H Q1 | `results/figures/fig_q2_deepwater.png`, `fig_q2_tpch.png` |
+| Bảng 7, Hình 5 – Q3 nén dữ liệu | `results/figures/fig_q3_compression.png`; nhóm `e7` trong `summary.md` |
+| Bảng 8 – Q4 phân rã thời gian trên Presto 0.286 | `results/presto/q4_breakdown.md` (`scripts/presto_q4.py`) |
+| Bảng 9, Hình 6 – băng thông mạng | `results/figures/fig_e5_bandwidth.png`; nhóm `bandwidth` trong `summary.md` |
+| Bảng 10 – ước lượng độ chọn lọc | `results/bench.json`, `results/figures/fig_e6_estimates.png` |
+| Mục 7 – thí nghiệm mở rộng (đĩa, số node, CPU, Presto thật, MinIO Select) | `fig_r2_media_sweep.png`, `fig_r3_scale.png`, `fig_r4_cpus.png`, `fig_g3_*.png`, `fig_g4b_*.png` |
+| Bảng 11, Hình 7 – so sánh với bài báo | `results/figures/fig_r1_speedup_ci.png`; mục so sánh trong `summary.md` |
+| Hình 8 – tốc độ bộ máy SQL nhúng | `results/figures/fig_r5_engine_cost.png` |
+| Phụ lục – chạy lại thực nghiệm | mục **Chạy** bên dưới |
+
+Các tệp `*_vs_paper.png` trong `results/figures/` vẽ cùng số liệu theo kiểu Figure 5/6 của bài báo, đặt cạnh số liệu
+của bài báo; chúng dùng cho slide thuyết trình, không có trong báo cáo.
+
 ## Kiến trúc
 
 ```
@@ -65,7 +95,7 @@ Kết quả: `results/reliability/summary.md` (bảng thống kê), `results/rel
 Presto 0.286 thật với connector Presto-OCS (G3) và baseline MinIO Select thật (G4b):
 
 ```powershell
-docker compose --profile build run --rm maven                      # build plugin Java -> presto-ocs/target/plugin
+docker compose --profile build run --rm maven                      # build plugin Java -> presto-ocs/target/ocs-plugin
 docker compose --profile presto up -d presto                       # catalog: ocs (all), ocsfilter, ocsnopd, hive
 docker compose --profile presto exec presto presto-cli --catalog ocs --schema default
 #   presto> EXPLAIN SELECT timestep, max((rowid % 250000) / 500) FROM deepwater WHERE v02 > 0.1 GROUP BY timestep;
@@ -95,6 +125,13 @@ docker compose exec compute python demo.py run laghos --mode all --splits 4 --in
 docker compose exec compute python demo.py history                  # lịch sử + tỉ lệ pushdown thành công
 ```
 
+Trang web thử truy vấn trên Presto 0.286 thật (gõ SQL tự do, so sánh các mức pushdown về thời gian, dữ liệu
+OCS → Presto, kế hoạch truy vấn và tính đúng của kết quả):
+
+```powershell
+docker compose --profile presto up -d ui                            # rồi mở http://localhost:8501
+```
+
 Thêm `--splits 4` để demo nhanh hơn. Đổi cấu hình phần cứng: `OCS_CPUS`, `OCS_NET_MBIT`, `OCS_MEDIA_MBPS`
 (biến môi trường của `docker compose up`).
 
@@ -111,9 +148,11 @@ Thêm `--splits 4` để demo nhanh hơn. Đổi cấu hình phần cứng: `OCS
 
 ## Đơn giản hóa so với bài báo (cần nêu khi báo cáo)
 
-- Không dùng Presto thật (đó là phương án B). Engine compute là "Presto thu nhỏ" viết bằng Python + DataFusion,
-  nhưng đi đúng 5 bước của Mục 3.4 và cùng giao thức (Substrait/gRPC/Arrow).
-- SQL được dựng lại từ các toán tử đẩy xuống rồi dịch sang Substrait bằng DataFusion (bài: tự viết bộ dịch trong Java).
+- Các thí nghiệm chính chạy trên "Presto thu nhỏ" viết bằng Python + DataFusion, đi đúng 5 bước của Mục 3.4 và cùng
+  giao thức (Substrait/gRPC/Arrow). Kết quả được kiểm chứng lại trên Presto 0.286 thật với connector Java (`presto-ocs/`).
+- OCS của SK hynix được thay bằng DataFusion chạy trong container; tốc độ bộ máy SQL nhúng vì vậy khác bài báo.
+- Bản Python dựng lại SQL từ các toán tử đẩy xuống rồi dịch sang Substrait bằng DataFusion; bản Java sinh Substrait
+  bằng substrait-java (isthmus).
 - Phần cứng được giả lập: storage 2 CPU, mạng 1 Gbps (`tc`), SSD 500 MB/s; dữ liệu nhỏ hơn bài ~15 lần.
   Do đó **chỉ so sánh xu hướng và tỉ lệ**, không so sánh số giây tuyệt đối.
 - Laghos: truy vấn gốc của LANL chạy trên từng file (timestep); ta nhóm theo `(timestep, vertex_id)` để
@@ -128,6 +167,7 @@ Thêm `--splits 4` để demo nhanh hơn. Đổi cấu hình phần cứng: `OCS
 | `Dockerfile`, `docker-compose.yml`, `requirements.txt` | Môi trường chạy (phiên bản thư viện được ghim) |
 | `ocsdemo/` | OCS giả lập (`ocs_server.py`) và engine thu nhỏ đóng vai Presto: optimizer, connector, catalog |
 | `presto-ocs/` | Connector Presto-OCS bằng Java cho Presto 0.286 (`src/`), thư viện Substrait đóng gói riêng (`substrait-lib/`) |
+| `ui/` | Trang web thử truy vấn trên Presto 0.286 thật (`server.py` + `index.html`, cổng 8501) |
 | `presto/etc/` | Cấu hình Presto, các catalog `ocs` / `ocsfilter` / `ocsnopd` / `hive`, EventListener |
 | `minio/` | Build MinIO từ mã nguồn chính thức (baseline S3 Select thật) |
 | `scripts/` | Chuẩn bị dữ liệu, oracle DuckDB, các thí nghiệm, thống kê, vẽ hình, script đo trên Windows |
@@ -135,7 +175,7 @@ Thêm `--splits 4` để demo nhanh hơn. Đổi cấu hình phần cứng: `OCS
 | `results/reliability/` | Dữ liệu đo thô của mọi lượt dùng trong báo cáo (JSON), log nguồn điện và hiệu năng CPU, `summary.md` (bảng thống kê đầy đủ) |
 | `results/presto/` | EXPLAIN của Presto gốc (Hive) và Presto-OCS, lịch sử EventListener, kiểm tra tính năng, phân rã Q4 |
 | `results/oracle/` | Kết quả đúng tính độc lập bằng DuckDB |
-| `results/figures/` | Toàn bộ hình trong báo cáo |
+| `results/figures/` | Toàn bộ hình trong báo cáo (xem bảng đối chiếu ở đầu tệp) và các hình `*_vs_paper.png` dùng cho slide |
 | `results/bench.json` | Lượt chạy E1–E6 ban đầu (nguồn của hình E6 về độ chính xác Selectivity Analyzer) |
 
 Dữ liệu (khoảng 35 GB) không nằm trong repo; tạo lại bằng `docker compose --profile prep run --rm prep python scripts/prepare_data.py --laghos-files 256`.

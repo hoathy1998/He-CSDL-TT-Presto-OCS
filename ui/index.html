@@ -1,0 +1,400 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Presto-OCS Query Lab</title>
+<style>
+:root {
+  --bg: #f5f6f8; --panel: #ffffff; --ink: #1c2230; --muted: #6b7280; --line: #e3e6ec;
+  --code-bg: #1e2230; --code-ink: #e6e9f0; --accent: #2563eb; --soft: #eef2fb;
+  --c-nopd: #8b93a1; --c-filter: #e8890c; --c-ocs: #2563eb; --c-hive: #0f9f6e;
+  --ok: #0f9f6e; --bad: #d14343; --ocs-box: #fff4e2; --ocs-edge: #e8890c; --presto-box: #eaf1ff;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #12151c; --panel: #1a1e27; --ink: #e6e9f0; --muted: #9aa3b2; --line: #2b313d;
+    --code-bg: #0e1118; --soft: #1f2633; --ocs-box: #33270f; --presto-box: #1b2740;
+  }
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 15px/1.5 "Segoe UI", system-ui, sans-serif; }
+header { display: flex; align-items: center; gap: 24px; padding: 14px 24px; background: var(--panel);
+  border-bottom: 1px solid var(--line); position: sticky; top: 0; z-index: 5; flex-wrap: wrap; }
+header h1 { font-size: 20px; margin: 0; }
+header .sub { color: var(--muted); font-size: 13px; }
+.net { margin-left: auto; display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--muted); }
+.seg { display: inline-flex; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; }
+.seg button { border: 0; background: transparent; color: var(--ink); padding: 6px 12px; cursor: pointer; font: inherit; }
+.seg button + button { border-left: 1px solid var(--line); }
+.seg button.on { background: var(--accent); color: #fff; }
+main { display: grid; grid-template-columns: 330px minmax(0, 1fr); gap: 20px; padding: 20px 24px 60px; max-width: 1600px; margin: 0 auto; }
+@media (max-width: 900px) { main { grid-template-columns: 1fr; padding: 16px; } }
+.card { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 16px 18px; }
+.card + .card { margin-top: 16px; }
+h2 { font-size: 13px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); margin: 0 0 10px; }
+.ds-tabs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
+.ds-tabs button { border: 1px solid var(--line); background: var(--panel); color: var(--ink); border-radius: 8px;
+  padding: 8px 4px; cursor: pointer; font-family: inherit; font-weight: 600; font-size: 13px; line-height: 1.2; }
+.ds-tabs button.on { border-color: var(--accent); background: var(--soft); color: var(--accent); }
+.ds-desc { color: var(--muted); font-size: 13px; margin: 10px 0 4px; }
+.tbl { border-top: 1px solid var(--line); padding: 8px 0; }
+.tbl summary { cursor: pointer; display: flex; gap: 8px; align-items: baseline; list-style: none; }
+.tbl summary::-webkit-details-marker { display: none; }
+.tbl summary b { font-family: Consolas, monospace; font-size: 14px; }
+.tbl summary span { color: var(--muted); font-size: 12px; }
+.chips { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 6px; }
+.chip { font: 12px Consolas, monospace; border: 1px solid var(--line); background: var(--soft); color: var(--ink);
+  border-radius: 6px; padding: 2px 6px; cursor: pointer; }
+.chip:hover { border-color: var(--accent); }
+.chip i { color: var(--muted); font-style: normal; }
+.samples button { display: block; width: 100%; text-align: left; border: 0; background: transparent; color: var(--ink);
+  padding: 7px 8px; border-radius: 6px; cursor: pointer; font: inherit; font-size: 14px; }
+.samples button:hover { background: var(--soft); }
+.editor-wrap { position: relative; }
+textarea { width: 100%; min-height: 190px; resize: vertical; background: var(--code-bg); color: var(--code-ink);
+  border: 0; border-radius: 10px; padding: 14px 16px; font: 15px/1.55 Consolas, "Cascadia Mono", monospace; tab-size: 2; }
+textarea:focus { outline: 2px solid var(--accent); }
+.hint { color: var(--muted); font-size: 12px; margin-top: 6px; }
+.methods { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-top: 14px; }
+@media (max-width: 1100px) { .methods { grid-template-columns: repeat(2, 1fr); } }
+.m { border: 1px solid var(--line); border-radius: 10px; padding: 9px 11px; cursor: pointer; display: flex; gap: 9px; align-items: flex-start; }
+.m input { margin-top: 4px; accent-color: var(--accent); }
+.m b { display: block; font-size: 14px; }
+.m small { color: var(--muted); font-size: 12px; line-height: 1.35; display: block; }
+.m.off { opacity: .45; cursor: not-allowed; }
+.dot { width: 10px; height: 10px; border-radius: 3px; display: inline-block; margin-right: 6px; vertical-align: 0; }
+.runbar { display: flex; align-items: center; gap: 12px; margin-top: 14px; flex-wrap: wrap; }
+.btn { border: 0; border-radius: 9px; padding: 10px 22px; font-family: inherit; font-weight: 600; font-size: 15px; cursor: pointer; }
+.btn.run { background: var(--accent); color: #fff; }
+.btn.run:disabled { opacity: .5; cursor: wait; }
+.btn.stop { background: transparent; color: var(--bad); border: 1px solid var(--bad); }
+.reps { display: flex; align-items: center; gap: 6px; color: var(--muted); font-size: 14px; }
+.reps input { width: 54px; padding: 6px; border: 1px solid var(--line); border-radius: 6px; background: var(--panel); color: var(--ink); font: inherit; }
+.err { color: var(--bad); font-size: 14px; white-space: pre-wrap; }
+.progress { height: 6px; background: var(--soft); border-radius: 3px; overflow: hidden; margin-top: 12px; }
+.progress div { height: 100%; width: 0; background: var(--accent); transition: width .3s; }
+.log { font: 12px/1.6 Consolas, monospace; color: var(--muted); margin-top: 8px; max-height: 110px; overflow: auto; white-space: pre-wrap; }
+.summary { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 12px; }
+.sc { border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px; border-top: 4px solid var(--c); }
+.sc .t { font-size: 13px; color: var(--muted); }
+.sc .v { font-size: 30px; font-weight: 700; line-height: 1.2; font-variant-numeric: tabular-nums; }
+.sc .s { font-size: 13px; color: var(--muted); font-variant-numeric: tabular-nums; }
+.sc .x { display: inline-block; margin-top: 4px; font-weight: 700; color: var(--c); }
+.sc.err { border-top-color: var(--bad); }
+.verdict { margin: 14px 0 2px; padding: 9px 12px; border-radius: 8px; font-size: 14px; }
+.verdict.ok { background: color-mix(in srgb, var(--ok) 14%, transparent); color: var(--ok); }
+.verdict.bad { background: color-mix(in srgb, var(--bad) 14%, transparent); color: var(--bad); }
+.charts { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 18px; }
+@media (max-width: 1100px) { .charts { grid-template-columns: 1fr; } }
+.chart h3 { font-size: 14px; margin: 0 0 8px; }
+.bar { display: grid; grid-template-columns: 130px 1fr; gap: 10px; align-items: center; margin: 9px 0; font-size: 13px; }
+.bar .lab { color: var(--muted); text-align: right; }
+.track { position: relative; height: 26px; }
+.fill { position: absolute; left: 0; top: 0; bottom: 0; border-radius: 5px; background: var(--c); transition: width .5s; }
+.whisk { position: absolute; top: 50%; height: 2px; background: var(--ink); opacity: .45; }
+.val { position: absolute; top: 3px; font-weight: 600; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.note { color: var(--muted); font-size: 12px; margin-top: 4px; }
+.plans { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px; }
+.plan h3 { font-size: 14px; margin: 0 0 8px; }
+.node { border-radius: 7px; padding: 6px 10px; margin: 0 0 4px; font: 13px Consolas, monospace; background: var(--presto-box); }
+.node.minor { background: transparent; color: var(--muted); padding: 2px 10px; font-size: 12px; }
+.node.ocs { background: var(--ocs-box); border: 1.5px solid var(--ocs-edge); padding: 9px 10px; }
+.node.hive { background: color-mix(in srgb, var(--c-hive) 15%, transparent); border: 1.5px solid var(--c-hive); }
+.node .where { float: right; font: 600 11px "Segoe UI", sans-serif; text-transform: uppercase; color: var(--muted); }
+.node.ocs .where { color: var(--ocs-edge); }
+.pushed { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 6px; align-items: center; }
+.op { background: var(--ocs-edge); color: #fff; border-radius: 5px; padding: 1px 7px; font: 600 12px "Segoe UI", sans-serif; }
+.arrow { color: var(--muted); font-size: 12px; }
+details.sql { margin-top: 6px; font-size: 12px; }
+details.sql pre { white-space: pre-wrap; word-break: break-all; margin: 4px 0 0; color: var(--ink); }
+.legend { display: flex; gap: 16px; font-size: 12px; color: var(--muted); margin-bottom: 10px; flex-wrap: wrap; }
+.legend span::before { content: ""; display: inline-block; width: 11px; height: 11px; border-radius: 3px; margin-right: 5px; vertical-align: -1px; background: var(--k); border: 1px solid var(--e, transparent); }
+.result { overflow: auto; max-height: 420px; }
+table { border-collapse: collapse; font-size: 13px; width: 100%; }
+th, td { border-bottom: 1px solid var(--line); padding: 5px 10px; text-align: left; white-space: nowrap; }
+th { position: sticky; top: 0; background: var(--panel); font-weight: 600; }
+td.num { text-align: right; font-variant-numeric: tabular-nums; font-family: Consolas, monospace; }
+.empty { color: var(--muted); text-align: center; padding: 30px 10px; }
+.hist td { cursor: pointer; }
+.hist tr:hover td { background: var(--soft); }
+.hist code { font-size: 12px; }
+</style>
+</head>
+<body>
+<header>
+  <div>
+    <h1>Presto-OCS Query Lab</h1>
+    <div class="sub">Gõ SQL tự do · chạy trên Presto 0.286 thật · so sánh các mức pushdown xuống OCS</div>
+  </div>
+  <div class="net">Mạng OCS → Presto
+    <div class="seg" id="net">
+      <button data-v="100">100 Mbps</button><button data-v="1000">1 Gbps</button><button data-v="10000">10 Gbps</button>
+    </div>
+  </div>
+</header>
+
+<main>
+  <aside>
+    <div class="card">
+      <h2>Bộ dữ liệu</h2>
+      <div class="ds-tabs" id="dsTabs"></div>
+      <div class="ds-desc" id="dsDesc"></div>
+      <div id="tables"></div>
+      <div class="hint">Bấm tên bảng để mở danh sách cột; bấm tên bảng/cột để chèn vào câu SQL.</div>
+    </div>
+    <div class="card">
+      <h2>Câu mẫu</h2>
+      <div class="samples" id="samples"></div>
+    </div>
+  </aside>
+
+  <section>
+    <div class="card">
+      <h2>Câu truy vấn</h2>
+      <div class="editor-wrap"><textarea id="sql" spellcheck="false"></textarea></div>
+      <div class="hint">Viết thẳng tên bảng (vd. <code>FROM deepwater</code>), không cần tiền tố catalog — chương trình tự chạy trên catalog của từng phương pháp. Ctrl + Enter để chạy.</div>
+      <div class="methods" id="methods"></div>
+      <div class="runbar">
+        <button class="btn run" id="run">▶ Chạy &amp; so sánh</button>
+        <button class="btn stop" id="stop" hidden>■ Dừng</button>
+        <label class="reps">Số lượt đo <input type="number" id="reps" min="1" max="10" value="3"></label>
+        <span class="hint" style="margin:0">+1 lượt khởi động không tính · thứ tự các phương pháp xáo ngẫu nhiên mỗi lượt</span>
+      </div>
+      <div class="err" id="err"></div>
+      <div id="prog" hidden><div class="progress"><div id="progFill"></div></div><div class="log" id="log"></div></div>
+    </div>
+
+    <div class="card" id="resCard" hidden>
+      <h2>Kết quả đo <span id="resMeta" style="text-transform:none;letter-spacing:0;font-weight:400"></span></h2>
+      <div class="summary" id="summary"></div>
+      <div id="verdict"></div>
+      <div class="charts">
+        <div class="chart"><h3>Thời gian thực thi (trung vị, vạch = min–max)</h3><div id="chTime"></div></div>
+        <div class="chart"><h3>Dữ liệu Presto nhận được (thang log)</h3><div id="chBytes"></div>
+          <div class="note">Với OCS: dữ liệu truyền từ OCS qua mạng. Với Hive: dữ liệu Presto tự đọc từ file.</div></div>
+      </div>
+    </div>
+
+    <div class="card" id="planCard" hidden>
+      <h2>Kế hoạch truy vấn (EXPLAIN) — phần nào chạy ở đâu</h2>
+      <div class="legend">
+        <span style="--k:var(--presto-box)">Presto (compute)</span>
+        <span style="--k:var(--ocs-box);--e:var(--ocs-edge)">Đẩy xuống OCS (storage)</span>
+        <span style="--k:color-mix(in srgb, var(--c-hive) 15%, transparent);--e:var(--c-hive)">Hive đọc file Parquet</span>
+      </div>
+      <div class="plans" id="plans"></div>
+    </div>
+
+    <div class="card" id="rowsCard" hidden>
+      <h2 id="rowsTitle">Kết quả truy vấn</h2>
+      <div class="result" id="rows"></div>
+    </div>
+
+    <div class="card">
+      <h2>Lịch sử trong phiên</h2>
+      <div id="hist"><div class="empty">Chưa có lần chạy nào.</div></div>
+    </div>
+  </section>
+</main>
+
+<script>
+const COLORS = { nopd: "var(--c-nopd)", filter: "var(--c-filter)", ocs: "var(--c-ocs)", hive: "var(--c-hive)" };
+const ORDER = ["nopd", "filter", "ocs", "hive"];
+const $ = (id) => document.getElementById(id);
+const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+const vn = (x, d = 0) => Number(x).toLocaleString("vi-VN", { minimumFractionDigits: d, maximumFractionDigits: d });
+const fmtS = (ms) => vn(ms / 1000, ms < 10000 ? 2 : 1) + " s";
+function fmtB(b) {
+  if (b < 1024) return vn(b) + " B";
+  const u = ["KB", "MB", "GB", "TB"]; let i = -1;
+  do { b /= 1024; i++; } while (b >= 1024 && i < u.length - 1);
+  return vn(b, b < 10 ? 2 : 1) + " " + u[i];
+}
+const store = {
+  get(k, d) { try { return JSON.parse(localStorage.getItem(k)) ?? d; } catch { return d; } },
+  set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch {} },
+};
+
+let META = null, DS = store.get("qlab.ds", "deepwater"), JOB = null, POLL = null, HIST = store.get("qlab.hist", []);
+
+async function api(path, body) {
+  const r = await fetch(path, body ? { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) } : {});
+  const j = await r.json();
+  if (!r.ok) throw new Error(j.error || r.statusText);
+  return j;
+}
+
+function insertAtCursor(text) {
+  const t = $("sql"); t.focus();
+  t.setRangeText(text, t.selectionStart, t.selectionEnd, "end");
+}
+
+function renderDataset() {
+  const d = META.datasets[DS];
+  $("dsTabs").innerHTML = Object.entries(META.datasets).map(([k, v]) =>
+    `<button class="${k === DS ? "on" : ""}" data-k="${k}">${esc(v.name)}</button>`).join("");
+  $("dsDesc").textContent = d.desc;
+  $("tables").innerHTML = d.tables.map((t) => `
+    <details class="tbl"><summary><b class="ins" data-v="${esc(t.name)}">${esc(t.name)}</b><span>${esc(t.note)}</span></summary>
+      <div class="chips">${t.columns.map((c) => `<span class="chip ins" data-v="${esc(c.name)}">${esc(c.name)} <i>${esc(c.type)}</i></span>`).join("") || '<span class="hint">(chưa lấy được cột — Presto đang khởi động?)</span>'}</div>
+    </details>`).join("");
+  $("samples").innerHTML = d.samples.map((s, i) => `<button data-i="${i}">${esc(s.title)}</button>`).join("");
+  renderMethods();
+}
+
+function renderMethods() {
+  const d = META.datasets[DS], chosen = store.get("qlab.methods", ["nopd", "filter", "ocs"]);
+  $("methods").innerHTML = ORDER.map((k) => {
+    const m = META.methods[k], off = k === "hive" && !d.hive;
+    return `<label class="m ${off ? "off" : ""}" title="${off ? "Bộ dữ liệu này chưa khai báo trong Hive" : ""}">
+      <input type="checkbox" value="${k}" ${chosen.includes(k) && !off ? "checked" : ""} ${off ? "disabled" : ""}>
+      <span><b><span class="dot" style="background:${COLORS[k]}"></span>${esc(m.label)}</b><small>${esc(m.desc)}</small></span></label>`;
+  }).join("");
+}
+
+function renderNet(v) {
+  document.querySelectorAll("#net button").forEach((b) => b.classList.toggle("on", Number(b.dataset.v) === Number(v)));
+}
+
+// ---------------------------------------------------------------- chạy
+async function run() {
+  $("err").textContent = "";
+  const methods = [...document.querySelectorAll("#methods input:checked")].map((x) => x.value);
+  store.set("qlab.methods", methods);
+  try {
+    const { id } = await api("/api/run", { sql: $("sql").value, methods, reps: Number($("reps").value) || 3 });
+    JOB = id; setBusy(true); $("prog").hidden = false;
+    POLL = setInterval(poll, 700); poll();
+  } catch (e) { $("err").textContent = e.message; }
+}
+
+function setBusy(b) { $("run").disabled = b; $("stop").hidden = !b; $("run").textContent = b ? "Đang chạy…" : "▶ Chạy & so sánh"; }
+
+async function poll() {
+  let j; try { j = await api("/api/job?id=" + JOB); } catch { return; }
+  $("progFill").style.width = (j.total ? (100 * j.done / j.total) : 3) + "%";
+  $("log").textContent = j.log.join("\n"); $("log").scrollTop = 1e9;
+  render(j);
+  if (j.state !== "running") {
+    clearInterval(POLL); setBusy(false);
+    if (j.error) $("err").textContent = j.error;
+    if (j.state === "done") addHist(j);
+  }
+}
+
+function baselineOf(ms) {
+  for (const k of ["nopd", "filter", "hive", "ocs"]) if (ms[k] && ms[k].median_ms) return k;
+  return null;
+}
+
+function render(j) {
+  const ms = j.methods, keys = ORDER.filter((k) => ms[k]);
+  const have = keys.filter((k) => ms[k].median_ms);
+  const base = baselineOf(ms);
+  $("resCard").hidden = !have.length && !keys.some((k) => ms[k].error);
+  $("resMeta").textContent = `· ${j.reps} lượt · mạng ${j.net_mbit ? vn(j.net_mbit) + " Mbps" : "?"}`;
+  $("summary").innerHTML = keys.map((k) => {
+    const m = ms[k];
+    if (m.error) return `<div class="sc err" style="--c:var(--bad)"><div class="t">${esc(m.label)}</div><div class="err" style="font-size:12px">${esc(m.error)}</div></div>`;
+    if (!m.median_ms) return `<div class="sc" style="--c:${COLORS[k]}"><div class="t">${esc(m.label)}</div><div class="v" style="color:var(--muted)">…</div></div>`;
+    const sp = base && k !== base ? ms[base].median_ms / m.median_ms : null;
+    return `<div class="sc" style="--c:${COLORS[k]}"><div class="t">${esc(m.label)}</div><div class="v">${fmtS(m.median_ms)}</div>
+      <div class="s">nhận ${fmtB(m.bytes)} · ${vn(m.rows_in)} dòng</div>
+      ${sp ? `<div class="x">${sp >= 1 ? "nhanh hơn " + vn(sp, 2) + "×" : "chậm hơn " + vn(1 / sp, 2) + "×"} so với ${esc(ms[base].label)}</div>` : (k === base && have.length > 1 ? '<div class="x" style="color:var(--muted)">mốc so sánh</div>' : "")}</div>`;
+  }).join("");
+
+  $("verdict").innerHTML = j.same_result === true ? `<div class="verdict ok">✓ Mọi phương pháp trả về cùng một kết quả (so khớp toàn bộ dòng, số thực làm tròn 6 chữ số có nghĩa).</div>`
+    : j.same_result === false ? `<div class="verdict bad">✗ Kết quả giữa các phương pháp KHÁC nhau. Nếu câu có LIMIT mà cột trong ORDER BY có giá trị trùng nhau, mỗi phương pháp được phép chọn dòng khác nhau — thêm cột vào ORDER BY để thứ tự xác định rồi chạy lại. Nếu vẫn khác, hãy lưu câu SQL này để kiểm tra connector.</div>` : "";
+
+  const tmax = Math.max(1, ...have.map((k) => ms[k].max_ms));
+  $("chTime").innerHTML = have.map((k) => {
+    const m = ms[k], w = (v) => (100 * v / tmax * 0.82).toFixed(2) + "%";
+    return `<div class="bar" style="--c:${COLORS[k]}"><div class="lab">${esc(m.label)}</div><div class="track">
+      <div class="fill" style="width:${w(m.median_ms)}"></div>
+      <div class="whisk" style="left:${w(m.min_ms)};width:calc(${w(m.max_ms)} - ${w(m.min_ms)})"></div>
+      <div class="val" style="left:calc(${w(Math.max(m.median_ms, m.max_ms))} + 8px)">${fmtS(m.median_ms)}</div></div></div>`;
+  }).join("");
+  const bmax = Math.log10(Math.max(10, ...have.map((k) => ms[k].bytes)) + 1);
+  $("chBytes").innerHTML = have.map((k) => {
+    const m = ms[k], w = (Math.max(0.01, Math.log10(m.bytes + 1) / bmax) * 82).toFixed(2) + "%";
+    return `<div class="bar" style="--c:${COLORS[k]}"><div class="lab">${esc(m.label)}</div><div class="track">
+      <div class="fill" style="width:${w}"></div><div class="val" style="left:calc(${w} + 8px)">${fmtB(m.bytes)}</div></div></div>`;
+  }).join("");
+
+  const withPlan = keys.filter((k) => ms[k].plan);
+  $("planCard").hidden = !withPlan.length;
+  $("plans").innerHTML = withPlan.map((k) => `<div class="plan"><h3><span class="dot" style="background:${COLORS[k]}"></span>${esc(ms[k].label)}</h3>${planHTML(ms[k].plan.nodes)}</div>`).join("");
+
+  const pk = ["ocs", "filter", "nopd", "hive"].find((k) => ms[k] && ms[k].preview);
+  $("rowsCard").hidden = !pk;
+  if (pk) {
+    const p = ms[pk].preview;
+    $("rowsTitle").textContent = `Kết quả truy vấn — ${vn(p.total)} dòng${p.total > p.rows.length ? ` (hiện ${p.rows.length} dòng đầu)` : ""}`;
+    const num = p.columns.map((c) => /int|double|decimal|real/.test(c.type));
+    $("rows").innerHTML = `<table><thead><tr>${p.columns.map((c) => `<th>${esc(c.name)}</th>`).join("")}</tr></thead><tbody>${
+      p.rows.map((r) => `<tr>${r.map((v, i) => `<td class="${num[i] ? "num" : ""}">${v === null ? "<i>null</i>" : esc(typeof v === "number" && !Number.isInteger(v) ? Number(v.toPrecision(8)) : v)}</td>`).join("")}</tr>`).join("")}</tbody></table>`;
+  }
+}
+
+const MINOR = /Exchange|LocalExchange|RemoteStreamingExchange|RemoteSourceNode/;
+function planHTML(nodes) {
+  return nodes.map((n) => {
+    if (n.where === "ocs") {
+      const ops = n.pushed && n.pushed.length ? n.pushed.map((p) => `<span class="op">${esc(p)}</span>`).join('<span class="arrow">→</span>') : '<span class="hint" style="margin:0">không đẩy toán tử nào — chỉ chọn cột</span>';
+      return `<div class="node ocs"><span class="where">OCS</span>${esc(n.name)} ${esc(n.table || "")}<div class="pushed">${ops}</div>${
+        n.sql ? `<details class="sql"><summary>SQL gửi xuống OCS (→ Substrait)</summary><pre>${esc(n.sql)}</pre></details>` : ""}</div>`;
+    }
+    if (n.where === "hive") return `<div class="node hive"><span class="where">Hive</span>${esc(n.name)} ${esc(n.table || "")}</div>`;
+    if (MINOR.test(n.name)) return `<div class="node minor">↑ ${esc(n.name)}</div>`;
+    return `<div class="node"><span class="where">Presto</span>${esc(n.name)}</div>`;
+  }).join("");
+}
+
+// ---------------------------------------------------------------- lịch sử
+function addHist(j) {
+  const row = { t: new Date().toLocaleTimeString("vi-VN"), sql: j.sql, net: j.net_mbit, ds: DS, same: j.same_result,
+    m: Object.fromEntries(Object.entries(j.methods).filter(([, v]) => v.median_ms).map(([k, v]) => [k, { ms: v.median_ms, b: v.bytes }])) };
+  HIST.unshift(row); HIST = HIST.slice(0, 30); store.set("qlab.hist", HIST); renderHist();
+}
+function renderHist() {
+  if (!HIST.length) return;
+  $("hist").innerHTML = `<table class="hist"><thead><tr><th>Giờ</th><th>Câu SQL</th><th>Mạng</th>${ORDER.map((k) =>
+    `<th><span class="dot" style="background:${COLORS[k]}"></span>${esc(META.methods[k].label)}</th>`).join("")}<th>Khớp</th></tr></thead><tbody>${
+    HIST.map((h, i) => `<tr data-i="${i}"><td>${h.t}</td><td><code>${esc(h.sql.replace(/\s+/g, " ").slice(0, 70))}${h.sql.length > 70 ? "…" : ""}</code></td>
+      <td>${h.net ? vn(h.net) : "?"}</td>${ORDER.map((k) => `<td class="num">${h.m[k] ? fmtS(h.m[k].ms) + "<br><small>" + fmtB(h.m[k].b) + "</small>" : "–"}</td>`).join("")}
+      <td>${h.same === true ? "✓" : h.same === false ? "✗" : "–"}</td></tr>`).join("")}</tbody></table>
+    <div class="hint">Bấm một dòng để nạp lại câu SQL.</div>`;
+}
+
+// ---------------------------------------------------------------- sự kiện
+document.addEventListener("click", async (e) => {
+  const t = e.target.closest("button, .ins, tr[data-i]");
+  if (!t) return;
+  if (t.closest("#dsTabs")) { DS = t.dataset.k; store.set("qlab.ds", DS); renderDataset(); }
+  else if (t.closest("#samples")) { $("sql").value = META.datasets[DS].samples[t.dataset.i].sql; $("sql").focus(); }
+  else if (t.classList.contains("ins")) { e.preventDefault(); insertAtCursor(t.dataset.v); }
+  else if (t.closest("#net")) {
+    try { renderNet((await api("/api/net", { mbit: Number(t.dataset.v) })).net_mbit); $("err").textContent = ""; }
+    catch (err) { $("err").textContent = err.message; }
+  }
+  else if (t.closest(".hist")) { const h = HIST[t.dataset.i]; $("sql").value = h.sql; if (h.ds && META.datasets[h.ds]) { DS = h.ds; renderDataset(); } window.scrollTo({ top: 0, behavior: "smooth" }); }
+});
+$("run").onclick = run;
+$("stop").onclick = () => api("/api/cancel", { id: JOB });
+$("sql").addEventListener("keydown", (e) => {
+  if (e.key === "Enter" && (e.ctrlKey || e.metaKey)) { e.preventDefault(); if (!$("run").disabled) run(); }
+  if (e.key === "Tab") { e.preventDefault(); insertAtCursor("  "); }
+});
+$("sql").addEventListener("input", () => store.set("qlab.sql", $("sql").value));
+
+(async function init() {
+  try { META = await api("/api/meta"); }
+  catch (e) { $("err").textContent = "Không kết nối được server: " + e.message; return; }
+  if (!META.datasets[DS]) DS = "deepwater";
+  renderDataset(); renderNet(META.net_mbit); renderHist();
+  $("sql").value = store.get("qlab.sql", "") || META.datasets[DS].samples[0].sql;
+})();
+</script>
+</body>
+</html>

@@ -395,12 +395,22 @@ def regen_main_figures(groups):
             q, m = c.split(":")
             rows.append({"exp": "E5", "query": "laghos" if q == "L" else "tpch_q1", "mode": m,
                          "net_mbit": float(lb), "time_s": med(st, lb, c)})
+    # Hình 2–5 của báo cáo thực nghiệm
     PL.fig_progressive(rows, "E1", "laghos", "Q1. Laghos – đẩy thêm toán tử xuống OCS (trung vị n=10)", "fig_q1_laghos.png")
     PL.fig_progressive(rows, "E2", "deepwater", "Q2. Deep Water Impact – Project pushdown (trung vị n=10)",
                        "fig_q2_deepwater.png")
     PL.fig_progressive(rows, "E2", "tpch_q1", "Q2. TPC-H Q1 – Project pushdown có thể làm chậm (trung vị n=10)",
                        "fig_q2_tpch.png")
     PL.fig_compression(rows)
+    # cùng số liệu, vẽ theo kiểu Figure 5 / Figure 6 của bài báo, đặt cạnh số liệu bài báo (dùng cho slide)
+    PL.fig_vs_paper(rows, "E1", "laghos", "fig_q1_laghos_vs_paper.png")
+    PL.fig_vs_paper(rows, "E2", "deepwater", "fig_q2_deepwater_vs_paper.png")
+    PL.fig_vs_paper(rows, "E2", "tpch_q1", "fig_q2_tpch_vs_paper.png")
+    e3 = {(r["codec"], r["k"] > 1): r["time_s"] for r in rows if r["exp"] == "E3"}
+    if len(e3) == 8:
+        cs = ["raw", "snappy", "gzip", "zstd"]
+        PL.fig_compression_vs_paper(cs, [e3[c, False] for c in cs], [e3[c, True] for c in cs],
+                                    "fig_q3_compression_vs_paper.png")
     PL.fig_breakdown(rows)
     PL.fig_bandwidth(rows)
 
@@ -414,6 +424,8 @@ def regen_main_figures(groups):
                 prow.append({"exp": "G3", "query": name, "mode": mode, "time_s": t,
                              "wire_bytes": med("presto", None, f"{q}:{cat}", "wire_bytes")})
         PL.fig_progressive(prow, "G3", name, title, fname)
+        PL.fig_vs_paper(prow, "G3", name, fname.replace(".png", "_vs_paper.png"),
+                        {"đẩy toàn bộ": "filter+aggr+topN" if q == "L" else "filter+proj+aggr"})
 
     # G3/Q3: Presto thật, cùng truy vấn Deep Water trên 4 kiểu nén, filter vs đẩy toàn bộ
     codecs = [c for c in ("none", "snappy", "gzip", "zstd") if med("presto_q3", None, f"DW_{c}:ocs") is not None]
@@ -437,6 +449,11 @@ def regen_main_figures(groups):
         fig.tight_layout()
         fig.savefig(f"{FIG}/fig_g3_presto_q3.png")
         plt.close(fig)
+    if len(codecs) == 4:
+        PL.fig_compression_vs_paper(["raw", "snappy", "gzip", "zstd"],
+                                    [med("presto_q3", None, f"DW_{c}:ocsfilter") for c in codecs],
+                                    [med("presto_q3", None, f"DW_{c}:ocs") for c in codecs],
+                                    "fig_g3_presto_q3_vs_paper.png")
 
     # G4b: MinIO Select thật so với OCS giả lập (cùng 2 CPU, 1 Gbps, không giới hạn đĩa)
     for q, name in (("L", "Laghos"), ("DW", "Deep Water"), ("TQ", "TPC-H Q1")):

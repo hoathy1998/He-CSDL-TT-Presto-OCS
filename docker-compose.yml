@@ -102,6 +102,21 @@ services:
     networks: [cluster]
     depends_on: [ocs]
 
+  # Trang web gõ SQL tự do và so sánh các mức pushdown trên Presto thật: http://localhost:8501
+  ui:
+    image: ocs-demo:latest
+    profiles: [presto]
+    command: python ui/server.py
+    environment:
+      OCS_ADDR: grpc://ocs:8815
+      PRESTO_URL: http://presto:8080
+    volumes:
+      - ./:/app:ro
+    ports:
+      - "8501:8501"
+    networks: [cluster]
+    depends_on: [presto]
+
   compute:
     image: ocs-demo:latest
     command: sleep infinity
