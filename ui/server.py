@@ -89,7 +89,7 @@ DATASETS = {
     "tpch": {
         "name": "TPC-H (SF1)", "desc": "Benchmark chuẩn: bảng lineitem 6 triệu dòng, orders 1,5 triệu dòng.",
         "tables": [("lineitem_double", "6 triệu dòng · số dạng double"), ("lineitem", "6 triệu dòng · số dạng decimal"),
-                   ("orders", "1,5 triệu dòng · không có trong Hive")],
+                   ("orders", "1,5 triệu dòng")],
         "hive": True,
         "samples": [
             ("TPC-H Q1 (gom nhóm hai pha)",
@@ -398,9 +398,39 @@ def shutdown(*_):
         os._exit(0)
 
 
+# Bảng Hive (file metastore) trỏ vào cùng thư mục Parquet với OCS. Metastore nằm trong container presto nên mất
+# mỗi khi container được tạo lại; trang tự đăng ký lại để phương pháp "Presto gốc + Hive" luôn chạy được.
+HIVE_DIRS = {"lineitem": "tpch", "lineitem_double": "tpch_double", "deepwater": "deepwater_none",
+             "deepwater_snappy": "deepwater_snappy", "deepwater_gzip": "deepwater_gzip",
+             "deepwater_zstd": "deepwater_zstd", "orders": "tpch_orders"}
+
+
+def ensure_hive_tables(wait_s=300):
+    t0 = time.time()
+    while True:
+        try:
+            presto("CREATE SCHEMA IF NOT EXISTS hive.demo", "hive", "default")
+            break
+        except Exception as e:  # noqa: BLE001 - Presto chưa sẵn sàng
+            if time.time() - t0 > wait_s:
+                print(f"không tạo được schema hive.demo: {e}", flush=True)
+                return
+            time.sleep(5)
+    for t, d in HIVE_DIRS.items():
+        try:
+            _, rows, *_ = presto(f"DESCRIBE ocs.default.{t}", "ocs", "default")
+            cols = ", ".join(f"{r[0]} {r[1]}" for r in rows)
+            presto(f"CREATE TABLE IF NOT EXISTS hive.demo.{t} ({cols}) "
+                   f"WITH (format = 'PARQUET', external_location = 'file:///data/{d}')", "hive", "demo")
+        except Exception as e:  # noqa: BLE001
+            print(f"không tạo được bảng hive.demo.{t}: {e}", flush=True)
+    print("đã đăng ký bảng Hive: " + ", ".join(HIVE_DIRS), flush=True)
+
+
 def main():
     signal.signal(signal.SIGTERM, shutdown)
     signal.signal(signal.SIGINT, shutdown)
+    threading.Thread(target=ensure_hive_tables, daemon=True).start()
     print(f"Presto-OCS Query Lab: http://localhost:{PORT}  (Presto {PRESTO})", flush=True)
     ThreadingHTTPServer(("0.0.0.0", PORT), Handler).serve_forever()
 
