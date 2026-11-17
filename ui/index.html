@@ -116,6 +116,13 @@ th, td { border-bottom: 1px solid var(--line); padding: 5px 10px; text-align: le
 th { position: sticky; top: 0; background: var(--panel); font-weight: 600; }
 td.num { text-align: right; font-variant-numeric: tabular-nums; font-family: Consolas, monospace; }
 .empty { color: var(--muted); text-align: center; padding: 30px 10px; }
+.rtabs { display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 10px; }
+.rtabs button { border: 1px solid var(--line); border-left: 4px solid var(--c); background: var(--panel); color: var(--ink);
+  border-radius: 8px; padding: 6px 10px; cursor: pointer; font: inherit; font-size: 13px; text-align: left; line-height: 1.3; }
+.rtabs button.on { background: var(--soft); border-color: var(--c); font-weight: 600; }
+.rtabs button small { display: block; font: 11px Consolas, monospace; color: var(--muted); font-weight: 400; }
+.rtabs button small.diff { color: var(--bad); }
+.rtabs button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 .hist td { cursor: pointer; }
 .hist tr:hover td { background: var(--soft); }
 .hist code { font-size: 12px; }
@@ -188,6 +195,7 @@ td.num { text-align: right; font-variant-numeric: tabular-nums; font-family: Con
 
     <div class="card" id="rowsCard" hidden>
       <h2 id="rowsTitle">Kết quả truy vấn</h2>
+      <div class="rtabs" id="rowTabs"></div>
       <div class="result" id="rows"></div>
     </div>
 
@@ -326,18 +334,37 @@ function render(j) {
   $("planCard").hidden = !withPlan.length;
   $("plans").innerHTML = withPlan.map((k) => `<div class="plan"><h3><span class="dot" style="background:${COLORS[k]}"></span>${esc(ms[k].label)}</h3>${planHTML(ms[k].plan.nodes)}</div>`).join("");
 
-  const pk = ["ocs", "filter", "nopd", "hive"].find((k) => ms[k] && ms[k].preview);
-  $("rowsCard").hidden = !pk;
-  if (pk) {
-    const p = ms[pk].preview;
-    $("rowsTitle").textContent = `Kết quả truy vấn — ${vn(p.total)} dòng${p.total > p.rows.length ? ` (hiện ${p.rows.length} dòng đầu)` : ""}`;
-    const num = p.columns.map((c) => /int|double|decimal|real/.test(c.type));
-    $("rows").innerHTML = `<table><thead><tr>${p.columns.map((c) => `<th>${esc(c.name)}</th>`).join("")}</tr></thead><tbody>${
-      p.rows.map((r) => `<tr>${r.map((v, i) => `<td class="${num[i] ? "num" : ""}">${v === null ? "<i>null</i>" : esc(typeof v === "number" && !Number.isInteger(v) ? Number(v.toPrecision(8)) : v)}</td>`).join("")}</tr>`).join("")}</tbody></table>`;
-  }
+  LAST_MS = ms;
+  if (j.id !== ROW_JOB) { ROW_JOB = j.id; ROW_PICKED = false; }
+  const withRows = ORDER.filter((k) => ms[k] && ms[k].preview);
+  $("rowsCard").hidden = !withRows.length;
+  if (!ROW_PICKED || !withRows.includes(ROW_TAB)) ROW_TAB = ["ocs", "filter", "nopd", "hive"].find((k) => withRows.includes(k));
+  renderRows();
 }
 
 const MINOR = /Exchange|LocalExchange|RemoteStreamingExchange|RemoteSourceNode/;
+// Bảng kết quả: mỗi phương pháp một tab, kèm dấu vân tay của toàn bộ kết quả
+var ROW_TAB = null, LAST_MS = null, ROW_PICKED = false, ROW_JOB = null;
+function renderRows() {
+  const ms = LAST_MS;
+  if (!ms) return;
+  const withRows = ORDER.filter((k) => ms[k] && ms[k].preview);
+  const fps = withRows.map((k) => ms[k].preview.fingerprint);
+  const common = fps.sort((a, b) => fps.filter((x) => x === b).length - fps.filter((x) => x === a).length)[0];
+  $("rowTabs").innerHTML = withRows.map((k) => {
+    const f = ms[k].preview.fingerprint, diff = withRows.length > 1 && f !== common;
+    return `<button type="button" class="${k === ROW_TAB ? "on" : ""}" style="--c:${COLORS[k]}" data-k="${k}" aria-pressed="${k === ROW_TAB}">
+      ${esc(ms[k].label)}<small class="${diff ? "diff" : ""}" title="Dấu vân tay của toàn bộ kết quả">${diff ? "khác · " : ""}${esc(f)}</small></button>`;
+  }).join("");
+  $("rowTabs").querySelectorAll("button").forEach((b) => b.onclick = () => { ROW_TAB = b.dataset.k; ROW_PICKED = true; renderRows(); });
+  const p = ms[ROW_TAB] && ms[ROW_TAB].preview;
+  if (!p) return;
+  $("rowsTitle").textContent = `Kết quả truy vấn — ${ms[ROW_TAB].label} — ${vn(p.total)} dòng${p.total > p.rows.length ? ` (hiện ${p.rows.length} dòng đầu)` : ""}`;
+  const num = p.columns.map((c) => /int|double|decimal|real/.test(c.type));
+  $("rows").innerHTML = `<table><thead><tr>${p.columns.map((c) => `<th>${esc(c.name)}</th>`).join("")}</tr></thead><tbody>${
+    p.rows.map((r) => `<tr>${r.map((v, i) => `<td class="${num[i] ? "num" : ""}">${v === null ? "<i>null</i>" : esc(typeof v === "number" && !Number.isInteger(v) ? Number(v.toPrecision(8)) : v)}</td>`).join("")}</tr>`).join("")}</tbody></table>`;
+}
+
 function planHTML(nodes) {
   return nodes.map((n) => {
     if (n.where === "ocs") {
