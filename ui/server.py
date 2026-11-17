@@ -66,15 +66,15 @@ DATASETS = {
             ("Không đẩy được · Đếm điểm trong một khối (không GROUP BY)",
              "SELECT count(*) AS n, avg(rho) AS avg_rho\nFROM laghos_one\n"
              "WHERE x BETWEEN 0.8 AND 3.2 AND y BETWEEN 0.8 AND 3.2 AND z BETWEEN 0.8 AND 3.2"),
-            ("Đẩy xuống làm chậm · Khóa gom nhóm là biểu thức",
-             "-- Khóa biểu thức không có NDV nên bộ tối ưu hóa ước lượng 1 nhóm và đẩy gom nhóm xuống,\n"
-             "-- thực tế mỗi (element_id, vertex_id) là một dòng, avg tách thành sum + count nên dữ liệu gửi lên tăng.\n"
-             "SELECT k, a1, a2, a3, a4\nFROM (\n"
-             "  SELECT CAST(element_id AS bigint) * 1000000 + vertex_id AS k,\n"
-             "         avg(e) AS a1, avg(rho) AS a2, avg(v_x) AS a3, avg(v_y) AS a4\n"
-             "  FROM laghos_one\n  WHERE x BETWEEN 0.5 AND 6.5\n"
-             "  GROUP BY CAST(element_id AS bigint) * 1000000 + vertex_id\n) t\n"
-             "ORDER BY a1 DESC, k\nLIMIT 10"),
+            ("Có lợi dù ước lượng sai · Biểu đồ pha mật độ–năng lượng",
+             "-- Gom theo ô (rho, e) độ phân giải 0,001. Khóa là biểu thức nên bộ tối ưu hóa không có NDV, coi như 1 nhóm\n"
+             "-- và đẩy gom nhóm xuống. Ở đây quyết định tình cờ đúng: các điểm lưới tập trung, số ô ít hơn nhiều số dòng.\n"
+             "SELECT br, be, n, avg_vx, avg_vy\nFROM (\n"
+             "  SELECT floor(rho * 1000) AS br, floor(e * 1000) AS be,\n"
+             "         count(*) AS n, avg(v_x) AS avg_vx, avg(v_y) AS avg_vy\n"
+             "  FROM laghos_one\n"
+             "  GROUP BY floor(rho * 1000), floor(e * 1000)\n) t\n"
+             "ORDER BY n DESC, br, be\nLIMIT 10"),
             ("Có lợi · Truy vấn trong bài báo, 64 file (chậm)", LAGHOS_PAPER.format(t="laghos")),
         ],
     },
@@ -95,13 +95,16 @@ DATASETS = {
              "ORDER BY v03 DESC, timestep, rowid\nLIMIT 20"),
             ("Không đẩy được · Thống kê toàn bảng (không GROUP BY)",
              "SELECT count(*) AS n, avg(v03) AS avg_v03, max(v03) AS max_v03\nFROM deepwater\nWHERE v02 > 0.9"),
-            ("Đẩy xuống làm chậm · Khóa gom nhóm là biểu thức",
-             "-- rowid % 4000000 là duy nhất trong mỗi file nhưng không có NDV: bộ tối ưu hóa ước lượng 1 nhóm,\n"
-             "-- đẩy gom nhóm hai pha xuống OCS; pha PARTIAL không gộp được dòng nào mà còn gửi thêm cột count.\n"
-             "SELECT k, a1, a2\nFROM (\n"
-             "  SELECT rowid % 4000000 AS k, avg(v02) AS a1, avg(v03) AS a2\n"
-             "  FROM deepwater_zstd\n  WHERE v02 > 0.5\n  GROUP BY rowid % 4000000\n) t\n"
-             "ORDER BY a1 DESC, a2 DESC, k\nLIMIT 10"),
+            ("Đẩy xuống làm chậm · Trung bình theo thời gian của từng ô lưới",
+             "-- Toạ độ ô (x, y, z) tính từ rowid. Khóa là biểu thức nên bộ tối ưu hóa không có NDV, coi như 1 nhóm và\n"
+             "-- đẩy gom nhóm xuống. Thực tế mỗi file là một timestep, mỗi ô xuất hiện đúng một lần: pha PARTIAL không gộp\n"
+             "-- được dòng nào, mỗi avg lại tách thành sum + count nên dữ liệu gửi lên tăng.\n"
+             "SELECT gx, gy, gz, avg_v02, avg_v03\nFROM (\n"
+             "  SELECT rowid % 500 AS gx, (rowid / 500) % 500 AS gy, rowid / 250000 AS gz,\n"
+             "         avg(v02) AS avg_v02, avg(v03) AS avg_v03\n"
+             "  FROM deepwater_zstd\n  WHERE v02 > 0.5\n"
+             "  GROUP BY rowid % 500, (rowid / 500) % 500, rowid / 250000\n) t\n"
+             "ORDER BY avg_v03 DESC, gx, gy, gz\nLIMIT 10"),
         ],
     },
     "tpch": {
@@ -127,24 +130,15 @@ DATASETS = {
             ("Bị từ chối · Gom nhóm theo khóa nhiều giá trị",
              "SELECT l_orderkey, sum(l_quantity) AS qty\nFROM lineitem_double\n"
              "WHERE l_shipdate >= DATE '1998-01-01'\nGROUP BY l_orderkey\nORDER BY qty DESC\nLIMIT 10"),
-            ("Đẩy xuống làm chậm · Khóa gom nhóm là biểu thức",
-             "-- l_orderkey * 10 + l_linenumber là duy nhất cho mỗi dòng nhưng không có NDV: bộ tối ưu hóa\n"
-             "-- ước lượng 1 nhóm và đẩy gom nhóm xuống; 4 hàm avg thành 8 cột sum/count nên dữ liệu gửi lên tăng ~50%.\n"
-             "SELECT k, a1, a2, a3, a4\nFROM (\n"
-             "  SELECT l_orderkey * 10 + l_linenumber AS k,\n"
-             "         avg(l_extendedprice) AS a1, avg(l_discount) AS a2,\n"
-             "         avg(l_tax) AS a3, avg(l_quantity) AS a4\n"
+            ("Đẩy xuống làm chậm · Phân bố theo nhà cung cấp và khoảng giá",
+             "-- Ước lượng số nhóm chỉ tính NDV(l_suppkey) ≈ 8.565 vì khoảng giá là biểu thức, nên gom nhóm được đẩy xuống.\n"
+             "-- Thực tế 8.565 nhà cung cấp × ~1.000 khoảng giá: gần như mỗi dòng là một nhóm, dữ liệu gửi lên tăng.\n"
+             "SELECT l_suppkey, bucket, n, avg_qty, avg_disc\nFROM (\n"
+             "  SELECT l_suppkey, floor(l_extendedprice * (1 - l_discount) / 100) AS bucket,\n"
+             "         count(*) AS n, avg(l_quantity) AS avg_qty, avg(l_discount) AS avg_disc\n"
              "  FROM lineitem_double\n  WHERE l_shipdate <= DATE '1998-09-02'\n"
-             "  GROUP BY l_orderkey * 10 + l_linenumber\n) t\nORDER BY a1 DESC, k\nLIMIT 10"),
-            ("Bị từ chối · Cùng câu trên, khóa là hai cột gốc (đối chứng)",
-             "-- Cùng ý nghĩa nhưng khóa là cột gốc: NDV(l_orderkey) x NDV(l_linenumber) vượt ngưỡng 50%,\n"
-             "-- bộ tối ưu hóa chỉ đẩy Filter nên Presto-OCS và Chỉ đẩy Filter bằng nhau.\n"
-             "SELECT k, ln, a1, a2, a3, a4\nFROM (\n"
-             "  SELECT l_orderkey AS k, l_linenumber AS ln,\n"
-             "         avg(l_extendedprice) AS a1, avg(l_discount) AS a2,\n"
-             "         avg(l_tax) AS a3, avg(l_quantity) AS a4\n"
-             "  FROM lineitem_double\n  WHERE l_shipdate <= DATE '1998-09-02'\n"
-             "  GROUP BY l_orderkey, l_linenumber\n) t\nORDER BY a1 DESC, k\nLIMIT 10"),
+             "  GROUP BY l_suppkey, floor(l_extendedprice * (1 - l_discount) / 100)\n) t\n"
+             "ORDER BY n DESC, l_suppkey, bucket\nLIMIT 10"),
             ("Phép kết · JOIN lineitem ⋈ orders (join chạy ở Presto)",
              "SELECT o_orderpriority, count(*) AS n, sum(l_extendedprice) AS rev\n"
              "FROM lineitem_double JOIN orders ON l_orderkey = o_orderkey\n"
