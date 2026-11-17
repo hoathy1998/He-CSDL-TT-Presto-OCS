@@ -56,17 +56,26 @@ DATASETS = {
                    ("laghos_full", "256 file · 1,07 tỉ dòng · rất chậm")],
         "hive": False,
         "samples": [
-            ("Truy vấn trong bài báo (1 file)", LAGHOS_PAPER.format(t="laghos_one")),
-            ("Năng lượng theo timestep, vùng mật độ cao",
+            ("Có lợi · Truy vấn trong bài báo (1 file)", LAGHOS_PAPER.format(t="laghos_one")),
+            ("Có lợi ít · Năng lượng theo timestep, vùng mật độ cao",
              "SELECT timestep, count(*) AS n, avg(e) AS avg_e, max(rho) AS max_rho\nFROM laghos_one\n"
              "WHERE rho > 2.0\nGROUP BY timestep"),
-            ("Top 20 điểm năng lượng cao nhất (TopN)",
+            ("Không khác biệt · Top 20 năng lượng cao nhất (lọc gần hết)",
              "SELECT vertex_id, element_id, x, y, z, e\nFROM laghos_one\nWHERE e > 3.5\n"
              "ORDER BY e DESC, vertex_id, element_id\nLIMIT 20"),
-            ("Đếm điểm trong một khối (gom nhóm không GROUP BY)",
+            ("Không đẩy được · Đếm điểm trong một khối (không GROUP BY)",
              "SELECT count(*) AS n, avg(rho) AS avg_rho\nFROM laghos_one\n"
              "WHERE x BETWEEN 0.8 AND 3.2 AND y BETWEEN 0.8 AND 3.2 AND z BETWEEN 0.8 AND 3.2"),
-            ("Truy vấn trong bài báo, 64 file (chậm)", LAGHOS_PAPER.format(t="laghos")),
+            ("Đẩy xuống làm chậm · Khóa gom nhóm là biểu thức",
+             "-- Khóa biểu thức không có NDV nên bộ tối ưu hóa ước lượng 1 nhóm và đẩy gom nhóm xuống,\n"
+             "-- thực tế mỗi (element_id, vertex_id) là một dòng, avg tách thành sum + count nên dữ liệu gửi lên tăng.\n"
+             "SELECT k, a1, a2, a3, a4\nFROM (\n"
+             "  SELECT CAST(element_id AS bigint) * 1000000 + vertex_id AS k,\n"
+             "         avg(e) AS a1, avg(rho) AS a2, avg(v_x) AS a3, avg(v_y) AS a4\n"
+             "  FROM laghos_one\n  WHERE x BETWEEN 0.5 AND 6.5\n"
+             "  GROUP BY CAST(element_id AS bigint) * 1000000 + vertex_id\n) t\n"
+             "ORDER BY a1 DESC, k\nLIMIT 10"),
+            ("Có lợi · Truy vấn trong bài báo, 64 file (chậm)", LAGHOS_PAPER.format(t="laghos")),
         ],
     },
     "deepwater": {
@@ -76,14 +85,23 @@ DATASETS = {
                    ("deepwater_gzip", "nén gzip"), ("deepwater_zstd", "nén zstd")],
         "hive": True,
         "samples": [
-            ("Truy vấn trong bài báo", DW_PAPER.format(t="deepwater")),
-            ("Cùng truy vấn trên dữ liệu nén zstd", DW_PAPER.format(t="deepwater_zstd")),
-            ("Thống kê v03 khi v02 lớn",
+            ("Có lợi · Truy vấn trong bài báo", DW_PAPER.format(t="deepwater")),
+            ("Có lợi · Cùng truy vấn trên dữ liệu nén zstd", DW_PAPER.format(t="deepwater_zstd")),
+            ("Có lợi · Thống kê v03 khi v02 lớn",
              "SELECT timestep, count(*) AS n, avg(v03) AS avg_v03, max(v03) AS max_v03\nFROM deepwater\n"
              "WHERE v02 > 0.5\nGROUP BY timestep\nORDER BY timestep"),
-            ("Top 20 ô có v03 lớn nhất (TopN)",
+            ("Có lợi · Top 20 ô có v03 lớn nhất (TopN)",
              "SELECT rowid, timestep, v02, v03\nFROM deepwater\nWHERE v02 > 0.5\n"
              "ORDER BY v03 DESC, timestep, rowid\nLIMIT 20"),
+            ("Không đẩy được · Thống kê toàn bảng (không GROUP BY)",
+             "SELECT count(*) AS n, avg(v03) AS avg_v03, max(v03) AS max_v03\nFROM deepwater\nWHERE v02 > 0.9"),
+            ("Đẩy xuống làm chậm · Khóa gom nhóm là biểu thức",
+             "-- rowid % 4000000 là duy nhất trong mỗi file nhưng không có NDV: bộ tối ưu hóa ước lượng 1 nhóm,\n"
+             "-- đẩy gom nhóm hai pha xuống OCS; pha PARTIAL không gộp được dòng nào mà còn gửi thêm cột count.\n"
+             "SELECT k, a1, a2\nFROM (\n"
+             "  SELECT rowid % 4000000 AS k, avg(v02) AS a1, avg(v03) AS a2\n"
+             "  FROM deepwater_zstd\n  WHERE v02 > 0.5\n  GROUP BY rowid % 4000000\n) t\n"
+             "ORDER BY a1 DESC, a2 DESC, k\nLIMIT 10"),
         ],
     },
     "tpch": {
@@ -92,24 +110,42 @@ DATASETS = {
                    ("orders", "1,5 triệu dòng")],
         "hive": True,
         "samples": [
-            ("TPC-H Q1 (gom nhóm hai pha)",
+            ("Có lợi · TPC-H Q1 (gom nhóm hai pha)",
              "SELECT l_returnflag, l_linestatus, sum(l_quantity) AS sum_qty,\n"
              "       sum(l_extendedprice * (1 - l_discount)) AS sum_disc_price,\n"
              "       avg(l_quantity) AS avg_qty, avg(l_discount) AS avg_disc, count(*) AS count_order\n"
              "FROM lineitem_double\nWHERE l_shipdate <= DATE '1998-09-02'\n"
              "GROUP BY l_returnflag, l_linestatus\nORDER BY l_returnflag, l_linestatus"),
-            ("TPC-H Q6 (tổng doanh thu, không GROUP BY)",
+            ("Không đẩy được · TPC-H Q6 (không GROUP BY)",
              "SELECT sum(l_extendedprice * l_discount) AS revenue\nFROM lineitem_double\n"
              "WHERE l_shipdate >= DATE '1994-01-01' AND l_shipdate < DATE '1995-01-01'\n"
              "  AND l_discount BETWEEN 0.05 AND 0.07 AND l_quantity < 24"),
-            ("Có LIKE: phần LIKE phải chạy ở Presto",
+            ("Không đẩy được · Có LIKE (phần LIKE chạy ở Presto)",
              "SELECT l_shipmode, count(*) AS n, sum(l_extendedprice) AS rev\nFROM lineitem_double\n"
              "WHERE l_shipdate >= DATE '1998-06-01' AND l_comment LIKE '%special%'\n"
              "GROUP BY l_shipmode\nORDER BY l_shipmode"),
-            ("Gom nhóm theo khóa nhiều giá trị (optimizer có đẩy không?)",
+            ("Bị từ chối · Gom nhóm theo khóa nhiều giá trị",
              "SELECT l_orderkey, sum(l_quantity) AS qty\nFROM lineitem_double\n"
              "WHERE l_shipdate >= DATE '1998-01-01'\nGROUP BY l_orderkey\nORDER BY qty DESC\nLIMIT 10"),
-            ("JOIN lineitem ⋈ orders (join chạy ở Presto)",
+            ("Đẩy xuống làm chậm · Khóa gom nhóm là biểu thức",
+             "-- l_orderkey * 10 + l_linenumber là duy nhất cho mỗi dòng nhưng không có NDV: bộ tối ưu hóa\n"
+             "-- ước lượng 1 nhóm và đẩy gom nhóm xuống; 4 hàm avg thành 8 cột sum/count nên dữ liệu gửi lên tăng ~50%.\n"
+             "SELECT k, a1, a2, a3, a4\nFROM (\n"
+             "  SELECT l_orderkey * 10 + l_linenumber AS k,\n"
+             "         avg(l_extendedprice) AS a1, avg(l_discount) AS a2,\n"
+             "         avg(l_tax) AS a3, avg(l_quantity) AS a4\n"
+             "  FROM lineitem_double\n  WHERE l_shipdate <= DATE '1998-09-02'\n"
+             "  GROUP BY l_orderkey * 10 + l_linenumber\n) t\nORDER BY a1 DESC, k\nLIMIT 10"),
+            ("Bị từ chối · Cùng câu trên, khóa là hai cột gốc (đối chứng)",
+             "-- Cùng ý nghĩa nhưng khóa là cột gốc: NDV(l_orderkey) x NDV(l_linenumber) vượt ngưỡng 50%,\n"
+             "-- bộ tối ưu hóa chỉ đẩy Filter nên Presto-OCS và Chỉ đẩy Filter bằng nhau.\n"
+             "SELECT k, ln, a1, a2, a3, a4\nFROM (\n"
+             "  SELECT l_orderkey AS k, l_linenumber AS ln,\n"
+             "         avg(l_extendedprice) AS a1, avg(l_discount) AS a2,\n"
+             "         avg(l_tax) AS a3, avg(l_quantity) AS a4\n"
+             "  FROM lineitem_double\n  WHERE l_shipdate <= DATE '1998-09-02'\n"
+             "  GROUP BY l_orderkey, l_linenumber\n) t\nORDER BY a1 DESC, k\nLIMIT 10"),
+            ("Phép kết · JOIN lineitem ⋈ orders (join chạy ở Presto)",
              "SELECT o_orderpriority, count(*) AS n, sum(l_extendedprice) AS rev\n"
              "FROM lineitem_double JOIN orders ON l_orderkey = o_orderkey\n"
              "WHERE l_shipdate >= DATE '1998-06-01'\nGROUP BY o_orderpriority\nORDER BY o_orderpriority"),
@@ -316,6 +352,8 @@ def meta():
 
 
 def check_sql(sql):
+    # bỏ các dòng chú thích "-- ..." (câu mẫu dùng chúng để giải thích), rồi mới kiểm tra
+    sql = "\n".join(l for l in sql.splitlines() if not l.strip().startswith("--"))
     sql = sql.strip().rstrip(";").strip()
     if not sql:
         raise ValueError("Chưa nhập câu SQL")
